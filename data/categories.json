@@ -1,0 +1,57 @@
+[
+  {
+    "id": "food_processing",
+    "name": "Food Processing Unit",
+    "marathi_name": "खाद्य प्रक्रिया उद्योग",
+    "description": "Bakery, dairy processing, spice milling, cold storage, packaged snacks, beverage bottling, oil expellers.",
+    "icon": "utensils",
+    "examples": "Flour mills, spice blends, fruit pulping, dairy products, bakery units",
+    "badge": "FSSAI & MPCB Mandatory",
+    "requiresPollutionClearance": true,
+    "requiresFactoryLicense": true
+  },
+  {
+    "id": "small_manufacturing",
+    "name": "Small Manufacturing / Workshop",
+    "marathi_name": "लघु उत्पादन व फॅब्रिकेशन कार्यशाळा",
+    "description": "CNC machining, metal fabrication, plastic molding, auto component assembly, packaging material.",
+    "icon": "cogs",
+    "examples": "Lathe workshops, sheet metal stamping, plastic injection molding, carton boxes",
+    "badge": "DISH Factory Act & MPCB",
+    "requiresPollutionClearance": true,
+    "requiresFactoryLicense": true
+  },
+  {
+    "id": "textile",
+    "name": "Textile Unit",
+    "marathi_name": "कापड / वस्त्रोद्योग घटक",
+    "description": "Powerloom, garment manufacturing, textile dyeing/printing, spinning, embroidery, knitwear.",
+    "icon": "tshirt",
+    "examples": "Powerloom clusters (Bhiwandi/Malegaon style), garment stitching, sizing, fabric processing",
+    "badge": "Boiler & Effluent Cleared",
+    "requiresPollutionClearance": true,
+    "requiresFactoryLicense": true
+  },
+  {
+    "id": "chemical",
+    "name": "Chemical / Pollution-Generating Unit",
+    "marathi_name": "रासायनिक व प्रदूषण नियंत्रण उद्योग",
+    "description": "Specialty chemicals, paints, fertilizers, electroplating, rubber processing, solvent formulations.",
+    "icon": "flask",
+    "examples": "Industrial paint thinners, resin synthesis, electroplating vats, rubber molded goods",
+    "badge": "PESO & MPCB Red Category",
+    "requiresPollutionClearance": true,
+    "requiresFactoryLicense": true
+  },
+  {
+    "id": "it_services",
+    "name": "IT / Services Business",
+    "marathi_name": "माहिती तंत्रज्ञान व व्यावसायिक सेवा",
+    "description": "Software development center, IT support, consulting, design studio, back-office BPO.",
+    "icon": "laptop",
+    "examples": "Software agency, data analysis consultancy, digital drafting studio, IT support desk",
+    "badge": "Shops & Establishment (Gumasta)",
+    "requiresPollutionClearance": false,
+    "requiresFactoryLicense": false
+  }
+]
