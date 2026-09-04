@@ -1,10 +1,37 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/context';
 
 export default function HomeImpactSection() {
   const { language } = useApp();
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const approvalSlides = language === 'mr'
+    ? [
+        { department: 'MPCB', approval: 'पर्यावरण व प्रदूषण संमती', image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=85', alt: 'प्रयोगशाळेतील पर्यावरण तपासणी' },
+        { department: 'MIDC', approval: 'औद्योगिक भूखंड व पायाभूत सुविधा', image: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1200&q=85', alt: 'भारतीय औद्योगिक उत्पादन केंद्र' },
+        { department: 'DISH', approval: 'कारखाना सुरक्षा व कामगार कल्याण', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=85', alt: 'सुरक्षित औद्योगिक कामाचे ठिकाण' },
+        { department: 'Fire Department', approval: 'अग्निसुरक्षा प्रमाणपत्र', image: 'https://images.unsplash.com/photo-1605888969139-5b9c7d8f3e0b?auto=format&fit=crop&w=1200&q=85', alt: 'औद्योगिक अग्निसुरक्षा उपकरणे' },
+        { department: 'MSEDCL', approval: 'वीज जोडणी व औद्योगिक भार', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=85', alt: 'वीज पायाभूत सुविधा' },
+        { department: 'Central Government', approval: 'उद्यम व वैधानिक नोंदणी', image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=85', alt: 'भारत सरकारचे प्रशासकीय भवन' }
+      ]
+    : [
+        { department: 'MPCB', approval: 'Environment & Pollution Consent', image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=85', alt: 'Environmental inspection laboratory' },
+        { department: 'MIDC', approval: 'Industrial Land & Infrastructure', image: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1200&q=85', alt: 'Indian industrial production facility' },
+        { department: 'DISH', approval: 'Factory Safety & Worker Welfare', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=85', alt: 'Safe industrial workplace' },
+        { department: 'Fire Department', approval: 'Fire Safety Certificate', image: 'https://images.unsplash.com/photo-1605888969139-5b9c7d8f3e0b?auto=format&fit=crop&w=1200&q=85', alt: 'Industrial fire safety equipment' },
+        { department: 'MSEDCL', approval: 'Power Connection & Load', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=85', alt: 'Electricity infrastructure' },
+        { department: 'Central Government', approval: 'Udyam & Statutory Registration', image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=85', alt: 'Government administrative building in India' }
+      ];
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveSlide((slide) => (slide + 1) % approvalSlides.length);
+    }, 5000);
+    return () => window.clearInterval(intervalId);
+  }, [approvalSlides.length]);
 
   const updates = language === 'mr'
     ? ['नवीन उद्योग सुरू करण्यापूर्वी योग्य परवानग्या तपासा', 'MPCB, DISH आणि MIDC नियम एका ठिकाणी', 'तुमचा वैयक्तिक परवानगी रोडमॅप ६० सेकंदांत तयार करा']
@@ -39,15 +66,38 @@ export default function HomeImpactSection() {
         </div>
 
         <div className="impact-grid">
-          <div className="impact-image-panel">
-            <img
-              src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=85"
-              alt={language === 'mr' ? 'यंत्रसामग्रीसह औद्योगिक कार्यशाळा' : 'Industrial workshop with machinery'}
-            />
+          <div className="impact-image-panel" aria-roledescription="carousel" aria-label={language === 'mr' ? 'परवानगी विभाग चित्रपट्टी' : 'Approval department image carousel'}>
+            {approvalSlides.map((slide, index) => (
+              <Image
+                className={`impact-slide-image ${index === activeSlide ? 'active' : ''}`}
+                key={slide.department}
+                src={slide.image}
+                alt={slide.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 55vw"
+                aria-hidden={index !== activeSlide}
+              />
+            ))}
             <div className="impact-image-caption">
-              <span className="impact-caption-kicker">PARVANGI / 01</span>
-              <strong>{language === 'mr' ? 'कल्पनेपासून उद्योगापर्यंत' : 'From idea to operating unit'}</strong>
-              <span>{language === 'mr' ? 'योग्य क्रमाने, योग्य वेळी.' : 'The right approvals, in the right order.'}</span>
+              <span className="impact-caption-kicker">PARVANGI / {String(activeSlide + 1).padStart(2, '0')}</span>
+              <strong>{approvalSlides[activeSlide].department}</strong>
+              <span>{approvalSlides[activeSlide].approval}</span>
+            </div>
+            <div className="impact-slide-controls">
+              <button type="button" onClick={() => setActiveSlide((activeSlide - 1 + approvalSlides.length) % approvalSlides.length)} aria-label="Previous approval department">←</button>
+              <div className="impact-slide-dots">
+                {approvalSlides.map((slide, index) => (
+                  <button
+                    type="button"
+                    key={slide.department}
+                    className={index === activeSlide ? 'active' : ''}
+                    onClick={() => setActiveSlide(index)}
+                    aria-label={`Show ${slide.department}`}
+                    aria-pressed={index === activeSlide}
+                  />
+                ))}
+              </div>
+              <button type="button" onClick={() => setActiveSlide((activeSlide + 1) % approvalSlides.length)} aria-label="Next approval department">→</button>
             </div>
           </div>
 
