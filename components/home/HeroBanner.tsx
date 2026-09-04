@@ -127,7 +127,7 @@ export default function HeroBanner({
           </div>
 
           {/* Action Button Row */}
-          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '12px' }}>
+          <div className="home-action-row" style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '12px' }}>
             <button
               type="button"
               className="btn-gov-primary"

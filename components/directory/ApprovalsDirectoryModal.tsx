@@ -46,6 +46,7 @@ export default function ApprovalsDirectoryModal({ onClose }: ApprovalsDirectoryM
       onClick={onClose}
     >
       <div
+        className="gov-modal-shell"
         style={{
           backgroundColor: '#ffffff',
           borderRadius: 'var(--gov-radius)',
@@ -61,6 +62,7 @@ export default function ApprovalsDirectoryModal({ onClose }: ApprovalsDirectoryM
       >
         {/* Modal Header */}
         <div
+          className="gov-modal-header"
           style={{
             padding: '16px 20px',
             borderBottom: '1.5px solid var(--gov-border)',

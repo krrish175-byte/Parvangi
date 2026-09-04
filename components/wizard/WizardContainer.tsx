@@ -94,7 +94,7 @@ export default function WizardContainer({
     <section style={{ padding: '28px 0 48px 0' }}>
       <div className="gov-container">
         {/* Breadcrumb / Top Bar */}
-        <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="wizard-top-bar" style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontSize: '13px', color: 'var(--gov-text-muted)' }}>
             <span
               style={{ color: 'var(--gov-navy)', cursor: 'pointer', textDecoration: 'underline' }}
@@ -123,7 +123,7 @@ export default function WizardContainer({
         />
 
         {/* Main Wizard Form Card */}
-        <div className="gov-card" style={{ padding: '28px' }}>
+        <div className="gov-card wizard-form-card" style={{ padding: '28px' }}>
           {/* Step 1: Category */}
           {currentStep === 1 && (
             <Step1Category

@@ -44,6 +44,7 @@ export default function HelpdeskModal({ onClose }: HelpdeskModalProps) {
       onClick={onClose}
     >
       <div
+        className="gov-modal-shell"
         style={{
           backgroundColor: '#ffffff',
           borderRadius: 'var(--gov-radius)',
@@ -59,6 +60,7 @@ export default function HelpdeskModal({ onClose }: HelpdeskModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div
+          className="gov-modal-header"
           style={{
             padding: '16px 20px',
             borderBottom: '1.5px solid var(--gov-border)',

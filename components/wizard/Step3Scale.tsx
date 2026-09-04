@@ -5,6 +5,9 @@ import { useApp } from '@/lib/context';
 import { ScaleTier } from '@/lib/types';
 import { classifyMSME, formatINR } from '@/lib/msme-classifier';
 
+const MIN_INVESTMENT_LAKHS = 5;
+const MAX_INVESTMENT_LAKHS = 5000;
+
 interface Step3ScaleProps {
   investmentInLakhs: number;
   onInvestmentChange: (val: number) => void;
@@ -53,11 +56,14 @@ export default function Step3Scale({
 
   const currentClassification = classifyMSME(investmentInLakhs);
 
+  const updateInvestment = (value: number) => {
+    const normalizedValue = Math.min(MAX_INVESTMENT_LAKHS, Math.max(MIN_INVESTMENT_LAKHS, value));
+    onInvestmentChange(normalizedValue);
+    onScaleTierChange(classifyMSME(normalizedValue).tier);
+  };
+
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    onInvestmentChange(val);
-    const classification = classifyMSME(val);
-    onScaleTierChange(classification.tier);
+    updateInvestment(Number(e.target.value));
   };
 
   const handlePresetSelect = (p: (typeof presets)[0]) => {
@@ -158,19 +164,15 @@ export default function Step3Scale({
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="investment-value-row" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gov-navy)' }}>₹</span>
             <input
               id="investment-input"
               type="number"
-              min="5"
-              max="5000"
+              min={MIN_INVESTMENT_LAKHS}
+              max={MAX_INVESTMENT_LAKHS}
               value={investmentInLakhs}
-              onChange={(e) => {
-                const val = Math.max(1, Number(e.target.value));
-                onInvestmentChange(val);
-                onScaleTierChange(classifyMSME(val).tier);
-              }}
+              onChange={(e) => updateInvestment(Number(e.target.value))}
               style={{
                 width: '120px',
                 padding: '8px 10px',
@@ -202,10 +204,10 @@ export default function Step3Scale({
         <div style={{ marginTop: '16px' }}>
           <input
             type="range"
-            min="5"
-            max="1500"
-            step="5"
-            value={Math.min(1500, investmentInLakhs)}
+            min={MIN_INVESTMENT_LAKHS}
+            max={MAX_INVESTMENT_LAKHS}
+            step="1"
+            value={Math.min(MAX_INVESTMENT_LAKHS, Math.max(MIN_INVESTMENT_LAKHS, investmentInLakhs))}
             onChange={handleSliderChange}
             style={{
               width: '100%',
@@ -213,12 +215,8 @@ export default function Step3Scale({
               cursor: 'pointer'
             }}
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--gov-text-muted)', marginTop: '4px' }}>
-            <span>₹5 Lakhs (Micro)</span>
-            <span>₹100 Lakhs (₹1 Cr Threshold)</span>
-            <span>₹500 Lakhs (₹5 Cr)</span>
-            <span>₹1000 Lakhs (₹10 Cr Small Limit)</span>
-            <span>₹1500 Lakhs+ (Medium)</span>
+          <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', textAlign: 'center', marginTop: '6px' }}>
+            {language === 'mr' ? 'निवडलेली गुंतवणूक:' : 'Selected investment:'} ₹{investmentInLakhs} Lakhs ({formatINR(investmentInLakhs)})
           </div>
         </div>
       </div>
