@@ -4,6 +4,11 @@ import { AppProvider } from '@/lib/context';
 
 export const metadata: Metadata = {
   title: 'PARVANGI (परवानगी) — Statutory Approval Checklist Engine | Government of Maharashtra',
+  icons: {
+    icon: '/maharashtra-innovation-favicon.svg',
+    shortcut: '/maharashtra-innovation-favicon.svg',
+    apple: '/maharashtra-innovation-favicon.svg'
+  },
   description:
     'Official personalized approval checklist engine for first-time Micro & Small industrial entrepreneurs in Maharashtra. Verified against MIDC, MPCB, and DISH statutory regulations.',
   keywords: [

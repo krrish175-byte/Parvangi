@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="gold" cx="50%" cy="45%" r="58%">
+      <stop offset="0" stop-color="#fff59d"/>
+      <stop offset="0.55" stop-color="#ffd52e"/>
+      <stop offset="1" stop-color="#f49b16"/>
+    </radialGradient>
+  </defs>
+  <circle cx="64" cy="64" r="60" fill="url(#gold)" stroke="#f08b18" stroke-width="3"/>
+  <circle cx="64" cy="64" r="51" fill="none" stroke="#f08b18" stroke-width="2" stroke-dasharray="2 4"/>
+  <g fill="none" stroke="#f08b18" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="3" d="M64 30v29M54 48c4-5 16-5 20 0M46 60c5-9 11-13 18-13s13 4 18 13"/>
+    <path stroke-width="3" d="M45 62c2 14 10 21 19 21s17-7 19-21M39 87c8 7 42 7 50 0M46 92c8 6 28 6 36 0"/>
+    <path stroke-width="2" d="M64 18v6M38 29l4 5M90 29l-4 5M27 56h6M95 56h6"/>
+  </g>
+  <path fill="#f08b18" d="M59 85h10l5 7H54z"/>
+  <text x="64" y="111" fill="#f08b18" font-family="Noto Sans Devanagari, sans-serif" font-size="7" font-weight="700" text-anchor="middle">सत्यमेव जयते</text>
+</svg>
