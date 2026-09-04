@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ChecklistResult, UserProfileInput } from '@/lib/types';
 import { generateApprovalChecklist } from '@/lib/rules-engine';
 import { getUserChecklist, saveUserChecklist } from '@/lib/checklist-store';
-import { getCurrentUser } from '@/lib/auth-store';
+import { getCurrentUser, isAdminLoggedIn } from '@/lib/auth-store';
 import AccessibilityBar from '@/components/layout/AccessibilityBar';
 import GovHeader from '@/components/layout/GovHeader';
 import GovNavBar from '@/components/layout/GovNavBar';
@@ -21,19 +21,13 @@ import HelpdeskModal from '@/components/helpdesk/HelpdeskModal';
 import AuthModal from '@/components/auth/AuthModal';
 import AdminDashboard from '@/components/admin/AdminDashboard';
 import { useApp } from '@/lib/context';
-import { getCurrentUser, isAdminLoggedIn } from '@/lib/auth-store';
 
 export default function HomePage() {
   const { language } = useApp();
 
   const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(null);
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'admin'>('home');
   const [activeResult, setActiveResult] = useState<ChecklistResult | null>(null);
-  const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'admin'>(
-    savedChecklist ? 'checklist' : 'home'
-  );
-  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(savedChecklist);
   const [profileForEdit, setProfileForEdit] = useState<UserProfileInput | undefined>(undefined);
 
   // Modals
@@ -64,6 +58,8 @@ export default function HomePage() {
       window.removeEventListener('parvangi_auth_change', syncUserChecklist);
       window.removeEventListener('parvangi_checklist_change', syncUserChecklist);
     };
+  }, []);
+
   useEffect(() => {
     // Check if citizen or admin is already logged in; if not, pop up the login window at first
     const timer = setTimeout(() => {
@@ -153,8 +149,6 @@ export default function HomePage() {
         onNavigate={(view) => {
           if (view === 'directory') {
             setShowDirectoryModal(true);
-          } else if (view === 'maitri_gap') {
-            setShowMaitriModal(true);
           } else if (view === 'checklist') {
             if (activeResult || savedChecklist) {
               if (!activeResult && savedChecklist) {
