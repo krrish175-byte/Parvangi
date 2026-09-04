@@ -42,26 +42,6 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             <span>{language === 'mr' ? 'मुख्यपृष्ठ' : language === 'hi' ? 'होम' : 'Home'}</span>
           </li>
 
-          <li
-            className={`gov-nav-item highlight-cta ${currentView === 'wizard' ? 'active' : ''}`}
-            onClick={() => onNavigate('wizard')}
-          >
-            <span>⚡</span>
-            <span>{language === 'mr' ? 'नवीन परवानगी तपासा (Wizard)' : language === 'hi' ? 'जांचें कि आपको क्या चाहिए' : 'Check What You Need'}</span>
-            <span
-              style={{
-                backgroundColor: '#ffffff',
-                color: '#bf360c',
-                fontSize: '9.5px',
-                padding: '1px 5px',
-                borderRadius: '2px',
-                fontWeight: 800
-              }}
-            >
-              NEW
-            </span>
-          </li>
-
           {hasExistingChecklist && (
             <li
               className={`gov-nav-item ${currentView === 'checklist' ? 'active' : ''}`}
@@ -71,14 +51,6 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
               <span>{language === 'mr' ? 'माझी परवानगी सूची (Checklist)' : language === 'hi' ? 'मेरी सक्रिय सूची' : 'My Active Checklist'}</span>
             </li>
           )}
-
-          <li
-            className={`gov-nav-item ${currentView === 'directory' ? 'active' : ''}`}
-            onClick={() => onNavigate('directory')}
-          >
-            <span>📚</span>
-            <span>{language === 'mr' ? 'सर्व १६ परवानग्या (Repository)' : language === 'hi' ? 'अपनी मंजूरी जानें' : 'Know Your Approvals'}</span>
-          </li>
 
           {isAdmin && (
             <li
