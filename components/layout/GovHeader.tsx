@@ -102,12 +102,9 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
           </div>
 
           <div className="gov-header-meta no-print" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
               <span className="gov-initiative-tag">
-                {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : 'State Innovation Initiative'}
-              </span>
-              <span className="gov-sih-tag">
-                <strong>SIH26130</strong> · Govt of Maharashtra
+                {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : language === 'hi' ? 'राज्य नवाचार पहल' : 'State Innovation Initiative'}
               </span>
               {currentDateTime && (
                 <span
@@ -117,10 +114,24 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                     fontWeight: 600,
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '4px'
+                    gap: '5px'
                   }}
                 >
-                  🕒 {currentDateTime}
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ color: '#002244' }}
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  {currentDateTime}
                 </span>
               )}
             </div>
