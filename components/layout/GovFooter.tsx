@@ -12,7 +12,7 @@ export default function GovFooter() {
       <div className="gov-container">
         <div className="gov-footer-grid">
           <div className="gov-footer-col">
-            <h4>{language === 'mr' ? 'महत्त्वाचे दुवे' : 'Official Portals'}</h4>
+            <h4>{language === 'mr' ? 'महत्त्वाचे दुवे' : language === 'hi' ? 'आधिकारिक पोर्टल' : 'Official Portals'}</h4>
             <ul>
               <li>
                 <a href="https://maitri.maharashtra.gov.in" target="_blank" rel="noopener noreferrer">
@@ -43,38 +43,38 @@ export default function GovFooter() {
           </div>
 
           <div className="gov-footer-col">
-            <h4>{language === 'mr' ? 'वैधानिक व कायदेशीर धोरणे' : 'Government Policies'}</h4>
+            <h4>{language === 'mr' ? 'वैधानिक व कायदेशीर धोरणे' : language === 'hi' ? 'सरकारी नीतियां' : 'Government Policies'}</h4>
             <ul>
               <li>
                 <a href="#rti" onClick={(e) => e.preventDefault()}>
-                  {language === 'mr' ? 'माहितीचा अधिकार (RTI 2005)' : 'Right to Information (RTI)'}
+                  {language === 'mr' ? 'माहितीचा अधिकार (RTI 2005)' : language === 'hi' ? 'सूचना का अधिकार (RTI)' : 'Right to Information (RTI)'}
                 </a>
               </li>
               <li>
                 <a href="#accessibility" onClick={(e) => e.preventDefault()}>
-                  {language === 'mr' ? 'सुलभता विधान (Accessibility)' : 'Accessibility Statement'}
+                  {language === 'mr' ? 'सुलभता विधान (Accessibility)' : language === 'hi' ? 'पहुंच विवरण' : 'Accessibility Statement'}
                 </a>
               </li>
               <li>
                 <a href="#terms" onClick={(e) => e.preventDefault()}>
-                  {language === 'mr' ? 'वापराच्या अटी व शर्ती' : 'Terms of Use & Disclaimer'}
+                  {language === 'mr' ? 'वापराच्या अटी व शर्ती' : language === 'hi' ? 'उपयोग की शर्तें और अस्वीकरण' : 'Terms of Use & Disclaimer'}
                 </a>
               </li>
               <li>
                 <a href="#privacy" onClick={(e) => e.preventDefault()}>
-                  {language === 'mr' ? 'गोपनीयता धोरण' : 'Privacy Policy'}
+                  {language === 'mr' ? 'गोपनीयता धोरण' : language === 'hi' ? 'गोपनीयता नीति' : 'Privacy Policy'}
                 </a>
               </li>
               <li>
                 <a href="#hyperlink" onClick={(e) => e.preventDefault()}>
-                  {language === 'mr' ? 'हायपरलिंकिंग धोरण' : 'Hyperlinking Policy'}
+                  {language === 'mr' ? 'हायपरलिंकिंग धोरण' : language === 'hi' ? 'हाइपरलिंकिंग नीति' : 'Hyperlinking Policy'}
                 </a>
               </li>
             </ul>
           </div>
 
           <div className="gov-footer-col">
-            <h4>{language === 'mr' ? 'उद्योजक सहाय्यता व मदत कक्ष' : 'Citizen Helpdesk'}</h4>
+            <h4>{language === 'mr' ? 'उद्योजक सहाय्यता व मदत कक्ष' : language === 'hi' ? 'नागरिक हेल्पडेस्क' : 'Citizen Helpdesk'}</h4>
             <ul>
               <li>
                 <strong style={{ color: '#ffffff' }}>Toll Free Helpline:</strong>
@@ -116,6 +116,7 @@ export default function GovFooter() {
                 </span>
               </div>
             </div>
+            <h4>{language === 'mr' ? 'प्रकल्प माहिती' : language === 'hi' ? 'पहल विवरण' : 'Initiative Details'}</h4>
             <p style={{ lineHeight: 1.6, color: '#cbd5e1' }}>
               <strong>PARVANGI (परवानगी)</strong> is developed under Smart India Hackathon (SIH26130) for the{' '}
               <strong>Maharashtra State Innovation Society (MSIS)</strong>, Government of Maharashtra.

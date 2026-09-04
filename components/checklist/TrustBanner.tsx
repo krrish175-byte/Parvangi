@@ -32,9 +32,7 @@ export default function TrustBanner({ referenceId, generatedAt }: TrustBannerPro
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '3px' }}>
             <strong style={{ fontSize: '14.5px', color: '#ffb74d' }}>
-              {language === 'mr'
-                ? 'अधिकृत वैधानिक नियम डेटाबेसमधून व्युत्पन्न — एआय अनुमान नाही'
-                : 'Generated from a structured regulatory database — not AI-guessed.'}
+              {language === 'mr' ? 'अधिकृत वैधानिक नियम डेटाबेसमधून व्युत्पन्न — एआय अनुमान नाही' : language === 'hi' ? 'संरचित विनियामक डेटाबेस से उत्पन्न — एआई अनुमान नहीं।' : 'Generated from a structured regulatory database — not AI-guessed.'}
             </strong>
             <span
               style={{
@@ -47,7 +45,7 @@ export default function TrustBanner({ referenceId, generatedAt }: TrustBannerPro
                 borderRadius: '2px'
               }}
             >
-              VERIFIED COMPLIANCE
+              {language === 'mr' ? 'सत्यापित अनुपालन' : language === 'hi' ? 'सत्यापित अनुपालन' : 'VERIFIED COMPLIANCE'}
             </span>
           </div>
 
@@ -55,6 +53,10 @@ export default function TrustBanner({ referenceId, generatedAt }: TrustBannerPro
             {language === 'mr' ? (
               <span>
                 सदर अनुक्रम MIDC, महाराष्ट्र प्रदूषण नियंत्रण मंडळ (MPCB), औद्योगिक सुरक्षा व आरोग्य संचालनालय (DISH) आणि महाराष्ट्र नगररचना अधिनियम नियमावलीनुसार काटेकोरपणे क्रमबद्ध आहे. (उदा. कारखाना परवान्यापूर्वी MPCB CTE ची वैधानिक पूर्वअट अनिवार्य आहे).
+              </span>
+            ) : language === 'hi' ? (
+              <span>
+                इस अनुसूची में प्रत्येक निकासी कारखाना अधिनियम 1948, जल/वायु अधिनियम, और महाराष्ट्र अग्नि सुरक्षा अधिनियम 2006 के अनुसार टोपोलॉजिकल निर्भरता मानचित्रण के माध्यम से कड़ाई से अनुक्रमित है। (उदा. DISH फैक्ट्री लाइसेंस आवेदन से पहले MPCB CTE एक स्पष्ट, वैधानिक शर्त है)।
               </span>
             ) : (
               <span>
@@ -77,7 +79,7 @@ export default function TrustBanner({ referenceId, generatedAt }: TrustBannerPro
         }}
       >
         <div style={{ fontSize: '10.5px', color: '#94a3b8', textTransform: 'uppercase' }}>
-          Verification Reference
+          {language === 'mr' ? 'सत्यापन संदर्भ' : language === 'hi' ? 'सत्यापन संदर्भ' : 'Verification Reference'}
         </div>
         <div style={{ fontSize: '14px', fontWeight: 800, color: '#ffffff', letterSpacing: '0.5px' }}>
           {referenceId}

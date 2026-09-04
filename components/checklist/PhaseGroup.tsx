@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
-import { ApprovalStatus, PhaseGroup as PhaseGroupType } from '@/lib/types';
+import { ApprovalRecord, ApprovalStatus, PhaseGroup as PhaseGroupType } from '@/lib/types';
 import ApprovalItemCard from './ApprovalItemCard';
 
 interface PhaseGroupProps {
@@ -10,9 +10,16 @@ interface PhaseGroupProps {
   globalStartIndex: number;
   statuses: Record<string, ApprovalStatus>;
   onStatusChange: (approvalId: string, status: ApprovalStatus) => void;
+  onApplyClick?: (approval: ApprovalRecord) => void;
 }
 
-export default function PhaseGroup({ group, globalStartIndex, statuses, onStatusChange }: PhaseGroupProps) {
+export default function PhaseGroup({
+  group,
+  globalStartIndex,
+  statuses,
+  onStatusChange,
+  onApplyClick
+}: PhaseGroupProps) {
   const { language } = useApp();
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
@@ -73,7 +80,7 @@ export default function PhaseGroup({ group, globalStartIndex, statuses, onStatus
 
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--gov-navy-dark)', lineHeight: 1.2 }}>
-              {language === 'mr' ? group.marathi_name : group.name}
+              {language === 'mr' ? group.marathi_name : language === 'hi' ? group.hindi_name : group.name}
             </h3>
             <span style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
               {language === 'mr' ? group.name : group.marathi_name}
@@ -93,7 +100,7 @@ export default function PhaseGroup({ group, globalStartIndex, statuses, onStatus
               border: '1px solid #bfdbfe'
             }}
           >
-            {group.items.length} {language === 'mr' ? 'परवानग्या' : 'Approvals'}
+            {group.items.length} {language === 'mr' ? 'परवानग्या' : language === 'hi' ? 'मंजूरी' : 'Approvals'}
           </span>
 
           <span style={{ fontSize: '13px', color: 'var(--gov-navy)', fontWeight: 'bold' }}>
@@ -104,18 +111,9 @@ export default function PhaseGroup({ group, globalStartIndex, statuses, onStatus
 
       {/* Phase Description Banner */}
       {isExpanded && (
-        <div
-          style={{
-            backgroundColor: '#ffffff',
-            borderBottom: '1px solid var(--gov-border-subtle)',
-            padding: '8px 18px',
-            fontSize: '12px',
-            color: 'var(--gov-text-secondary)',
-            fontStyle: 'italic'
-          }}
-        >
-          ℹ️ {group.description}
-        </div>
+        <p style={{ fontSize: '11px', color: '#64748b', fontStyle: 'italic', padding: '10px 18px', backgroundColor: '#f8fafc', borderBottom: '1px solid var(--gov-border-subtle)', margin: 0 }}>
+          <span style={{ fontWeight: 700, color: 'var(--gov-navy)' }}>ℹ</span> {language === 'hi' ? group.hindi_description : language === 'mr' ? group.marathi_description : group.description}
+        </p>
       )}
 
       {/* Items Container */}
@@ -128,6 +126,7 @@ export default function PhaseGroup({ group, globalStartIndex, statuses, onStatus
               itemIndex={globalStartIndex + idx}
               status={statuses[app.id] || 'pending'}
               onStatusChange={(status) => onStatusChange(app.id, status)}
+              onApplyClick={onApplyClick}
             />
           ))}
         </div>

@@ -10,10 +10,17 @@ export interface BusinessCategory {
   id: string;
   name: string;
   marathi_name: string;
+  hindi_name: string;
   description: string;
+  marathi_description?: string;
+  hindi_description?: string;
   icon: string;
   examples: string;
+  marathi_examples?: string;
+  hindi_examples?: string;
   badge: string;
+  marathi_badge?: string;
+  hindi_badge?: string;
   requiresPollutionClearance: boolean;
   requiresFactoryLicense: boolean;
 }
@@ -32,9 +39,12 @@ export interface ApprovalRecord {
   id: string;
   name: string;
   marathi_name: string;
+  hindi_name: string;
   issuing_authority: string;
   department: string;
   act_and_rule: string;
+  marathi_act_and_rule?: string;
+  hindi_act_and_rule?: string;
   category_tags: string[];
   location_tags: string[];
   scale_tags: string[];
@@ -45,8 +55,12 @@ export interface ApprovalRecord {
   timeline_days_min: number;
   timeline_days_max: number;
   fee_structure: string;
+  marathi_fee_structure?: string;
+  hindi_fee_structure?: string;
   depends_on: string[];
   one_line_description: string;
+  marathi_one_line_description?: string;
+  hindi_one_line_description?: string;
   portal_url: string;
   stage_phase: 1 | 2 | 3 | 4;
   phase_name: string;
@@ -58,7 +72,10 @@ export interface PhaseGroup {
   phase: 1 | 2 | 3 | 4;
   name: string;
   marathi_name: string;
+  hindi_name: string;
   description: string;
+  marathi_description: string;
+  hindi_description: string;
   items: ApprovalRecord[];
 }
 
@@ -79,4 +96,38 @@ export interface ChecklistResult {
   metrics: ChecklistMetrics;
   referenceId: string;
   generatedAt: string;
+}
+
+export interface UserAccount {
+  id: string;
+  name: string;
+  age: number;
+  phone: string;
+  email: string;
+  createdAt: string;
+}
+
+export type ApplicationStatus = 'Submitted' | 'In Process' | 'Approved' | 'Denied';
+
+export interface ApplicationSubmission {
+  id: string;
+  userId: string;
+  userName: string;
+  userPhone: string;
+  userAge: number;
+  userEmail?: string;
+  approvalId: string;
+  approvalName: string;
+  approvalMarathiName?: string;
+  approvalHindiName?: string;
+  department: string;
+  issuingAuthority: string;
+  phase: number;
+  acknowledgementNumber: string;
+  sourcePortal: string;
+  status: ApplicationStatus;
+  submittedAt: string;
+  updatedAt: string;
+  officerRemarks?: string;
+  sanctionCertificateId?: string;
 }

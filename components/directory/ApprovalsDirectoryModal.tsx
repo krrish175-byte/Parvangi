@@ -74,7 +74,7 @@ export default function ApprovalsDirectoryModal({ onClose }: ApprovalsDirectoryM
         >
           <div>
             <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-              📚 {language === 'mr' ? 'सर्व १६ वैधानिक परवानग्यांची संकलित सूची' : 'Statutory Approvals Master Directory'}
+              📚 {language === 'mr' ? 'सर्व १६ वैधानिक परवानग्यांची संकलित सूची' : language === 'hi' ? 'वैधानिक मंजूरी मास्टर निर्देशिका' : 'Statutory Approvals Master Directory'}
             </h2>
             <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
               Verified repository of Maharashtra state & central industrial clearances

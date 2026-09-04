@@ -21,15 +21,12 @@ export default function QuickLinksRow({
   const cards = [
     {
       id: 'wizard',
-      title: language === 'mr' ? 'काय हवे आहे ते तपासा' : 'Check What You Need',
-      marathiSubtitle: 'नवीन परवानगी तपासणी इंजिन',
-      subtitle: '4-Step Personalized Engine',
+      title: language === 'mr' ? 'काय हवे आहे ते तपासा' : language === 'hi' ? 'जांचें कि आपको क्या चाहिए' : 'Check What You Need',
+      subtitle: language === 'mr' ? 'नवीन परवानगी तपासणी इंजिन' : language === 'hi' ? '4-चरणीय व्यक्तिगत इंजन' : '4-Step Personalized Engine',
       description:
-        language === 'mr'
-          ? 'आपल्या उद्योगाचे स्वरूप, जागा, गुंतवणूक व टप्पा निवडा आणि कायदेशीर अनुक्रमाने लागणाऱ्या सर्व परवानग्यांची अचूक सूची मिळवा.'
-          : 'Answer 4 basic questions about your sector, location, scale, and stage to generate a topologically sequenced approval roadmap.',
-      actionText: language === 'mr' ? 'प्रारंभ करा →' : 'Start Wizard →',
-      badge: 'CORE ENGINE',
+        language === 'mr' ? 'आपल्या उद्योगाचे स्वरूप, जागा, गुंतवणूक व टप्पा निवडा आणि कायदेशीर अनुक्रमाने लागणाऱ्या सर्व परवानग्यांची अचूक सूची मिळवा.' : language === 'hi' ? 'अपने क्षेत्र, स्थान, पैमाने और चरण के बारे में 4 बुनियादी सवालों के जवाब दें और अपनी अनुमोदन सूची प्राप्त करें।' : 'Answer 4 basic questions about your sector, location, scale, and stage to generate a topologically sequenced approval roadmap.',
+      actionText: language === 'mr' ? 'प्रारंभ करा →' : language === 'hi' ? 'प्रारंभ करें →' : 'Start Wizard →',
+      badge: language === 'mr' ? 'मुख्य इंजिन' : language === 'hi' ? 'मुख्य इंजन' : 'CORE ENGINE',
       badgeColor: 'var(--gov-saffron)',
       icon: '⚡',
       onClick: onStartWizard,
@@ -37,15 +34,12 @@ export default function QuickLinksRow({
     },
     {
       id: 'track',
-      title: language === 'mr' ? 'सूची ट्रॅक करा / संदर्भ शोधा' : 'Track My Checklist',
-      marathiSubtitle: 'संदर्भ क्रमांकावरून तपासणी',
-      subtitle: 'Retrieve via Reference ID',
+      title: language === 'mr' ? 'सूची ट्रॅक करा / संदर्भ शोधा' : language === 'hi' ? 'मेरी चेकलिस्ट ट्रैक करें' : 'Track My Checklist',
+      subtitle: language === 'mr' ? 'संदर्भ क्रमांकावरून तपासणी' : language === 'hi' ? 'संदर्भ आईडी द्वारा प्राप्त करें' : 'Retrieve via Reference ID',
       description:
-        language === 'mr'
-          ? 'पूर्वी तयार केलेल्या संदर्भ क्रमांकाने (उदा. MH-PRV-2025-XXXXX) आपली परवानगी सूची पुन्हा पहा किंवा प्रिंट करा.'
-          : 'Enter your 16-character Parvangi Reference Code to reload your tailored clearance schedule or verify compliance order.',
-      actionText: language === 'mr' ? 'संदर्भ शोधा →' : 'Track Code →',
-      badge: 'INSTANT LOOKUP',
+        language === 'mr' ? 'पूर्वी तयार केलेल्या संदर्भ क्रमांकाने (उदा. MH-PRV-2025-XXXXX) आपली परवानगी सूची पुन्हा पहा किंवा प्रिंट करा.' : language === 'hi' ? 'अपनी तैयार की गई मंजूरी सूची को फिर से लोड करने के लिए अपना 16-अंकीय संदर्भ कोड दर्ज करें।' : 'Enter your 16-character Parvangi Reference Code to reload your tailored clearance schedule or verify compliance order.',
+      actionText: language === 'mr' ? 'संदर्भ शोधा →' : language === 'hi' ? 'कोड ट्रैक करें →' : 'Track Code →',
+      badge: language === 'mr' ? 'त्वरित शोध' : language === 'hi' ? 'त्वरित खोज' : 'INSTANT LOOKUP',
       badgeColor: 'var(--gov-navy)',
       icon: '🔍',
       onClick: onTrackChecklist,
@@ -53,15 +47,12 @@ export default function QuickLinksRow({
     },
     {
       id: 'directory',
-      title: language === 'mr' ? 'सर्व परवानग्यांची माहिती' : 'Know Your Approvals',
-      marathiSubtitle: '१६ वैधानिक दाखल्यांचे संकलन',
-      subtitle: 'Statutory Master Directory',
+      title: language === 'mr' ? 'सर्व परवानग्यांची माहिती' : language === 'hi' ? 'अपनी मंजूरी जानें' : 'Know Your Approvals',
+      subtitle: language === 'mr' ? '१६ वैधानिक दाखल्यांचे संकलन' : language === 'hi' ? 'वैधानिक मास्टर निर्देशिका' : 'Statutory Master Directory',
       description:
-        language === 'mr'
-          ? 'MPCB, DISH, अग्निशमन, MSEDCL आणि उद्योग संचालनालयाच्या सर्व वैधानिक परवानग्यांचे नियम व शुल्काची माहिती पहा.'
-          : 'Browse all 16 state and central industrial approvals, timelines, issuing bodies, legal acts, and direct portal links.',
-      actionText: language === 'mr' ? 'सूची उघडा →' : 'Browse All 16 →',
-      badge: 'VERIFIED REPOSITORY',
+        language === 'mr' ? 'MPCB, DISH, अग्निशमन, MSEDCL आणि उद्योग संचालनालयाच्या सर्व वैधानिक परवानग्यांचे नियम व शुल्काची माहिती पहा.' : language === 'hi' ? 'सभी 16 राज्य और केंद्रीय औद्योगिक मंजूरियों, समय-सीमा, जारी करने वाले निकायों और पोर्टल लिंक ब्राउज़ करें।' : 'Browse all 16 state and central industrial approvals, timelines, issuing bodies, legal acts, and direct portal links.',
+      actionText: language === 'mr' ? 'सूची उघडा →' : language === 'hi' ? 'सभी 16 ब्राउज़ करें →' : 'Browse All 16 →',
+      badge: language === 'mr' ? 'सत्यापित संकलन' : language === 'hi' ? 'सत्यापित रिपॉजिटरी' : 'VERIFIED REPOSITORY',
       badgeColor: '#1e3a5f',
       icon: '📚',
       onClick: onViewDirectory,
@@ -69,15 +60,12 @@ export default function QuickLinksRow({
     },
     {
       id: 'helpdesk',
-      title: language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC)' : 'District Helpdesk & DIC',
-      marathiSubtitle: '३६ जिल्ह्यांमधील मदत केंद्रे',
-      subtitle: 'Citizen Facilitation',
+      title: language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC)' : language === 'hi' ? 'जिला हेल्पडेस्क और डीआईसी' : 'District Helpdesk & DIC',
+      subtitle: language === 'mr' ? '३६ जिल्ह्यांमधील मदत केंद्रे' : language === 'hi' ? 'नागरिक सुविधा' : 'Citizen Facilitation',
       description:
-        language === 'mr'
-          ? 'महाराष्ट्र राज्यातील ३६ जिल्हा उद्योग केंद्रे (DIC) आणि जिल्हाधिकारी कार्यालयांशी संपर्क साधण्यासाठी अधिकृत हेल्पलाइन.'
-          : 'Direct contact coordinates for General Managers of District Industries Centres (DIC) and department escalation matrices.',
-      actionText: language === 'mr' ? 'मदत संपर्क →' : 'View Directory →',
-      badge: '36 DISTRICTS',
+        language === 'mr' ? 'महाराष्ट्र राज्यातील ३६ जिल्हा उद्योग केंद्रे (DIC) आणि जिल्हाधिकारी कार्यालयांशी संपर्क साधण्यासाठी अधिकृत हेल्पलाइन.' : language === 'hi' ? 'जिला उद्योग केंद्रों (DIC) के महाप्रबंधकों के लिए सीधे संपर्क जानकारी।' : 'Direct contact coordinates for General Managers of District Industries Centres (DIC) and department escalation matrices.',
+      actionText: language === 'mr' ? 'मदत संपर्क →' : language === 'hi' ? 'निर्देशिका देखें →' : 'View Directory →',
+      badge: language === 'mr' ? '३६ जिल्हे' : language === 'hi' ? '36 जिले' : '36 DISTRICTS',
       badgeColor: 'var(--gov-green)',
       icon: '🏛️',
       onClick: onViewHelpdesk,
@@ -104,10 +92,11 @@ export default function QuickLinksRow({
               }}
             >
               <span>📌</span>
-              <span>{language === 'mr' ? 'नागरिक जलद सेवा व साधने' : 'Citizen Quick Services & Portals'}</span>
+              <span>{language === 'mr' ? 'नागरिक जलद सेवा व साधने' : language === 'hi' ? 'नागरिक त्वरित सेवाएं और पोर्टल' : 'Citizen Quick Services & Portals'}</span>
             </h2>
             <span style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
               {language === 'mr' ? 'अधिकृत उद्योजक सहाय्यता व सेवा प्रणाली' : 'Official Citizen Facilitation Framework'}
+              {language === 'mr' ? 'पासपोर्ट सेवा / IRCTC प्रमाणे रचना' : language === 'hi' ? 'आधिकारिक पोर्टल ढांचा' : 'Official Portal Framework'}
             </span>
           </div>
         </div>
@@ -158,19 +147,10 @@ export default function QuickLinksRow({
                   </span>
                 </div>
 
-                <h3
-                  style={{
-                    fontSize: '16px',
-                    fontWeight: 700,
-                    color: 'var(--gov-navy-dark)',
-                    lineHeight: 1.25,
-                    marginBottom: '4px'
-                  }}
-                >
+                <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--gov-navy)' }}>
                   {card.title}
                 </h3>
-
-                <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)', fontWeight: 600, marginBottom: '10px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--gov-text-muted)', marginTop: '2px', textTransform: 'uppercase', letterSpacing: '0.2px' }}>
                   {card.subtitle}
                 </div>
 
