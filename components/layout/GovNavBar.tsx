@@ -61,14 +61,6 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             <span>📚</span>
             <span>{language === 'mr' ? 'सर्व १६ परवानग्या (Repository)' : 'Know Your Approvals'}</span>
           </li>
-
-          <li
-            className={`gov-nav-item ${currentView === 'maitri_gap' ? 'active' : ''}`}
-            onClick={() => onNavigate('maitri_gap')}
-          >
-            <span>⚖️</span>
-            <span>{language === 'mr' ? 'MAITRI 2.0 तुलना (The Gap)' : 'MAITRI 2.0 vs Parvangi'}</span>
-          </li>
         </ul>
       </div>
     </nav>

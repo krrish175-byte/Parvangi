@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '@/lib/context';
 import { ApprovalStatus, ChecklistResult, PhaseGroup as PhaseGroupType } from '@/lib/types';
 import ProfileSummaryBar from './ProfileSummaryBar';
@@ -34,6 +34,15 @@ export default function ChecklistDashboard({
       return {};
     }
   });
+
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(`parvangi-status-${result.referenceId}`);
+      setStatuses(saved ? (JSON.parse(saved) as Record<string, ApprovalStatus>) : {});
+    } catch {
+      setStatuses({});
+    }
+  }, [result.referenceId]);
 
   const handlePrint = () => {
     window.print();

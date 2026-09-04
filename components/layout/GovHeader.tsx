@@ -1,14 +1,39 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/context';
+import { ALL_APPROVALS } from '@/lib/rules-engine';
+import categories from '@/data/categories.json';
 
 interface GovHeaderProps {
   onHomeClick?: () => void;
+  onSearchSelect?: () => void;
 }
 
-export default function GovHeader({ onHomeClick }: GovHeaderProps) {
+export default function GovHeader({ onHomeClick, onSearchSelect }: GovHeaderProps) {
   const { language } = useApp();
+  const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => setDebouncedQuery(query.trim()), 300);
+    return () => window.clearTimeout(timeoutId);
+  }, [query]);
+
+  const normalizedQuery = debouncedQuery.toLowerCase();
+  const approvalResults = normalizedQuery
+    ? ALL_APPROVALS.filter((approval) =>
+        [approval.name, approval.marathi_name, approval.department, approval.issuing_authority, approval.act_and_rule, approval.one_line_description]
+          .some((value) => value.toLowerCase().includes(normalizedQuery))
+      ).slice(0, 5)
+    : [];
+  const categoryResults = normalizedQuery
+    ? categories.filter((category) =>
+        [category.name, category.marathi_name, category.description, category.examples].some((value) => value.toLowerCase().includes(normalizedQuery))
+      ).slice(0, 3)
+    : [];
+  const hasSearchResults = approvalResults.length > 0 || categoryResults.length > 0;
 
   return (
     <header className="gov-header">
@@ -23,20 +48,28 @@ export default function GovHeader({ onHomeClick }: GovHeaderProps) {
             onKeyDown={(e) => e.key === 'Enter' && onHomeClick?.()}
           >
             <div className="gov-emblem-container">
-              {/* Maharashtra State Seal Representation */}
-              <div className="gov-state-seal" title="महाराष्ट्र शासन राजमुद्रा">
-                <svg viewBox="0 0 100 100" width="46" height="46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="46" stroke="#ffb74d" strokeWidth="3" fill="#002244" />
-                  <circle cx="50" cy="50" r="41" stroke="#ffffff" strokeWidth="1" strokeDasharray="2 2" fill="none" />
-                  {/* Stylized Fort / Rajmudra Symbol */}
-                  <polygon points="50,14 62,32 58,32 58,68 42,68 42,32 38,32" fill="#ff9933" />
-                  <rect x="36" y="68" width="28" height="8" rx="1" fill="#ffffff" />
-                  <circle cx="50" cy="46" r="6" fill="#002244" stroke="#ffffff" strokeWidth="1.5" />
-                  <path d="M26 80 Q50 90 74 80" stroke="#ff9933" strokeWidth="2.5" fill="none" />
-                  <text x="50" y="87" fill="#ffffff" fontSize="6.5" textAnchor="middle" fontWeight="bold">
-                    सत्यमेव जयते
-                  </text>
-                </svg>
+              {/* National Emblem of India */}
+              <div className="gov-national-emblem" title="भारत सरकारचे राजचिन्ह / State Emblem of India">
+                <Image
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                  alt="State Emblem of India"
+                  width={34}
+                  height={44}
+                  priority
+                />
+              </div>
+
+              <div className="gov-emblem-divider" aria-hidden="true" />
+
+              {/* Official PARVANGI Project Logo */}
+              <div className="gov-project-logo" title="PARVANGI (परवानगी) — अधिकृत बोधचिन्ह">
+                <Image
+                  src="/logo.png"
+                  alt="PARVANGI Official Project Logo"
+                  width={54}
+                  height={54}
+                  priority
+                />
               </div>
             </div>
 
@@ -56,16 +89,34 @@ export default function GovHeader({ onHomeClick }: GovHeaderProps) {
             </div>
           </div>
 
-          <div className="gov-header-meta no-print">
-            <span className="gov-initiative-tag">
-              {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : 'State Innovation Initiative'}
-            </span>
-            <span className="gov-sih-tag">
-              <strong>SIH26130</strong> · Govt of Maharashtra
-            </span>
-            <span style={{ fontSize: '11px', color: '#16a34a', fontWeight: 600 }}>
-              ● {language === 'mr' ? 'नियम डेटाबेस अद्ययावत (फेब्रुवारी २०२५)' : 'Rules Database Live (Feb 2025)'}
-            </span>
+          <div className="gov-header-actions no-print">
+            <div className="header-search-wrap">
+              <label htmlFor="global-search" className="sr-only">{language === 'mr' ? 'संपूर्ण पोर्टल शोधा' : 'Search the portal'}</label>
+              <input
+                id="global-search"
+                className="header-search-input"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={language === 'mr' ? 'परवानगी, विभाग किंवा योजना शोधा...' : 'Search approvals, departments or schemes...'}
+                autoComplete="off"
+              />
+              {debouncedQuery && (
+                <div className="header-search-results" role="listbox">
+                  {approvalResults.map((approval) => (
+                    <button key={approval.id} type="button" onClick={() => { onSearchSelect?.(); setQuery(''); }}>
+                      <strong>{approval.name}</strong><span>{approval.department}</span>
+                    </button>
+                  ))}
+                  {categoryResults.map((category) => (
+                    <button key={category.id} type="button" onClick={() => { onSearchSelect?.(); setQuery(''); }}>
+                      <strong>{category.name}</strong><span>Business category</span>
+                    </button>
+                  ))}
+                  {!hasSearchResults && <div className="header-search-empty">{language === 'mr' ? 'काही निकाल सापडले नाहीत.' : 'No matching results found.'}</div>}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useApp } from '@/lib/context';
 
 export default function AccessibilityBar() {
-  const { language, setLanguage, fontSize, setFontSize, highContrast, setHighContrast } = useApp();
+  const { language, setLanguage, fontSize, setFontSize } = useApp();
   const [currentDateTime, setCurrentDateTime] = useState<string>('');
 
   useEffect(() => {
@@ -83,16 +83,6 @@ export default function AccessibilityBar() {
                 </button>
               </div>
             </div>
-
-            <button
-              type="button"
-              className="gov-contrast-toggle"
-              onClick={() => setHighContrast(!highContrast)}
-              aria-pressed={highContrast}
-              title="Toggle high contrast"
-            >
-              {language === 'mr' ? 'उच्च कॉन्ट्रास्ट' : 'Contrast'}
-            </button>
 
             {/* Language Switcher */}
             <div className="gov-strip-item">

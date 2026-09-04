@@ -15,19 +15,31 @@ export default function PrintLetterhead({ result }: PrintLetterheadProps) {
   return (
     <div className="print-only-header" style={{ display: 'none' }}>
       {/* Top Emblem & Department Banner */}
-      <div style={{ textAlign: 'center', borderBottom: '2px solid #000000', paddingBottom: '12px', marginBottom: '16px' }}>
-        <div style={{ fontSize: '13pt', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-          Government of Maharashtra · महाराष्ट्र शासन
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #000000', paddingBottom: '12px', marginBottom: '16px' }}>
+        <img
+          src="/logo.png"
+          alt="PARVANGI Official Logo"
+          style={{ width: '56px', height: '56px', objectFit: 'contain' }}
+        />
+        <div style={{ textAlign: 'center', flex: 1, padding: '0 12px' }}>
+          <div style={{ fontSize: '13pt', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            Government of Maharashtra · महाराष्ट्र शासन
+          </div>
+          <div style={{ fontSize: '11pt', fontWeight: 600 }}>
+            Maharashtra State Innovation Society (MSIS) · उद्योग, ऊर्जा व कामगार विभाग
+          </div>
+          <div style={{ fontSize: '14pt', fontWeight: 800, marginTop: '4px', textDecoration: 'underline' }}>
+            PARVANGI (परवानगी) — STATUTORY APPROVAL CLEARANCE SCHEDULE
+          </div>
+          <div style={{ fontSize: '9pt', color: '#444444', marginTop: '2px' }}>
+            Issued under State Industrial Facilitation Framework | Reference: SIH26130
+          </div>
         </div>
-        <div style={{ fontSize: '11pt', fontWeight: 600 }}>
-          Maharashtra State Innovation Society (MSIS) · उद्योग, ऊर्जा व कामगार विभाग
-        </div>
-        <div style={{ fontSize: '14pt', fontWeight: 800, marginTop: '4px', textDecoration: 'underline' }}>
-          PARVANGI (परवानगी) — STATUTORY APPROVAL CLEARANCE SCHEDULE
-        </div>
-        <div style={{ fontSize: '9pt', color: '#444444', marginTop: '2px' }}>
-          Issued under State Industrial Facilitation Framework | Reference: SIH26130
-        </div>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+          alt="State Emblem of India"
+          style={{ width: '42px', height: '54px', objectFit: 'contain' }}
+        />
       </div>
 
       {/* Reference & Generation Metadata */}

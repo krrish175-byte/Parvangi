@@ -3,17 +3,19 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useApp } from '@/lib/context';
+import { ALL_APPROVALS } from '@/lib/rules-engine';
 
 export default function HomeImpactSection() {
   const { language } = useApp();
   const [activeSlide, setActiveSlide] = useState(0);
+  const [activeApprovalSlide, setActiveApprovalSlide] = useState(0);
 
   const approvalSlides = language === 'mr'
     ? [
         { department: 'MPCB', approval: 'पर्यावरण व प्रदूषण संमती', image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=85', alt: 'प्रयोगशाळेतील पर्यावरण तपासणी' },
         { department: 'MIDC', approval: 'औद्योगिक भूखंड व पायाभूत सुविधा', image: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1200&q=85', alt: 'भारतीय औद्योगिक उत्पादन केंद्र' },
         { department: 'DISH', approval: 'कारखाना सुरक्षा व कामगार कल्याण', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=85', alt: 'सुरक्षित औद्योगिक कामाचे ठिकाण' },
-        { department: 'Fire Department', approval: 'अग्निसुरक्षा प्रमाणपत्र', image: 'https://images.unsplash.com/photo-1605888969139-5b9c7d8f3e0b?auto=format&fit=crop&w=1200&q=85', alt: 'औद्योगिक अग्निसुरक्षा उपकरणे' },
+        { department: 'Fire Department', approval: 'अग्निसुरक्षा प्रमाणपत्र', image: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=1200&q=85', alt: 'औद्योगिक अग्निसुरक्षा उपकरणे' },
         { department: 'MSEDCL', approval: 'वीज जोडणी व औद्योगिक भार', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=85', alt: 'वीज पायाभूत सुविधा' },
         { department: 'Central Government', approval: 'उद्यम व वैधानिक नोंदणी', image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=85', alt: 'भारत सरकारचे प्रशासकीय भवन' }
       ]
@@ -21,7 +23,7 @@ export default function HomeImpactSection() {
         { department: 'MPCB', approval: 'Environment & Pollution Consent', image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=85', alt: 'Environmental inspection laboratory' },
         { department: 'MIDC', approval: 'Industrial Land & Infrastructure', image: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=1200&q=85', alt: 'Indian industrial production facility' },
         { department: 'DISH', approval: 'Factory Safety & Worker Welfare', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=85', alt: 'Safe industrial workplace' },
-        { department: 'Fire Department', approval: 'Fire Safety Certificate', image: 'https://images.unsplash.com/photo-1605888969139-5b9c7d8f3e0b?auto=format&fit=crop&w=1200&q=85', alt: 'Industrial fire safety equipment' },
+        { department: 'Fire Department', approval: 'Fire Safety Certificate', image: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=1200&q=85', alt: 'Industrial fire safety equipment' },
         { department: 'MSEDCL', approval: 'Power Connection & Load', image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=85', alt: 'Electricity infrastructure' },
         { department: 'Central Government', approval: 'Udyam & Statutory Registration', image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=85', alt: 'Government administrative building in India' }
       ];
@@ -32,6 +34,13 @@ export default function HomeImpactSection() {
     }, 5000);
     return () => window.clearInterval(intervalId);
   }, [approvalSlides.length]);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveApprovalSlide((slide) => (slide + 1) % ALL_APPROVALS.slice(0, 16).length);
+    }, 5000);
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   const updates = language === 'mr'
     ? ['नवीन उद्योग सुरू करण्यापूर्वी योग्य परवानग्या तपासा', 'MPCB, DISH आणि MIDC नियम एका ठिकाणी', 'तुमचा वैयक्तिक परवानगी रोडमॅप ६० सेकंदांत तयार करा']
@@ -48,6 +57,8 @@ export default function HomeImpactSection() {
         { label: 'UDYAM REGISTRATION', title: 'Start With The Right Classification', text: 'Understand your MSME tier and next compliance step from your investment range.', color: 'var(--gov-navy)' },
         { label: 'DIC ASSISTANCE', title: 'Find Your District Support', text: 'Connect with official district guidance and physical verification assistance when needed.', color: 'var(--gov-green)' }
       ];
+
+  const approvalDirectory = ALL_APPROVALS.slice(0, 16);
 
   return (
     <section className="home-impact-section">
@@ -76,6 +87,9 @@ export default function HomeImpactSection() {
                 fill
                 sizes="(max-width: 768px) 100vw, 55vw"
                 aria-hidden={index !== activeSlide}
+                onError={(event) => {
+                  event.currentTarget.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=85';
+                }}
               />
             ))}
             <div className="impact-image-caption">
@@ -134,6 +148,33 @@ export default function HomeImpactSection() {
               <span className="scheme-link">{language === 'mr' ? 'अधिक जाणून घ्या' : 'Learn more'} <span>→</span></span>
             </article>
           ))}
+        </div>
+
+        <div className="approval-index-heading">
+          <div>
+            <span className="section-kicker">{language === 'mr' ? 'संपूर्ण परवानगी निर्देशिका' : 'Complete approval index'}</span>
+            <h2>{language === 'mr' ? '१६ विभाग, एक स्पष्ट मार्गदर्शक' : '16 departments, one clear guide'}</h2>
+          </div>
+          <span>{language === 'mr' ? 'नियम डेटाबेसमधून थेट' : 'Sourced directly from the rules database'}</span>
+        </div>
+
+        <div className="approval-index-carousel" aria-roledescription="carousel" aria-label={language === 'mr' ? '१६ परवानग्यांची चित्रपट्टी' : '16 approval guide carousel'}>
+          <article className="approval-index-card">
+            <span className="approval-index-number">{String(activeApprovalSlide + 1).padStart(2, '0')}</span>
+            <div>
+              <span className="approval-index-department">{approvalDirectory[activeApprovalSlide].department}</span>
+              <h3>{language === 'mr' ? approvalDirectory[activeApprovalSlide].marathi_name : approvalDirectory[activeApprovalSlide].name}</h3>
+              <p>{approvalDirectory[activeApprovalSlide].one_line_description}</p>
+            </div>
+            <span className={`approval-index-status ${approvalDirectory[activeApprovalSlide].mandatory_or_conditional === 'Mandatory' ? 'mandatory' : 'conditional'}`}>
+              {approvalDirectory[activeApprovalSlide].mandatory_or_conditional}
+            </span>
+          </article>
+          <div className="approval-index-controls">
+            <button type="button" onClick={() => setActiveApprovalSlide((activeApprovalSlide - 1 + approvalDirectory.length) % approvalDirectory.length)} aria-label="Previous approval">←</button>
+            <span>{activeApprovalSlide + 1} / {approvalDirectory.length}</span>
+            <button type="button" onClick={() => setActiveApprovalSlide((activeApprovalSlide + 1) % approvalDirectory.length)} aria-label="Next approval">→</button>
+          </div>
         </div>
       </div>
     </section>
