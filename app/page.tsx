@@ -18,11 +18,27 @@ import MaitriGapModal from '@/components/home/MaitriGapModal';
 import HelpdeskModal from '@/components/helpdesk/HelpdeskModal';
 import { useApp } from '@/lib/context';
 
+const SAVED_CHECKLIST_KEY = 'parvangi-saved-checklist';
+
+function getSavedChecklist(): ChecklistResult | null {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    const saved = window.localStorage.getItem(SAVED_CHECKLIST_KEY);
+    return saved ? (JSON.parse(saved) as ChecklistResult) : null;
+  } catch {
+    return null;
+  }
+}
+
 export default function HomePage() {
   const { language } = useApp();
 
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap'>('home');
-  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(null);
+  const [savedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
+  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap'>(
+    savedChecklist ? 'checklist' : 'home'
+  );
+  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(savedChecklist);
   const [profileForEdit, setProfileForEdit] = useState<UserProfileInput | undefined>(undefined);
 
   // Modals
@@ -40,6 +56,7 @@ export default function HomePage() {
 
   const handleChecklistGenerated = (result: ChecklistResult) => {
     setActiveResult(result);
+    window.localStorage.setItem(SAVED_CHECKLIST_KEY, JSON.stringify(result));
     setCurrentView('checklist');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -55,6 +72,7 @@ export default function HomePage() {
   const handleLoadSampleProfile = (profile: UserProfileInput) => {
     const result = generateApprovalChecklist(profile);
     setActiveResult(result);
+    window.localStorage.setItem(SAVED_CHECKLIST_KEY, JSON.stringify(result));
     setShowTrackModal(false);
     setCurrentView('checklist');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -94,6 +112,18 @@ export default function HomePage() {
         {/* VIEW 1: HOMEPAGE */}
         {currentView === 'home' && (
           <div>
+            {savedChecklist && activeResult && (
+              <div className="saved-checklist-banner gov-container no-print">
+                <div>
+                  <strong>{language === 'mr' ? 'तुमची जतन केलेली तपासणी उपलब्ध आहे' : 'Your saved checklist is ready'}</strong>
+                  <span>{language === 'mr' ? 'तुमचा मागील परवानगी अनुक्रम पुन्हा उघडा.' : 'Resume your previous approval roadmap.'}</span>
+                </div>
+                <button type="button" className="btn-gov-secondary" onClick={() => setCurrentView('checklist')}>
+                  {language === 'mr' ? 'पुन्हा उघडा' : 'Resume Checklist'}
+                </button>
+              </div>
+            )}
+
             <HeroBanner
               onStartWizard={handleStartWizard}
               onViewDirectory={() => setShowDirectoryModal(true)}

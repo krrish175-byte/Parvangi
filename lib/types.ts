@@ -4,6 +4,8 @@ export type ScaleTier = 'micro' | 'small' | 'medium';
 
 export type BusinessStage = 'new_unit' | 'expansion' | 'formalize';
 
+export type ApprovalStatus = 'pending' | 'in_progress' | 'completed';
+
 export interface BusinessCategory {
   id: string;
   name: string;

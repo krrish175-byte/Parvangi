@@ -2,15 +2,17 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
-import { ApprovalRecord } from '@/lib/types';
+import { ApprovalRecord, ApprovalStatus } from '@/lib/types';
 import { ALL_APPROVALS } from '@/lib/rules-engine';
 
 interface ApprovalItemCardProps {
   approval: ApprovalRecord;
   itemIndex: number;
+  status: ApprovalStatus;
+  onStatusChange: (status: ApprovalStatus) => void;
 }
 
-export default function ApprovalItemCard({ approval, itemIndex }: ApprovalItemCardProps) {
+export default function ApprovalItemCard({ approval, itemIndex, status, onStatusChange }: ApprovalItemCardProps) {
   const { language } = useApp();
   const [showDocs, setShowDocs] = useState<boolean>(false);
 
@@ -20,6 +22,11 @@ export default function ApprovalItemCard({ approval, itemIndex }: ApprovalItemCa
     .filter(Boolean);
 
   const isMandatory = approval.mandatory_or_conditional === 'Mandatory';
+  const statusLabels: Record<ApprovalStatus, string> = {
+    pending: language === 'mr' ? 'प्रलंबित' : 'Pending',
+    in_progress: language === 'mr' ? 'प्रगतीपथावर' : 'In Progress',
+    completed: language === 'mr' ? 'पूर्ण' : 'Completed'
+  };
 
   return (
     <div
@@ -187,6 +194,15 @@ export default function ApprovalItemCard({ approval, itemIndex }: ApprovalItemCa
 
       {/* Action Footer: Documents checklist toggle + Official Portal Link */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+        <label className="approval-status-control">
+          <span>{language === 'mr' ? 'स्थिती:' : 'Status:'}</span>
+          <select value={status} onChange={(e) => onStatusChange(e.target.value as ApprovalStatus)} aria-label={`${approval.name} status`}>
+            {(Object.keys(statusLabels) as ApprovalStatus[]).map((option) => (
+              <option key={option} value={option}>{statusLabels[option]}</option>
+            ))}
+          </select>
+        </label>
+
         <button
           type="button"
           onClick={() => setShowDocs(!showDocs)}

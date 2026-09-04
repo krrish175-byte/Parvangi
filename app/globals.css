@@ -43,19 +43,23 @@
 
   /* Layout & Sizing Defaults */
   --font-base: 14px;
+  --font-scale: 1;
   --container-max-width: 1240px;
   --gov-radius: 4px; /* Crisp institutional corners, no excessive roundness */
 }
 
 /* Accessibility Font Resizing Classes */
 html[data-font-size="small"] {
-  --font-base: 13px;
+  --font-base: 12px;
+  --font-scale: 0.85;
 }
 html[data-font-size="normal"] {
-  --font-base: 14.5px;
+  --font-base: 16px;
+  --font-scale: 1;
 }
 html[data-font-size="large"] {
-  --font-base: 16.5px;
+  --font-base: 20px;
+  --font-scale: 1.3;
 }
 
 * {
@@ -74,6 +78,11 @@ body {
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#main-content {
+  zoom: var(--font-scale);
 }
 
 a {
@@ -174,6 +183,42 @@ a:hover {
 }
 .gov-lang-toggle:hover {
   background-color: var(--gov-saffron);
+}
+
+.gov-contrast-toggle {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #335985;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.gov-contrast-toggle:hover,
+.gov-contrast-toggle[aria-pressed="true"] {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html[data-high-contrast] body {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+html[data-high-contrast] .gov-card,
+html[data-high-contrast] .saved-checklist-banner,
+html[data-high-contrast] .filter-controls-bar {
+  border-color: #000000 !important;
+  box-shadow: none;
+}
+
+html[data-high-contrast] a,
+html[data-high-contrast] button,
+html[data-high-contrast] select,
+html[data-high-contrast] input {
+  outline-offset: 2px;
 }
 
 /* Primary Header */
@@ -373,6 +418,10 @@ a:hover {
   background-color: var(--gov-saffron-hover);
   color: #ffffff;
 }
+.btn-gov-primary:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
 
 .btn-gov-secondary {
   background-color: var(--gov-navy);
@@ -555,6 +604,268 @@ a:hover {
   text-align: center;
   font-size: 11.5px;
   color: #94a3b8;
+}
+
+.saved-checklist-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 12px 16px;
+  background-color: var(--gov-saffron-light);
+  border: 1px solid var(--gov-saffron-border);
+  border-radius: var(--gov-radius);
+  color: var(--gov-navy);
+}
+
+.saved-checklist-banner div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.saved-checklist-banner span {
+  font-size: 12px;
+  color: var(--gov-text-secondary);
+}
+
+.approval-status-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--gov-navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.approval-status-control select {
+  padding: 4px 7px;
+  border: 1px solid var(--gov-border-strong);
+  border-radius: 3px;
+  background-color: #ffffff;
+  color: var(--gov-text-primary);
+  font-size: 12px;
+}
+
+.approval-progress-summary {
+  color: var(--gov-navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .gov-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .gov-strip-content,
+  .gov-strip-left,
+  .gov-strip-right {
+    width: 100%;
+  }
+
+  .gov-strip-content {
+    align-items: flex-start;
+  }
+
+  .gov-strip-left,
+  .gov-strip-right {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .gov-strip-right {
+    justify-content: flex-start;
+  }
+
+  .gov-header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .gov-header-meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .gov-brand {
+    min-width: 0;
+  }
+
+  .gov-title-block {
+    min-width: 0;
+  }
+
+  .gov-wordmark {
+    flex-wrap: wrap;
+    font-size: 22px;
+  }
+
+  .gov-wordmark-devanagari {
+    font-size: 19px;
+  }
+
+  .gov-nav-item {
+    padding: 9px 12px;
+  }
+
+  .gov-ticker-inner {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .gov-card {
+    padding: 16px;
+  }
+
+  .home-action-row > button,
+  .home-action-row > a {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .quick-links-title-row {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .saved-checklist-banner {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .saved-checklist-banner button {
+    width: 100%;
+  }
+
+  .gov-modal-shell {
+    max-height: calc(100dvh - 24px) !important;
+  }
+
+  .gov-modal-header {
+    align-items: flex-start !important;
+    gap: 10px;
+    padding: 12px 14px !important;
+  }
+
+  .gov-modal-header h2 {
+    font-size: 16px !important;
+    line-height: 1.35;
+  }
+
+  .gov-modal-shell > div:not(.gov-modal-header) {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .gov-accessibility-strip {
+    font-size: 11px;
+  }
+
+  .gov-strip-left,
+  .gov-strip-right {
+    gap: 6px 10px;
+  }
+
+  .gov-strip-item {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .gov-emblem-container {
+    gap: 7px;
+  }
+
+  .gov-state-seal {
+    width: 44px;
+    height: 44px;
+    font-size: 9px;
+  }
+
+  .gov-title-marathi {
+    font-size: 11px;
+  }
+
+  .gov-wordmark {
+    font-size: 19px;
+    gap: 5px;
+  }
+
+  .gov-wordmark-devanagari {
+    font-size: 17px;
+  }
+
+  .gov-subtitle {
+    font-size: 11px;
+  }
+
+  .gov-initiative-tag,
+  .gov-sih-tag {
+    font-size: 10px;
+  }
+
+  .gov-font-toggles {
+    gap: 2px;
+  }
+
+  .gov-font-btn {
+    padding: 3px 6px;
+  }
+
+  .gov-lang-toggle {
+    padding: 4px 7px;
+  }
+
+  .gov-nav-item {
+    font-size: 12px;
+    padding: 9px 10px;
+  }
+
+  .gov-ticker-strip {
+    font-size: 11.5px;
+  }
+
+  .wizard-top-bar {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .wizard-top-bar .btn-gov-outline-danger {
+    align-self: stretch;
+  }
+
+  .wizard-form-card {
+    padding: 16px !important;
+  }
+
+  .investment-value-row {
+    align-items: stretch !important;
+    flex-wrap: wrap;
+  }
+
+  .investment-value-row input {
+    flex: 1 1 110px;
+    min-width: 0;
+  }
+
+  .investment-value-row > span:last-child {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .wizard-navigation > * {
+    width: 100%;
+  }
+
+  .wizard-navigation button {
+    width: 100%;
+  }
 }
 
 /* PRINT STYLESHEET: Official Government of Maharashtra Letterhead Format */

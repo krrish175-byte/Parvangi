@@ -29,6 +29,7 @@ export default function MaitriGapModal({ onClose, onStartWizard }: MaitriGapModa
       onClick={onClose}
     >
       <div
+        className="gov-modal-shell"
         style={{
           backgroundColor: '#ffffff',
           borderRadius: 'var(--gov-radius)',
@@ -45,6 +46,7 @@ export default function MaitriGapModal({ onClose, onStartWizard }: MaitriGapModa
       >
         {/* Header */}
         <div
+          className="gov-modal-header"
           style={{
             padding: '16px 20px',
             borderBottom: '1.5px solid var(--gov-border)',

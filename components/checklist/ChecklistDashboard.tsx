@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
-import { ChecklistResult, PhaseGroup as PhaseGroupType } from '@/lib/types';
+import { ApprovalStatus, ChecklistResult, PhaseGroup as PhaseGroupType } from '@/lib/types';
 import ProfileSummaryBar from './ProfileSummaryBar';
 import TrustBanner from './TrustBanner';
 import MetricsOverview from './MetricsOverview';
@@ -26,6 +26,14 @@ export default function ChecklistDashboard({
   const [filterType, setFilterType] = useState<'all' | 'mandatory' | 'conditional'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
+  const [statuses, setStatuses] = useState<Record<string, ApprovalStatus>>(() => {
+    try {
+      const saved = window.localStorage.getItem(`parvangi-status-${result.referenceId}`);
+      return saved ? (JSON.parse(saved) as Record<string, ApprovalStatus>) : {};
+    } catch {
+      return {};
+    }
+  });
 
   const handlePrint = () => {
     window.print();
@@ -66,6 +74,13 @@ export default function ChecklistDashboard({
 
   // Compute total visible items
   const visibleCount = filteredPhaseGroups.reduce((acc, g) => acc + g.items.length, 0);
+  const completedCount = Object.values(statuses).filter((status) => status === 'completed').length;
+
+  const handleStatusChange = (approvalId: string, status: ApprovalStatus) => {
+    const nextStatuses = { ...statuses, [approvalId]: status };
+    setStatuses(nextStatuses);
+    window.localStorage.setItem(`parvangi-status-${result.referenceId}`, JSON.stringify(nextStatuses));
+  };
 
   return (
     <section style={{ padding: '24px 0 48px 0' }}>
@@ -219,6 +234,12 @@ export default function ChecklistDashboard({
             )}
           </div>
 
+          <span className="approval-progress-summary">
+            {language === 'mr'
+              ? `दृश्यमान: ${visibleCount} | पूर्ण: ${completedCount}/${result.metrics.total}`
+              : `Showing: ${visibleCount} | Completed: ${completedCount}/${result.metrics.total}`}
+          </span>
+
           {/* Search Box */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <input
@@ -267,6 +288,8 @@ export default function ChecklistDashboard({
                   key={group.phase}
                   group={group}
                   globalStartIndex={offset}
+                  statuses={statuses}
+                  onStatusChange={handleStatusChange}
                 />
               );
             })}

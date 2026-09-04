@@ -78,7 +78,7 @@ export default function QuickLinksRow({
       <div className="gov-container">
         {/* Section Title Header */}
         <div style={{ marginBottom: '20px', borderBottom: '2px solid var(--gov-border)', paddingBottom: '10px' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <div className="quick-links-title-row" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <h2
               style={{
                 fontSize: '18px',
