@@ -115,11 +115,11 @@ export default function HomePage() {
             {savedChecklist && activeResult && (
               <div className="saved-checklist-banner gov-container no-print">
                 <div>
-                  <strong>{language === 'mr' ? 'तुमची जतन केलेली तपासणी उपलब्ध आहे' : 'Your saved checklist is ready'}</strong>
-                  <span>{language === 'mr' ? 'तुमचा मागील परवानगी अनुक्रम पुन्हा उघडा.' : 'Resume your previous approval roadmap.'}</span>
+                  <strong>{language === 'mr' ? 'तुमची जतन केलेली तपासणी उपलब्ध आहे' : language === 'hi' ? 'आपकी सहेजी गई चेकलिस्ट तैयार है' : 'Your saved checklist is ready'}</strong>
+                  <span>{language === 'mr' ? 'तुमचा मागील परवानगी अनुक्रम पुन्हा उघडा.' : language === 'hi' ? 'अपना पिछला अनुमोदन रोडमैप फिर से शुरू करें।' : 'Resume your previous approval roadmap.'}</span>
                 </div>
                 <button type="button" className="btn-gov-secondary" onClick={() => setCurrentView('checklist')}>
-                  {language === 'mr' ? 'पुन्हा उघडा' : 'Resume Checklist'}
+                  {language === 'mr' ? 'पुन्हा उघडा' : language === 'hi' ? 'चेकलिस्ट फिर से शुरू करें' : 'Resume Checklist'}
                 </button>
               </div>
             )}
@@ -154,10 +154,10 @@ export default function HomePage() {
                         textTransform: 'uppercase'
                       }}
                     >
-                      THE VERIFIABLE COMPLIANCE ARCHITECTURE
+                      {language === 'mr' ? 'सत्यापन करण्यायोग्य अनुपालन प्रणाली' : language === 'hi' ? 'सत्यापन योग्य अनुपालन वास्तुकला' : 'THE VERIFIABLE COMPLIANCE ARCHITECTURE'}
                     </span>
                     <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--gov-navy-dark)', marginTop: '8px' }}>
-                      {language === 'mr' ? 'परवानगी हे इतर साधनांपेक्षा वेगळे कसे आहे?' : language === 'hi' ? 'How Parvangi Eliminates the Compliance Roadblock' : 'How Parvangi Eliminates the Compliance Roadblock'}
+                      {language === 'mr' ? 'परवानगी हे इतर साधनांपेक्षा वेगळे कसे आहे?' : language === 'hi' ? 'परवानगी अनुपालन की बाधाओं को कैसे दूर करती है' : 'How Parvangi Eliminates the Compliance Roadblock'}
                     </h2>
                   </div>
 
