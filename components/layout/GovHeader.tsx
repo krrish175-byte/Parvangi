@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '@/lib/context';
 
 interface GovHeaderProps {
@@ -9,6 +9,32 @@ interface GovHeaderProps {
 
 export default function GovHeader({ onHomeClick }: GovHeaderProps) {
   const { language } = useApp();
+  const [currentDateTime, setCurrentDateTime] = useState<string>('');
+
+  useEffect(() => {
+    const formatDateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      };
+      const locale = language === 'mr' ? 'mr-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
+      return now.toLocaleString(locale, options);
+    };
+
+    setCurrentDateTime(formatDateTime());
+    const timer = setInterval(() => {
+      setCurrentDateTime(formatDateTime());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [language]);
 
   return (
     <header className="gov-header">
@@ -58,12 +84,35 @@ export default function GovHeader({ onHomeClick }: GovHeaderProps) {
             <span className="gov-initiative-tag">
               {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : language === 'hi' ? 'राज्य नवाचार पहल' : 'State Innovation Initiative'}
             </span>
-            <span className="gov-sih-tag">
-              <strong>SIH26130</strong> · Govt of Maharashtra
-            </span>
-            <span style={{ fontSize: '11px', color: '#16a34a', fontWeight: 600 }}>
-              ● {language === 'mr' ? 'नियम डेटाबेस अद्ययावत (फेब्रुवारी २०२५)' : language === 'hi' ? 'नियम डेटाबेस लाइव (फरवरी 2025)' : 'Rules Database Live (Feb 2025)'}
-            </span>
+            {currentDateTime && (
+              <span
+                style={{
+                  fontSize: '11px',
+                  color: '#475569',
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  marginTop: '2px',
+                }}
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ color: '#002244' }}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                {currentDateTime}
+              </span>
+            )}
           </div>
         </div>
       </div>
