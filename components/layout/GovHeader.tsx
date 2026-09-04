@@ -28,7 +28,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
   }, []);
 
   useEffect(() => {
-    const formatDateTime = () => {
+    const updateTime = () => {
       const now = new Date();
       const options: Intl.DateTimeFormatOptions = {
         weekday: 'short',
@@ -41,15 +41,16 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
         hour12: true,
       };
       const locale = language === 'mr' ? 'mr-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-      return now.toLocaleString(locale, options);
+      setCurrentDateTime(now.toLocaleString(locale, options));
     };
 
-    setCurrentDateTime(formatDateTime());
-    const timer = setInterval(() => {
-      setCurrentDateTime(formatDateTime());
-    }, 1000);
+    const timer = setInterval(updateTime, 1000);
+    const initialTimeout = setTimeout(updateTime, 0);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      clearTimeout(initialTimeout);
+    };
   }, [language]);
 
   const handleLogout = () => {
