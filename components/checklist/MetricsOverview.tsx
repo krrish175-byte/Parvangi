@@ -14,37 +14,37 @@ export default function MetricsOverview({ metrics }: MetricsOverviewProps) {
   const stats = [
     {
       id: 'total',
-      label: language === 'mr' ? 'एकूण वैधानिक परवानग्या' : 'Total Required Approvals',
+      label: language === 'mr' ? 'एकूण वैधानिक परवानग्या' : language === 'hi' ? 'कुल आवश्यक मंजूरी' : 'Total Required Approvals',
       value: metrics.total,
-      badge: '100% Verified',
+      badge: language === 'mr' ? '१००% सत्यापित' : language === 'hi' ? '100% सत्यापित' : '100% Verified',
       color: 'var(--gov-navy)'
     },
     {
       id: 'mandatory',
-      label: language === 'mr' ? 'अनिवार्य परवानग्या' : 'Mandatory Clearances',
+      label: language === 'mr' ? 'अनिवार्य परवानग्या' : language === 'hi' ? 'अनिवार्य मंजूरी' : 'Mandatory Clearances',
       value: metrics.mandatoryCount,
-      badge: 'Legally Compulsory',
+      badge: language === 'mr' ? 'कायदेशीररित्या बंधनकारक' : language === 'hi' ? 'कानूनी रूप से अनिवार्य' : 'Legally Compulsory',
       color: 'var(--gov-status-mandatory)'
     },
     {
       id: 'conditional',
-      label: language === 'mr' ? 'सशर्त / प्रक्रियेनुसार' : 'Conditional Clearances',
+      label: language === 'mr' ? 'सशर्त / प्रक्रियेनुसार' : language === 'hi' ? 'सशर्त मंजूरी' : 'Conditional Clearances',
       value: metrics.conditionalCount,
-      badge: metrics.conditionalCount > 0 ? 'Process Dependent' : 'None Applicable',
+      badge: metrics.conditionalCount > 0 ? (language === 'mr' ? 'प्रक्रियेवर अवलंबून' : language === 'hi' ? 'प्रक्रिया पर निर्भर' : 'Process Dependent') : (language === 'mr' ? 'लागू नाही' : language === 'hi' ? 'लागू नहीं' : 'None Applicable'),
       color: 'var(--gov-status-conditional)'
     },
     {
       id: 'timeline',
-      label: language === 'mr' ? 'अंदाजे कालावधी (समांतर टप्पे)' : 'Est. Sequential Turnaround',
-      value: `${metrics.estimatedDaysMin}–${metrics.estimatedDaysMax} Days`,
-      badge: 'Phased Processing',
+      label: language === 'mr' ? 'अंदाजे कालावधी (समांतर टप्पे)' : language === 'hi' ? 'अनुमानित समय' : 'Est. Sequential Turnaround',
+      value: language === 'mr' ? `${metrics.estimatedDaysMin}–${metrics.estimatedDaysMax} दिवस` : language === 'hi' ? `${metrics.estimatedDaysMin}–${metrics.estimatedDaysMax} दिन` : `${metrics.estimatedDaysMin}–${metrics.estimatedDaysMax} Days`,
+      badge: language === 'mr' ? 'टप्प्याटप्प्याने प्रक्रिया' : language === 'hi' ? 'चरणबद्ध प्रसंस्करण' : 'Phased Processing',
       color: '#0f766e'
     },
     {
       id: 'departments',
-      label: language === 'mr' ? 'नियमन विभाग व प्राधिकरणे' : 'Regulating Departments',
+      label: language === 'mr' ? 'नियमन विभाग व प्राधिकरणे' : language === 'hi' ? 'विनियमन विभाग' : 'Regulating Departments',
       value: metrics.departmentCount,
-      badge: 'State & Central',
+      badge: language === 'mr' ? 'राज्य व केंद्र' : language === 'hi' ? 'राज्य और केंद्र' : 'State & Central',
       color: 'var(--gov-navy-light)'
     }
   ];

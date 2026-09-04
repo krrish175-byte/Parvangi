@@ -15,23 +15,23 @@ export default function WizardStepper({ currentStep, onStepClick, maxStepAllowed
   const steps = [
     {
       step: 1,
-      name: language === 'mr' ? '१. उद्योग प्रकार' : '1. Category',
-      subtext: language === 'mr' ? 'कामाचे स्वरूप' : 'Sector / Trade'
+      name: language === 'mr' ? '१. उद्योग प्रकार' : language === 'hi' ? '१. श्रेणी' : '1. Category',
+      subtext: language === 'mr' ? 'कामाचे स्वरूप' : language === 'hi' ? 'क्षेत्र / व्यापार' : 'Sector / Trade'
     },
     {
       step: 2,
-      name: language === 'mr' ? '२. जागेचे स्थान' : '2. Location',
-      subtext: language === 'mr' ? 'MIDC / मनपा / ग्रामीण' : 'Jurisdiction'
+      name: language === 'mr' ? '२. जागेचे स्थान' : language === 'hi' ? '२. स्थान' : '2. Location',
+      subtext: language === 'mr' ? 'MIDC / मनपा / ग्रामीण' : language === 'hi' ? 'अधिकार क्षेत्र' : 'Jurisdiction'
     },
     {
       step: 3,
-      name: language === 'mr' ? '३. गुंतवणूक व आकार' : '3. Scale (MSME)',
-      subtext: language === 'mr' ? 'भांडवल / कामगार' : 'Capital & Sizing'
+      name: language === 'mr' ? '३. गुंतवणूक व आकार' : language === 'hi' ? '३. आकार (MSME)' : '3. Scale (MSME)',
+      subtext: language === 'mr' ? 'भांडवल / कामगार' : language === 'hi' ? 'पूंजी और आकार' : 'Capital & Sizing'
     },
     {
       step: 4,
-      name: language === 'mr' ? '४. प्रकल्प टप्पा' : '4. Project Stage',
-      subtext: language === 'mr' ? 'नवीन / विस्तार' : 'New / Expansion'
+      name: language === 'mr' ? '४. प्रकल्प टप्पा' : language === 'hi' ? '४. परियोजना चरण' : '4. Project Stage',
+      subtext: language === 'mr' ? 'नवीन / विस्तार' : language === 'hi' ? 'नया / विस्तार' : 'New / Expansion'
     }
   ];
 

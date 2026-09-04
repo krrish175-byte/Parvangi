@@ -133,31 +133,46 @@ export function groupIntoPhases(approvals: ApprovalRecord[]): PhaseGroup[] {
     phase: 1 | 2 | 3 | 4;
     name: string;
     marathi_name: string;
+    hindi_name: string;
     description: string;
+    marathi_description: string;
+    hindi_description: string;
   }[] = [
     {
       phase: 1,
       name: 'Phase 1: Legal Identity & Business Registration',
       marathi_name: 'टप्पा १: कायदेशीर ओळख व प्राथमिक नोंदणी',
-      description: 'Zero-cost and quick digital registrations establishing legal persona, tax identification, and local business intimation.'
+      hindi_name: 'चरण १: कानूनी पहचान और प्रारंभिक पंजीकरण',
+      description: 'Zero-cost and quick digital registrations establishing legal persona, tax identification, and local business intimation.',
+      marathi_description: 'कायदेशीर व्यक्तिमत्व, कर ओळख आणि स्थानिक व्यवसाय सूचना स्थापित करणारी विनामूल्य आणि जलद डिजिटल नोंदणी.',
+      hindi_description: 'कानूनी व्यक्तित्व, कर पहचान और स्थानीय व्यवसाय सूचना स्थापित करने वाला शून्य-लागत और त्वरित डिजिटल पंजीकरण।'
     },
     {
       phase: 2,
       name: 'Phase 2: Land, Planning & Construction Clearances',
       marathi_name: 'टप्पा २: जागा, नियोजन व बांधकाम परवानग्या',
-      description: 'Zoning approvals, architectural blueprints, and preliminary fire safety clearances required prior to commencing civil site construction.'
+      hindi_name: 'चरण २: भूमि, योजना और निर्माण मंजूरी',
+      description: 'Zoning approvals, architectural blueprints, and preliminary fire safety clearances required prior to commencing civil site construction.',
+      marathi_description: 'स्थापत्य बांधकाम सुरू करण्यापूर्वी आवश्यक झोनिंग मान्यता, वास्तुशास्त्रीय ब्ल्यूप्रिंट्स आणि प्राथमिक अग्निसुरक्षा परवानग्या.',
+      hindi_description: 'सिविल निर्माण शुरू करने से पहले आवश्यक ज़ोनिंग अनुमोदन, वास्तुशिल्प ब्लूप्रिंट और प्रारंभिक अग्नि सुरक्षा मंजूरी।'
     },
     {
       phase: 3,
       name: 'Phase 3: Environmental, Safety & Structural Approvals',
       marathi_name: 'टप्पा ३: पर्यावरण, कामगार सुरक्षा व वैधानिक दाखले',
-      description: 'Critical statutory clearances including MPCB Consent to Establish and Factory License approval; legally binding before equipment commissioning.'
+      hindi_name: 'चरण ३: पर्यावरण, श्रम सुरक्षा और वैधानिक प्रमाण पत्र',
+      description: 'Critical statutory clearances including MPCB Consent to Establish and Factory License approval; legally binding before equipment commissioning.',
+      marathi_description: 'एमपीसिबी (MPCB) संमती आणि फॅक्टरी लायसन्स मंजुरी यांसारखे महत्त्वपूर्ण वैधानिक परवाने; यंत्रसामग्री सुरू करण्यापूर्वी कायदेशीररित्या बंधनकारक.',
+      hindi_description: 'एमपीसीबी स्थापना सहमति और फैक्ट्री लाइसेंस अनुमोदन सहित महत्वपूर्ण वैधानिक मंजूरी; उपकरण चालू करने से पहले कानूनी रूप से बाध्यकारी।'
     },
     {
       phase: 4,
       name: 'Phase 4: Operational Licenses, Consents & Utility Connections',
       marathi_name: 'टप्पा ४: प्रत्यक्ष संचालन, वीज-पाणी जोडणी व अंतिम परवाने',
-      description: 'Final physical inspections, industrial high-tension/low-tension power energization, piped water allotment, and MPCB Consent to Operate.'
+      hindi_name: 'चरण ४: संचालन लाइसेंस, बिजली-पानी कनेक्शन और अंतिम परमिट',
+      description: 'Final physical inspections, industrial high-tension/low-tension power energization, piped water allotment, and MPCB Consent to Operate.',
+      marathi_description: 'अंतिम भौतिक तपासणी, औद्योगिक उच्च/कमी दाबाची वीज जोडणी, पाणी वाटप आणि एमपीसिबी (MPCB) संमती.',
+      hindi_description: 'अंतिम भौतिक निरीक्षण, औद्योगिक उच्च/निम्न-तनाव बिजली कनेक्शन, पाइप जलापूर्ति आवंटन, और एमपीसीबी संचालन सहमति।'
     }
   ];
 
