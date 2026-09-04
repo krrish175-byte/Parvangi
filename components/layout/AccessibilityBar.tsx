@@ -4,7 +4,7 @@ import React from 'react';
 import { useApp } from '@/lib/context';
 
 export default function AccessibilityBar() {
-  const { language, setLanguage, fontSize, setFontSize } = useApp();
+  const { language, setLanguage, fontSize, setFontSize, highContrast, setHighContrast } = useApp();
 
   return (
     <div className="gov-accessibility-strip no-print">
@@ -27,12 +27,6 @@ export default function AccessibilityBar() {
           </div>
 
           <div className="gov-strip-right">
-            <span className="gov-strip-item">
-              <a href="#main-content" style={{ color: '#93c5fd' }}>
-                {language === 'mr' ? 'मुख्य सामग्रीकडे जा' : 'Skip to main content'}
-              </a>
-            </span>
-
             {/* Font Size Scaling Controls */}
             <div className="gov-strip-item">
               <span style={{ fontSize: '11px', marginRight: '4px' }}>
@@ -43,6 +37,7 @@ export default function AccessibilityBar() {
                   type="button"
                   className={`gov-font-btn ${fontSize === 'small' ? 'active' : ''}`}
                   onClick={() => setFontSize('small')}
+                  aria-pressed={fontSize === 'small'}
                   title="Smaller Text"
                 >
                   A-
@@ -51,6 +46,7 @@ export default function AccessibilityBar() {
                   type="button"
                   className={`gov-font-btn ${fontSize === 'normal' ? 'active' : ''}`}
                   onClick={() => setFontSize('normal')}
+                  aria-pressed={fontSize === 'normal'}
                   title="Normal Text"
                 >
                   A
@@ -59,12 +55,23 @@ export default function AccessibilityBar() {
                   type="button"
                   className={`gov-font-btn ${fontSize === 'large' ? 'active' : ''}`}
                   onClick={() => setFontSize('large')}
+                  aria-pressed={fontSize === 'large'}
                   title="Larger Text"
                 >
                   A+
                 </button>
               </div>
             </div>
+
+            <button
+              type="button"
+              className="gov-contrast-toggle"
+              onClick={() => setHighContrast(!highContrast)}
+              aria-pressed={highContrast}
+              title="Toggle high contrast"
+            >
+              {language === 'mr' ? 'उच्च कॉन्ट्रास्ट' : 'Contrast'}
+            </button>
 
             {/* Language Switcher */}
             <div className="gov-strip-item">
