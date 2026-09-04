@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
+import { Building2, MapPin, Phone, Mail, Search, X } from 'lucide-react';
 
 interface HelpdeskModalProps {
   onClose: () => void;
@@ -67,12 +68,15 @@ export default function HelpdeskModal({ onClose }: HelpdeskModalProps) {
             alignItems: 'center'
           }}
         >
-          <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-              🏛️ {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) संपर्क निर्देशिका' : 'District Industries Centres (DIC) Directory'}
-            </h2>
-            <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
-              Official contact coordinates for General Managers of DICs across Maharashtra
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Building2 size={18} color="var(--gov-navy)" />
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--gov-navy)' }}>
+                {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) संपर्क निर्देशिका' : 'District Industries Centres (DIC) Directory'}
+              </h2>
+              <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
+                Official contact coordinates for General Managers of DICs across Maharashtra
+              </div>
             </div>
           </div>
           <button
@@ -86,24 +90,27 @@ export default function HelpdeskModal({ onClose }: HelpdeskModalProps) {
               cursor: 'pointer'
             }}
           >
-            ✕
+            <X size={16} />
           </button>
         </div>
 
         <div style={{ padding: '16px 20px', backgroundColor: '#f8fafc', borderBottom: '1px solid var(--gov-border-subtle)' }}>
-          <input
-            type="text"
-            placeholder="Search district (e.g. Pune, Nashik, Thane)..."
-            value={districtQuery}
-            onChange={(e) => setDistrictQuery(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '8px 12px',
-              fontSize: '13px',
-              border: '1px solid #94a3b8',
-              borderRadius: '3px'
-            }}
-          />
+          <div style={{ position: 'relative' }}>
+            <input
+              type="text"
+              placeholder="Search district (e.g. Pune, Nashik, Thane)..."
+              value={districtQuery}
+              onChange={(e) => setDistrictQuery(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '8px 12px 8px 32px',
+                fontSize: '13px',
+                border: '1px solid #94a3b8',
+                borderRadius: '3px'
+              }}
+            />
+            <Search size={14} color="#64748b" style={{ position: 'absolute', left: '10px', top: '10px' }} />
+          </div>
         </div>
 
         <div style={{ padding: '16px 20px', overflowY: 'auto', flex: 1 }}>
@@ -135,12 +142,19 @@ export default function HelpdeskModal({ onClose }: HelpdeskModalProps) {
                     NODAL DIC
                   </span>
                 </div>
-                <div style={{ fontSize: '12px', color: 'var(--gov-text-secondary)', marginBottom: '6px' }}>
-                  📍 {dic.address}
+                <div style={{ fontSize: '12px', color: 'var(--gov-text-secondary)', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <MapPin size={13} color="var(--gov-saffron)" />
+                  <span>{dic.address}</span>
                 </div>
                 <div style={{ display: 'flex', gap: '16px', fontSize: '11.5px', color: 'var(--gov-text-muted)', flexWrap: 'wrap' }}>
-                  <span>📞 Phone: <strong>{dic.phone}</strong></span>
-                  <span>✉️ Email: <strong>{dic.email}</strong></span>
+                  <a href={`tel:${dic.phone.replace(/[^0-9]/g, '')}`} style={{ color: 'var(--gov-navy)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <Phone size={12} />
+                    <span>Phone: <strong>{dic.phone}</strong></span>
+                  </a>
+                  <a href={`mailto:${dic.email}`} style={{ color: 'var(--gov-navy)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <Mail size={12} />
+                    <span>Email: <strong>{dic.email}</strong></span>
+                  </a>
                 </div>
               </div>
             ))}
@@ -156,3 +170,4 @@ export default function HelpdeskModal({ onClose }: HelpdeskModalProps) {
     </div>
   );
 }
+

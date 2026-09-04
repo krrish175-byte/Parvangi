@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
-import { UserProfileInput } from '@/lib/types';
+import { ChecklistResult, UserProfileInput } from '@/lib/types';
+import { Search, Lightbulb, X } from 'lucide-react';
 
 interface TrackChecklistModalProps {
   onClose: () => void;
@@ -70,12 +71,30 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
   ];
 
   const handleLookup = () => {
-    if (!refCode.trim()) {
-      setError('Please enter a valid Reference ID (e.g. MH-PRV-2025-XXXXX)');
+    const code = refCode.trim().toUpperCase();
+    if (!code) {
+      setError('Please enter a valid Reference ID (e.g. MH-PRV-2026-XXXXX)');
       return;
     }
 
-    // Load default sample if custom code is typed
+    // Attempt lookup in localStorage
+    if (typeof window !== 'undefined') {
+      try {
+        const savedStr = localStorage.getItem('PARVANGI_SAVED_CHECKLISTS');
+        if (savedStr) {
+          const savedMap: Record<string, ChecklistResult> = JSON.parse(savedStr);
+          if (savedMap[code]) {
+            setError('');
+            onLoadProfile(savedMap[code].profile);
+            return;
+          }
+        }
+      } catch (e) {
+        console.error('LocalStorage read error', e);
+      }
+    }
+
+    // Fallback if code not found in local storage
     setError('');
     onLoadProfile(sampleProfiles[0].profile);
   };
@@ -119,13 +138,16 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
             alignItems: 'center'
           }}
         >
-          <div>
-            <h2 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-              🔍 {language === 'mr' ? 'परवानगी सूची ट्रॅक करा / शोधा' : 'Track Existing Approval Schedule'}
-            </h2>
-            <span style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
-              Recall your previously evaluated regulatory sequence
-            </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Search size={18} color="var(--gov-navy)" />
+            <div>
+              <h2 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--gov-navy)' }}>
+                {language === 'mr' ? 'परवानगी सूची ट्रॅक करा / शोधा' : 'Track Existing Approval Schedule'}
+              </h2>
+              <span style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
+                Recall your previously evaluated regulatory sequence
+              </span>
+            </div>
           </div>
           <button
             type="button"
@@ -138,7 +160,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
               cursor: 'pointer'
             }}
           >
-            ✕
+            <X size={16} />
           </button>
         </div>
 
@@ -155,7 +177,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
               <input
                 id="reference-code-input"
                 type="text"
-                placeholder="e.g. MH-PRV-2025-48201"
+                placeholder="e.g. MH-PRV-2026-48201"
                 value={refCode}
                 onChange={(e) => {
                   setRefCode(e.target.value.toUpperCase());
@@ -175,9 +197,10 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
                 type="button"
                 className="btn-gov-primary"
                 onClick={handleLookup}
-                style={{ padding: '9px 18px' }}
+                style={{ padding: '9px 18px', gap: '6px' }}
               >
-                {language === 'mr' ? 'शोधा' : 'Lookup'}
+                <Search size={14} />
+                <span>{language === 'mr' ? 'शोधा' : 'Lookup'}</span>
               </button>
             </div>
             {error && (
@@ -189,8 +212,9 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
 
           {/* Quick Demo Pre-sets */}
           <div style={{ borderTop: '1px solid var(--gov-border-subtle)', paddingTop: '14px' }}>
-            <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '8px' }}>
-              💡 {language === 'mr' ? 'किंवा चाचणीसाठी थेट नमुना उद्योग लोड करा:' : 'Or Instantly Test With Real Case Profiles:'}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '8px' }}>
+              <Lightbulb size={15} color="var(--gov-saffron)" />
+              <span>{language === 'mr' ? 'किंवा चाचणीसाठी थेट नमुना उद्योग लोड करा:' : 'Or Instantly Test With Real Case Profiles:'}</span>
             </div>
             <div style={{ display: 'grid', gap: '8px' }}>
               {sampleProfiles.map((s, idx) => (
@@ -231,3 +255,4 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
     </div>
   );
 }
+

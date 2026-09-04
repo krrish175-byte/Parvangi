@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useApp } from '@/lib/context';
+import { Home, Zap, ClipboardList, BookOpen, Scale } from 'lucide-react';
 
 interface GovNavBarProps {
   currentView: 'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap';
@@ -20,7 +21,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             className={`gov-nav-item ${currentView === 'home' ? 'active' : ''}`}
             onClick={() => onNavigate('home')}
           >
-            <span>🏛️</span>
+            <Home size={15} />
             <span>{language === 'mr' ? 'मुख्यपृष्ठ' : 'Home'}</span>
           </li>
 
@@ -28,7 +29,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             className={`gov-nav-item highlight-cta ${currentView === 'wizard' ? 'active' : ''}`}
             onClick={() => onNavigate('wizard')}
           >
-            <span>⚡</span>
+            <Zap size={15} />
             <span>{language === 'mr' ? 'नवीन परवानगी तपासा (Wizard)' : 'Check What You Need'}</span>
             <span
               style={{
@@ -49,7 +50,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
               className={`gov-nav-item ${currentView === 'checklist' ? 'active' : ''}`}
               onClick={() => onNavigate('checklist')}
             >
-              <span>📋</span>
+              <ClipboardList size={15} />
               <span>{language === 'mr' ? 'माझी परवानगी सूची (Checklist)' : 'My Active Checklist'}</span>
             </li>
           )}
@@ -58,7 +59,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             className={`gov-nav-item ${currentView === 'directory' ? 'active' : ''}`}
             onClick={() => onNavigate('directory')}
           >
-            <span>📚</span>
+            <BookOpen size={15} />
             <span>{language === 'mr' ? 'सर्व १६ परवानग्या (Repository)' : 'Know Your Approvals'}</span>
           </li>
 
@@ -66,7 +67,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             className={`gov-nav-item ${currentView === 'maitri_gap' ? 'active' : ''}`}
             onClick={() => onNavigate('maitri_gap')}
           >
-            <span>⚖️</span>
+            <Scale size={15} />
             <span>{language === 'mr' ? 'MAITRI 2.0 तुलना (The Gap)' : 'MAITRI 2.0 vs Parvangi'}</span>
           </li>
         </ul>
@@ -74,3 +75,4 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
     </nav>
   );
 }
+
