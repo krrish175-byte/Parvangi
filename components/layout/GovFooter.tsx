@@ -84,7 +84,7 @@ export default function GovFooter() {
               </li>
               <li style={{ marginTop: '6px' }}>
                 <span style={{ display: 'block', color: '#94a3b8' }}>Operational Hours:</span>
-                <span>Mon – Sat: 09:00 AM – 06:00 PM IST</span>
+                <span>Mon - Sat: 09:00 AM - 06:00 PM IST</span>
               </li>
               <li style={{ marginTop: '6px' }}>
                 <span style={{ display: 'block', color: '#94a3b8' }}>Grievance Email:</span>
@@ -112,16 +112,16 @@ export default function GovFooter() {
                   PARVANGI (परवानगी)
                 </strong>
                 <span style={{ fontSize: '11px', color: '#ffb74d', fontWeight: 600 }}>
-                  Statutory Approval Checklist Engine
+                  Statutory Approval Clearance Engine
                 </span>
               </div>
             </div>
             <p style={{ lineHeight: 1.6, color: '#cbd5e1' }}>
-              <strong>PARVANGI (परवानगी)</strong> is developed under Smart India Hackathon (SIH26130) for the{' '}
-              <strong>Maharashtra State Innovation Society (MSIS)</strong>, Government of Maharashtra.
+              <strong>PARVANGI (परवानगी)</strong> is an official regulatory guidance framework of the{' '}
+              <strong>Maharashtra State Innovation Society (MSIS)</strong> &amp; <strong>Directorate of Industries</strong>, Government of Maharashtra.
             </p>
             <p style={{ marginTop: '8px', fontSize: '11.5px', color: '#94a3b8' }}>
-              Built specifically to bridge the compliance discovery barrier for first-time Micro and Small industrial enterprises.
+              Dedicated statutory approval discovery and workflow orchestration for Micro, Small, and Medium enterprises in Maharashtra.
             </p>
           </div>
         </div>

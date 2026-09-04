@@ -1,16 +1,12 @@
 # PARVANGI (परवानगी)
-### SIH26130 · Government of Maharashtra / Maharashtra State Innovation Society
-**"Know what you need, before you need it."**
+### Statutory Approval Clearance & Compliance Framework · Government of Maharashtra
+**Directorate of Industries & Maharashtra State Innovation Society (MSIS)**
 
 ---
 
-## The Real Regulatory Gap
+## Overview
 
-Maharashtra's flagship system, **MAITRI 2.0** (maitri.maharashtra.gov.in, relaunched in February 2025 consolidating 119 services across 15 departments), primarily serves **Large, Mega, and Ultra-Mega projects (₹10 crore investment and above)** with dedicated Relationship Managers.
-
-A small, first-time entrepreneur opening a food-processing unit, fabrication workshop, or textile unit with savings of ₹10–₹50 Lakhs is not the user MAITRI was built for. 
-
-> *"Anyone can ask ChatGPT what license they need and get a plausible-sounding, unverified answer. Parvangi's checklist comes from a structured regulatory database — verifiable, not guessed. And unlike MAITRI, it's built for the ₹10-lakh entrepreneur, not just the ₹10-crore one."*
+Entrepreneurs setting up industrial units in Maharashtra require multiple registrations, licenses, NOCs, and inspections from various authorities. **PARVANGI (परवानगी)** provides a unified, deterministic statutory clearance engine and compliance tracking workflow for Micro, Small, and Medium Enterprises (MSMEs).
 
 ---
 

@@ -36,7 +36,7 @@ export default function MetricsOverview({ metrics }: MetricsOverviewProps) {
     {
       id: 'timeline',
       label: language === 'mr' ? 'अंदाजे कालावधी (समांतर टप्पे)' : language === 'hi' ? 'अनुमानित समय' : 'Est. Sequential Turnaround',
-      value: language === 'mr' ? `${metrics.estimatedDaysMin}–${metrics.estimatedDaysMax} दिवस` : language === 'hi' ? `${metrics.estimatedDaysMin}–${metrics.estimatedDaysMax} दिन` : `${metrics.estimatedDaysMin}–${metrics.estimatedDaysMax} Days`,
+      value: language === 'mr' ? `${metrics.estimatedDaysMin}-${metrics.estimatedDaysMax} दिवस` : language === 'hi' ? `${metrics.estimatedDaysMin}-${metrics.estimatedDaysMax} दिन` : `${metrics.estimatedDaysMin}-${metrics.estimatedDaysMax} Days`,
       badge: language === 'mr' ? 'टप्प्याटप्प्याने प्रक्रिया' : language === 'hi' ? 'चरणबद्ध प्रसंस्करण' : 'Phased Processing',
       color: '#0f766e'
     },

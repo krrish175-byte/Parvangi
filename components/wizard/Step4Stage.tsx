@@ -12,6 +12,34 @@ interface Step4StageProps {
 export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps) {
   const { language } = useApp();
 
+  const renderStageIcon = (id: BusinessStage) => {
+    switch (id) {
+      case 'new_unit':
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+        );
+      case 'expansion':
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+            <polyline points="17 6 23 6 23 12" />
+          </svg>
+        );
+      case 'formalize':
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <polyline points="10 9 9 9 8 9" />
+          </svg>
+        );
+    }
+  };
+
   const stages: {
     id: BusinessStage;
     title: string;
@@ -19,7 +47,6 @@ export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps)
     badge: string;
     description: string;
     regulatoryScope: string;
-    icon: string;
   }[] = [
     {
       id: 'new_unit',
@@ -27,8 +54,7 @@ export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps)
       marathiTitle: 'नवीन उद्योग घटक उभारणी (Green-field)',
       badge: language === 'mr' ? 'संपूर्ण ४-टप्पे रोडमॅप' : language === 'hi' ? 'पूर्ण 4-चरण रोडमैप' : 'Complete 4-Phase Roadmap',
       description: language === 'mr' ? 'कोणतीही मशिनरी खरेदी करण्यापूर्वी किंवा बांधकाम सुरू करण्यापूर्वी पूर्णपणे नवीन उत्पादन लाईन, वर्कशॉप किंवा प्रोसेसिंग प्लांट सुरू करत असल्यास.' : language === 'hi' ? 'मशीनरी खरीदने या निर्माण शुरू करने से पहले शून्य से बिल्कुल नई उत्पादन लाइन, कार्यशाला या प्रसंस्करण संयंत्र शुरू करना।' : 'Starting a brand-new production line, workshop, or processing plant from ground zero before purchasing machinery or breaking ground.',
-      regulatoryScope: language === 'mr' ? 'संपूर्ण कायदेशीर प्रक्रिया: कायदेशीर ओळख → बांधकाम मंजुरी → Provisional Fire → MPCB CTE → फॅक्टरी मंजुरी → Final NOC → MPCB CTO → वीज/पाणी जोडणी.' : language === 'hi' ? 'पूर्ण एंड-टू-एंड वैधानिक अनुक्रम: कानूनी पहचान → भवन स्वीकृति → अनंतिम फायर → MPCB CTE → फैक्ट्री अनुमोदन → अंतिम NOC → MPCB CTO → विद्युत/जल कनेक्शन।' : 'Full end-to-end statutory sequence: Legal Identity → Building Sanction → Provisional Fire → MPCB CTE → Factory Approval → Final NOC → MPCB CTO → Power/Water energization.',
-      icon: '🌱'
+      regulatoryScope: language === 'mr' ? 'संपूर्ण कायदेशीर प्रक्रिया: कायदेशीर ओळख → बांधकाम मंजुरी → Provisional Fire → MPCB CTE → फॅक्टरी मंजुरी → Final NOC → MPCB CTO → वीज/पाणी जोडणी.' : language === 'hi' ? 'पूर्ण एंड-टू-एंड वैधानिक अनुक्रम: कानूनी पहचान → भवन स्वीकृति → अनंतिम फायर → MPCB CTE → फैक्ट्री अनुमोदन → अंतिम NOC → MPCB CTO → विद्युत/जल कनेक्शन।' : 'Full end-to-end statutory sequence: Legal Identity → Building Sanction → Provisional Fire → MPCB CTE → Factory Approval → Final NOC → MPCB CTO → Power/Water energization.'
     },
     {
       id: 'expansion',
@@ -36,8 +62,7 @@ export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps)
       marathiTitle: 'विद्यमान घटकाचा विस्तार / आधुनिकीकरण (Brown-field)',
       badge: language === 'mr' ? 'क्षमता आणि लोड विस्तार' : language === 'hi' ? 'क्षमता और भार वृद्धि' : 'Capacity & Load Enhancement',
       description: language === 'mr' ? 'नवीन यंत्रसामग्री जोडणे, पॉवर लोड वाढवणे, नवीन बॉयलर बसवणे किंवा फॅक्टरी शेडच्या क्षेत्रफळात वाढ करत असल्यास.' : language === 'hi' ? 'अतिरिक्त मशीनरी जोड़ना, कनेक्टेड पावर लोड बढ़ाना, नया बॉयलर स्थापित करना, या फैक्ट्री शेड का निर्मित क्षेत्र बढ़ाना।' : 'Adding additional machinery, increasing connected power load, installing a new boiler, or extending factory shed built-up area.',
-      regulatoryScope: language === 'mr' ? 'MPCB CTE (विस्तार), फॅक्टरी बांधकाम बदल मंजुरी, MSEDCL लोड वाढवणे आणि अतिरिक्त सुरक्षा NOC यांवर लक्ष केंद्रित करते.' : language === 'hi' ? 'MPCB CTE (विस्तार), फैक्ट्री भवन परिवर्तन स्वीकृति, उन्नत MSEDCL अनुबंध मांग, और अतिरिक्त सुरक्षा NOC पर ध्यान केंद्रित करता है।' : 'Focuses on MPCB CTE (Expansion/Amalgamation), Factory Building Alteration Sanction, enhanced MSEDCL contract demand, and additional safety NOCs.',
-      icon: '📈'
+      regulatoryScope: language === 'mr' ? 'MPCB CTE (विस्तार), फॅक्टरी बांधकाम बदल मंजुरी, MSEDCL लोड वाढवणे आणि अतिरिक्त सुरक्षा NOC यांवर लक्ष केंद्रित करते.' : language === 'hi' ? 'MPCB CTE (विस्तार), फैक्ट्री भवन परिवर्तन स्वीकृति, उन्नत MSEDCL अनुबंध मांग, और अतिरिक्त सुरक्षा NOC पर ध्यान केंद्रित करता है।' : 'Focuses on MPCB CTE (Expansion/Amalgamation), Factory Building Alteration Sanction, enhanced MSEDCL contract demand, and additional safety NOCs.'
     },
     {
       id: 'formalize',
@@ -45,8 +70,7 @@ export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps)
       marathiTitle: 'सध्या कार्यरत घटकाचे कायदेशीर नियमितीकरण',
       badge: language === 'mr' ? 'नियमितीकरण आणि अनुपालन' : language === 'hi' ? 'नियमितीकरण और अनुपालन' : 'Regularization & Compliances',
       description: language === 'mr' ? 'सध्या अनौपचारिक किंवा अंशतः कार्यरत असलेला उद्योग बँक कर्ज, टेंडर पात्रता किंवा सरकारी योजनांसाठी पूर्ण कायदेशीर पूर्तता शोधत असल्यास.' : language === 'hi' ? 'व्यवसाय वर्तमान में अनौपचारिक या आंशिक रूप से कार्य कर रहा है और अब बैंक ऋण, निविदा पात्रता या सरकारी योजनाओं के लिए पूर्ण वैधानिक अनुपालन चाहता है।' : 'Business is currently functioning informally or partially and now seeks full statutory compliance for bank loans, tender eligibility, or government schemes.',
-      regulatoryScope: language === 'mr' ? 'सुलभ नियमितीकरण: उद्यम MSME प्रमाणपत्र, GST नोंदणी, गुमास्ता / फॅक्टरी परवाना नियमितीकरण आणि थेट MPCB Consent to Operate (CTO).' : language === 'hi' ? 'सुव्यवस्थित नियमितीकरण: उद्यम MSME प्रमाण पत्र, GST पंजीकरण, गुमास्ता / फैक्ट्री लाइसेंस नियमितीकरण, और प्रत्यक्ष MPCB Consent to Operate (CTO)।' : 'Streamlined regularization: Udyam MSME certificate, GST registration, Shops & Establishment / Factory License regularization, and direct MPCB Consent to Operate (CTO).',
-      icon: '⚖️'
+      regulatoryScope: language === 'mr' ? 'सुलभ नियमितीकरण: उद्यम MSME प्रमाणपत्र, GST नोंदणी, गुमास्ता / फॅक्टरी परवाना नियमितीकरण आणि थेट MPCB Consent to Operate (CTO).' : language === 'hi' ? 'सुव्यवस्थित नियमितीकरण: उद्यम MSME प्रमाण पत्र, GST पंजीकरण, गुमास्ता / फैक्ट्री लाइसेंस नियमितीकरण, और प्रत्यक्ष MPCB Consent to Operate (CTO)।' : 'Streamlined regularization: Udyam MSME certificate, GST registration, Shops & Establishment / Factory License regularization, and direct MPCB Consent to Operate (CTO).'
     }
   ];
 
@@ -64,8 +88,8 @@ export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps)
           {language === 'mr'
             ? 'प्रकल्प टप्प्यानुसार आवश्यक परवानग्यांचा क्रम बदलतो; नवीन प्रकल्पासाठी प्राथमिक स्थापनेची संमती (CTE) आवश्यक असते, तर कार्यरत घटकास थेट संचालन संमती (CTO) लागू होऊ शकते.'
             : language === 'hi'
-            ? 'आपका चरण विनियामक जीवनचक्र निर्धारित करता है — चाहे आपको निर्माण-पूर्व सहमति (CTE और अनंतिम फायर) या परिचालन नियमितीकरण और भार वृद्धि की आवश्यकता हो।'
-            : 'Your stage determines the regulatory lifecycle — whether you require pre-construction consents (CTE & Provisional Fire) or operational regularization and load enhancements.'}
+            ? 'आपका चरण विनियामक जीवनचक्र निर्धारित करता है, चाहे आपको निर्माण-पूर्व सहमति (CTE और अनंतिम फायर) या परिचालन नियमितीकरण और भार वृद्धि की आवश्यकता हो।'
+            : 'Your stage determines the regulatory lifecycle, whether you require pre-construction consents (CTE & Provisional Fire) or operational regularization and load enhancements.'}
         </p>
       </div>
 
@@ -109,7 +133,7 @@ export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps)
                       flexShrink: 0
                     }}
                   />
-                  <span style={{ fontSize: '24px' }}>{stg.icon}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center' }}>{renderStageIcon(stg.id)}</span>
                 </div>
 
                 <span
@@ -148,7 +172,7 @@ export default function Step4Stage({ selectedStage, onSelect }: Step4StageProps)
                 }}
               >
                 <div style={{ color: 'var(--gov-navy)', fontWeight: 700, marginBottom: '2px' }}>
-                  📋 {language === 'mr' ? 'वैधानिक व्याप्ती:' : language === 'hi' ? 'अनुपालन कार्यप्रवाह प्रभाव:' : 'Compliance Workflow Impact:'}
+                  {language === 'mr' ? 'वैधानिक व्याप्ती:' : language === 'hi' ? 'अनुपालन कार्यप्रवाह प्रभाव:' : 'Compliance Workflow Impact:'}
                 </div>
                 <div style={{ color: 'var(--gov-text-muted)', lineHeight: 1.45 }}>
                   {stg.regulatoryScope}

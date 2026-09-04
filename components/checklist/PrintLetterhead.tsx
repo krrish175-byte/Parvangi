@@ -29,13 +29,13 @@ export default function PrintLetterhead({ result }: PrintLetterheadProps) {
             Government of Maharashtra · महाराष्ट्र शासन
           </div>
           <div style={{ fontSize: '11pt', fontWeight: 600 }}>
-            Maharashtra State Innovation Society (MSIS) · उद्योग, ऊर्जा व कामगार विभाग
+            Directorate of Industries · उद्योग संचालनालय
           </div>
-          <div style={{ fontSize: '14pt', fontWeight: 800, marginTop: '4px', textDecoration: 'underline' }}>
-            PARVANGI (परवानगी) — STATUTORY APPROVAL CLEARANCE SCHEDULE
+          <div style={{ fontSize: '13.5pt', fontWeight: 800, marginTop: '4px', textDecoration: 'underline' }}>
+            PARVANGI (परवानगी) | STATUTORY APPROVAL CLEARANCE SCHEDULE
           </div>
           <div style={{ fontSize: '9pt', color: '#444444', marginTop: '2px' }}>
-            Issued under State Industrial Facilitation Framework | Reference: SIH26130
+            Issued under State Industrial Statutory Facilitation Framework | Official Single Window
           </div>
         </div>
         <Image
@@ -119,7 +119,7 @@ export default function PrintLetterhead({ result }: PrintLetterheadProps) {
           marginBottom: '14px'
         }}
       >
-        <strong>LEGAL CERTIFICATION OF PRECEDENCE:</strong> The clearances listed below are topologically ordered based on statutory prerequisites mandated by the Factories Act 1948, Water/Air Prevention and Control of Pollution Acts, and the Maharashtra Fire Prevention Act 2006. <em>No civil construction or equipment installation may commence prior to Phase 2 and Phase 3 approvals.</em>
+        <strong>LEGAL CERTIFICATION OF PRECEDENCE:</strong> The clearances listed below are ordered based on statutory prerequisites mandated by the Factories Act 1948, Water/Air Prevention and Control of Pollution Acts, and the Maharashtra Fire Prevention Act 2006. <em>No civil construction or equipment installation may commence prior to Phase 2 and Phase 3 approvals.</em>
       </div>
     </div>
   );

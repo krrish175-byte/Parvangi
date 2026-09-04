@@ -780,11 +780,6 @@ html[data-high-contrast] input {
   letter-spacing: 0.5px;
 }
 
-.gov-sih-tag {
-  font-size: 11px;
-  color: var(--gov-text-muted);
-}
-
 .gov-header-actions {
   display: flex;
   align-items: center;
@@ -1429,8 +1424,7 @@ html[data-high-contrast] input {
     font-size: 11px;
   }
 
-  .gov-initiative-tag,
-  .gov-sih-tag {
+  .gov-initiative-tag {
     font-size: 10px;
   }
 

@@ -47,7 +47,7 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
         backgroundColor: '#ffffff',
         border: '1px solid var(--gov-border)',
         borderRadius: 'var(--gov-radius)',
-        padding: '14px 18px',
+        padding: '12px 18px',
         marginBottom: '16px',
         display: 'flex',
         alignItems: 'center',
@@ -57,7 +57,7 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--gov-navy)', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
           {language === 'mr' ? 'निवडलेली पार्श्वभूमी:' : language === 'hi' ? 'चयनित प्रोफ़ाइल:' : 'Selected Profile:'}
         </span>
 
@@ -69,11 +69,11 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
             border: '1px solid #bfdbfe',
             fontSize: '12px',
             fontWeight: 700,
-            padding: '3px 8px',
+            padding: '3px 9px',
             borderRadius: '3px'
           }}
         >
-          🏭 {categoryDetails?.name || profile.category}
+          {categoryDetails?.name || profile.category}
         </span>
 
         {/* Location Pill */}
@@ -84,11 +84,11 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
             border: '1px solid #cbd5e1',
             fontSize: '12px',
             fontWeight: 600,
-            padding: '3px 8px',
+            padding: '3px 9px',
             borderRadius: '3px'
           }}
         >
-          📍 {getLocationLabel(profile.location)}
+          {getLocationLabel(profile.location)}
         </span>
 
         {/* Scale Pill */}
@@ -99,11 +99,11 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
             border: '1px solid var(--gov-saffron-border)',
             fontSize: '12px',
             fontWeight: 700,
-            padding: '3px 8px',
+            padding: '3px 9px',
             borderRadius: '3px'
           }}
         >
-          💰 {formatINR(profile.investmentInLakhs)} ({profile.scale.toUpperCase()})
+          {formatINR(profile.investmentInLakhs)} ({profile.scale.toUpperCase()})
         </span>
 
         {/* Stage Pill */}
@@ -114,11 +114,11 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
             border: '1px solid #cbd5e1',
             fontSize: '12px',
             fontWeight: 600,
-            padding: '3px 8px',
+            padding: '3px 9px',
             borderRadius: '3px'
           }}
         >
-          ⚡ {getStageLabel(profile.stage)}
+          {getStageLabel(profile.stage)}
         </span>
 
         {/* District Pill */}
@@ -129,11 +129,11 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
               color: 'var(--gov-text-muted)',
               border: '1px solid #e2e8f0',
               fontSize: '12px',
-              padding: '3px 8px',
+              padding: '3px 9px',
               borderRadius: '3px'
             }}
           >
-            🏛️ {profile.district} {language === 'mr' ? 'जिल्हा' : language === 'hi' ? 'ज़िला' : 'District'}
+            {profile.district} {language === 'mr' ? 'जिल्हा' : language === 'hi' ? 'ज़िला' : 'District'}
           </span>
         )}
       </div>
@@ -142,9 +142,9 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
         type="button"
         className="btn-gov-outline"
         onClick={onEdit}
-        style={{ padding: '6px 14px', fontSize: '12.5px' }}
+        style={{ padding: '5px 14px', fontSize: '12px' }}
       >
-        ✏️ {language === 'mr' ? 'माहिती बदला' : language === 'hi' ? 'विवरण बदलें' : 'Modify Inputs'}
+        {language === 'mr' ? 'माहिती बदला' : language === 'hi' ? 'विवरण बदलें' : 'Modify Inputs'}
       </button>
     </div>
   );

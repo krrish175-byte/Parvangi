@@ -161,7 +161,7 @@ export default function TrackChecklistModal({
         >
           <div>
             <h2 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-              🔍 {language === 'mr' ? 'परवानगी सूची ट्रॅक करा / शोधा' : language === 'hi' ? 'मौजूदा अनुसूची ट्रैक करें' : 'Track Existing Approval Schedule'}
+              {language === 'mr' ? 'परवानगी सूची ट्रॅक करा / शोधा' : language === 'hi' ? 'मौजूदा अनुसूची ट्रैक करें' : 'Track Existing Approval Schedule'}
             </h2>
             <span style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
               Recall your previously evaluated regulatory sequence
@@ -202,7 +202,7 @@ export default function TrackChecklistModal({
             >
               <div>
                 <span style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--gov-navy)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  ⚡ {language === 'mr' ? 'या ब्राउझरमधील जतन केलेली तपासणी:' : 'Active Saved Evaluation in Browser:'}
+                  {language === 'mr' ? 'या ब्राउझरमधील जतन केलेली तपासणी:' : 'Active Saved Evaluation in Browser:'}
                 </span>
                 <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--gov-navy-dark)', marginTop: '2px' }}>
                   {savedChecklist.referenceId}
@@ -268,7 +268,7 @@ export default function TrackChecklistModal({
           {/* Quick Demo Pre-sets */}
           <div style={{ borderTop: '1px solid var(--gov-border-subtle)', paddingTop: '14px' }}>
             <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '8px' }}>
-              💡 {language === 'mr' ? 'किंवा चाचणीसाठी थेट नमुना उद्योग लोड करा:' : language === 'hi' ? 'Or Instantly Test With Real Case Profiles:' : 'Or Instantly Test With Real Case Profiles:'}
+              {language === 'mr' ? 'किंवा चाचणीसाठी थेट नमुना उद्योग लोड करा:' : language === 'hi' ? 'Or Instantly Test With Real Case Profiles:' : 'Or Instantly Test With Real Case Profiles:'}
             </div>
             <div style={{ display: 'grid', gap: '8px' }}>
               {sampleProfiles.map((s, idx) => (

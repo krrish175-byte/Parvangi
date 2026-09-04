@@ -50,7 +50,7 @@ export default function Step3Scale({
       lakhs: 250,
       tier: 'small' as ScaleTier,
       tag: language === 'mr' ? 'लघु · स्वयंचलित उत्पादन' : language === 'hi' ? 'लघु · स्वचालित विनिर्माण' : 'Small · Automated Manufacturing',
-      description: '10–25 worker factory'
+      description: '10-25 worker factory'
     },
     {
       label: language === 'mr' ? '₹१५.०० कोटी' : language === 'hi' ? '₹15.00 करोड़' : '₹15.00 Crores',
@@ -309,16 +309,13 @@ export default function Step3Scale({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '20px' }}>🏷️</span>
-            <div>
-              <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--gov-text-muted)', fontWeight: 700 }}>
-                {language === 'mr' ? 'अधिकृत एमएसएमई वर्गीकरण' : language === 'hi' ? 'आधिकारिक एमएसएमई आकार श्रेणी' : 'Official MSME Sizing Category'}
-              </div>
-              <strong style={{ fontSize: '17px', color: 'var(--gov-navy-dark)' }}>
-                {language === 'mr' ? currentClassification.marathi_title : language === 'hi' ? currentClassification.hindi_title : currentClassification.title}
-              </strong>
+          <div>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--gov-text-muted)', fontWeight: 700 }}>
+              {language === 'mr' ? 'अधिकृत एमएसएमई वर्गीकरण' : language === 'hi' ? 'आधिकारिक एमएसएमई आकार श्रेणी' : 'Official MSME Sizing Category'}
             </div>
+            <strong style={{ fontSize: '17px', color: 'var(--gov-navy-dark)' }}>
+              {language === 'mr' ? currentClassification.marathi_title : language === 'hi' ? currentClassification.hindi_title : currentClassification.title}
+            </strong>
           </div>
 
           <div
@@ -332,7 +329,7 @@ export default function Step3Scale({
               fontWeight: 700
             }}
           >
-            ✓ {language === 'mr' ? currentClassification.marathi_investmentRange : language === 'hi' ? currentClassification.hindi_investmentRange : currentClassification.investmentRange}
+            {language === 'mr' ? currentClassification.marathi_investmentRange : language === 'hi' ? currentClassification.hindi_investmentRange : currentClassification.investmentRange}
           </div>
         </div>
 
@@ -343,7 +340,7 @@ export default function Step3Scale({
         {/* Incentives Callout */}
         <div style={{ borderTop: '1px solid var(--gov-border-subtle)', paddingTop: '10px', marginTop: '10px' }}>
           <div style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '4px' }}>
-            💰 {language === 'mr' ? 'पात्र राज्य औद्योगिक प्रोत्साहने (PSI Scheme):' : language === 'hi' ? 'प्रमुख लागू राज्य प्रोत्साहन (महाराष्ट्र पीएसआई):' : 'Key Applicable State Incentives (Maharashtra PSI):'}
+            {language === 'mr' ? 'पात्र राज्य औद्योगिक प्रोत्साहने (PSI Scheme):' : language === 'hi' ? 'प्रमुख लागू राज्य प्रोत्साहन (महाराष्ट्र पीएसआई):' : 'Key Applicable State Incentives (Maharashtra PSI):'}
           </div>
           <ul style={{ listStyleType: 'square', paddingLeft: '18px', fontSize: '12px', color: 'var(--gov-text-muted)' }}>
             {(language === 'mr' ? currentClassification.marathi_subsidiesEligible : language === 'hi' ? currentClassification.hindi_subsidiesEligible : currentClassification.subsidiesEligible).map((sub, i) => (

@@ -131,7 +131,23 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
         <div className="gov-container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ fontSize: '32px' }}>🛡️</span>
+              <div
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '4px',
+                  backgroundColor: 'rgba(255, 183, 77, 0.2)',
+                  border: '1.5px solid #ffb74d',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffb74d" strokeWidth="2.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
               <div>
                 <div style={{ fontSize: '11.5px', color: '#ffb74d', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Directorate of Industries · Government of Maharashtra
@@ -394,7 +410,7 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
                         <td style={{ padding: '12px 14px', verticalAlign: 'top' }}>
                           <div style={{ fontWeight: 700, color: '#1e293b' }}>{app.userName}</div>
                           <div style={{ fontSize: '11px', color: '#475569' }}>
-                            Age: {app.userAge} · 📞 {app.userPhone}
+                            Age: {app.userAge} · Phone: {app.userPhone}
                           </div>
                           {app.userEmail && (
                             <div style={{ fontSize: '10.5px', color: '#64748b' }}>{app.userEmail}</div>
@@ -405,7 +421,7 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
                         <td style={{ padding: '12px 14px', verticalAlign: 'top' }}>
                           <div style={{ fontWeight: 700, color: '#002244' }}>{app.approvalName}</div>
                           <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-                            🏛️ {app.issuingAuthority}
+                            {app.issuingAuthority}
                           </div>
                           <span
                             style={{
@@ -430,13 +446,10 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
                               style={{
                                 fontSize: '11px',
                                 color: '#15803d',
-                                fontWeight: 700,
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '3px'
+                                fontWeight: 700
                               }}
                             >
-                              ✓ Precedence Met
+                              Precedence Satisfied
                             </span>
                           ) : (
                             <div
@@ -450,7 +463,7 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
                                 fontWeight: 600
                               }}
                             >
-                              ⚠️ Pending Prereq:
+                              Pending Prerequisite:
                               <div style={{ fontWeight: 700, fontSize: '10.5px', marginTop: '2px' }}>
                                 {prereq.missing.join(', ')}
                               </div>
@@ -510,7 +523,7 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
                               cursor: 'pointer'
                             }}
                           >
-                            Scrutinize & Update ⚙️
+                            Scrutinize & Update
                           </button>
                         </td>
                       </tr>
@@ -606,7 +619,7 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
                     marginBottom: '16px'
                   }}
                 >
-                  ✓ {updateSuccessMsg}
+                  {updateSuccessMsg}
                 </div>
               )}
 
@@ -628,7 +641,7 @@ export default function AdminDashboard({ onBackToCitizenView }: AdminDashboardPr
                   <strong>Authority:</strong> {selectedApp.issuingAuthority}
                 </div>
                 <div style={{ color: '#64748b', marginTop: '2px' }}>
-                  <strong>Citizen:</strong> {selectedApp.userName} (Age: {selectedApp.userAge}, Mobile: {selectedApp.userPhone})
+                  <strong>Citizen:</strong> {selectedApp.userName} (Age: {selectedApp.userAge}, Phone: {selectedApp.userPhone})
                 </div>
               </div>
 

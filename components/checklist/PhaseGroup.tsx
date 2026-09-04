@@ -103,16 +103,28 @@ export default function PhaseGroup({
             {group.items.length} {language === 'mr' ? 'परवानग्या' : language === 'hi' ? 'मंजूरी' : 'Approvals'}
           </span>
 
-          <span style={{ fontSize: '13px', color: 'var(--gov-navy)', fontWeight: 'bold' }}>
-            {isExpanded ? '▲' : '▼'}
+          <span style={{ display: 'inline-flex', alignItems: 'center', color: 'var(--gov-navy)' }}>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </span>
         </div>
       </div>
 
       {/* Phase Description Banner */}
       {isExpanded && (
-        <p style={{ fontSize: '11px', color: '#64748b', fontStyle: 'italic', padding: '10px 18px', backgroundColor: '#f8fafc', borderBottom: '1px solid var(--gov-border-subtle)', margin: 0 }}>
-          <span style={{ fontWeight: 700, color: 'var(--gov-navy)' }}>ℹ</span> {language === 'hi' ? group.hindi_description : language === 'mr' ? group.marathi_description : group.description}
+        <p style={{ fontSize: '11.5px', color: '#64748b', padding: '10px 18px', backgroundColor: '#f8fafc', borderBottom: '1px solid var(--gov-border-subtle)', margin: 0 }}>
+          {language === 'hi' ? group.hindi_description : language === 'mr' ? group.marathi_description : group.description}
         </p>
       )}
 

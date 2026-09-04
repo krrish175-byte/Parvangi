@@ -6,8 +6,8 @@ import { isAdminLoggedIn } from '@/lib/auth-store';
 import { getAllApplications } from '@/lib/application-store';
 
 interface GovNavBarProps {
-  currentView: 'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin';
-  onNavigate: (view: 'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin') => void;
+  currentView: 'home' | 'wizard' | 'checklist' | 'directory' | 'admin';
+  onNavigate: (view: 'home' | 'wizard' | 'checklist' | 'directory' | 'admin') => void;
   hasExistingChecklist?: boolean;
 }
 
@@ -38,8 +38,14 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             className={`gov-nav-item ${currentView === 'home' ? 'active' : ''}`}
             onClick={() => onNavigate('home')}
           >
-            <span>🏛️</span>
             <span>{language === 'mr' ? 'मुख्यपृष्ठ' : language === 'hi' ? 'होम' : 'Home'}</span>
+          </li>
+
+          <li
+            className={`gov-nav-item highlight-cta ${currentView === 'wizard' ? 'active' : ''}`}
+            onClick={() => onNavigate('wizard')}
+          >
+            <span>{language === 'mr' ? 'मंजुरी आवश्यकता पडताळणी' : language === 'hi' ? 'स्वीकृति आवश्यकता जांचें' : 'Statutory Clearance Wizard'}</span>
           </li>
 
           {hasExistingChecklist && (
@@ -47,10 +53,16 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
               className={`gov-nav-item ${currentView === 'checklist' ? 'active' : ''}`}
               onClick={() => onNavigate('checklist')}
             >
-              <span>📋</span>
-              <span>{language === 'mr' ? 'माझी परवानगी सूची (Checklist)' : language === 'hi' ? 'मेरी सक्रिय सूची' : 'My Active Checklist'}</span>
+              <span>{language === 'mr' ? 'माझी सक्रिय मंजुरी सूची' : language === 'hi' ? 'सक्रिय चेकलिस्ट' : 'My Active Checklist'}</span>
             </li>
           )}
+
+          <li
+            className={`gov-nav-item ${currentView === 'directory' ? 'active' : ''}`}
+            onClick={() => onNavigate('directory')}
+          >
+            <span>{language === 'mr' ? 'वैधानिक मंजुरी मार्गदर्शिका' : language === 'hi' ? 'वैधानिक निर्देशिका' : 'Approvals Repository'}</span>
+          </li>
 
           {isAdmin && (
             <li
@@ -61,8 +73,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
                 marginLeft: 'auto'
               }}
             >
-              <span>🛡️</span>
-              <span>{language === 'mr' ? 'अधिकारी नियंत्रण कक्ष' : language === 'hi' ? 'अधिकारी नियंत्रण कक्ष' : 'Officer Console'}</span>
+              <span>{language === 'mr' ? 'अधिकारी नियंत्रण कक्ष' : language === 'hi' ? 'अधिकारी नियंत्रण कक्ष' : 'Officer Scrutiny Console'}</span>
               <span
                 style={{
                   backgroundColor: '#ffffff',

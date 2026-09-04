@@ -151,7 +151,22 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '20px' }}>🏛️</span>
+            <div
+              style={{
+                width: '28px',
+                height: '28px',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid rgba(255,255,255,0.3)'
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
             <div>
               <div style={{ fontSize: '15px', fontWeight: 800, letterSpacing: '0.3px' }}>
                 PARVANGI · परवानगी
@@ -204,7 +219,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
               cursor: 'pointer'
             }}
           >
-            👤 {language === 'mr' ? 'नागरिक प्रवेश' : 'Citizen Login'}
+            {language === 'mr' ? 'नागरिक प्रवेश' : 'Citizen Login'}
           </button>
 
           <button
@@ -222,7 +237,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
               cursor: 'pointer'
             }}
           >
-            📝 {language === 'mr' ? 'नवीन नोंदणी' : 'New Registration'}
+            {language === 'mr' ? 'नवीन नोंदणी' : 'New Registration'}
           </button>
 
           <button
@@ -240,7 +255,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
               cursor: 'pointer'
             }}
           >
-            🛡️ {language === 'mr' ? 'अधिकारी प्रवेश' : 'Officer Login'}
+            {language === 'mr' ? 'अधिकारी प्रवेश' : 'Officer Login'}
           </button>
         </div>
 
@@ -253,8 +268,8 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
               </div>
               <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)', marginTop: '2px' }}>
                 {language === 'mr'
-                  ? 'कोणत्याही पासवर्डची गरज नाही — सरळ व जलद प्रवेश.'
-                  : 'No password required — direct, seamless citizen login.'}
+                  ? 'कोणत्याही पासवर्डची आवश्यकता नाही; सरळ व जलद प्रवेश.'
+                  : 'No password required; direct, seamless citizen login.'}
               </div>
             </div>
 
@@ -270,7 +285,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
                   marginBottom: '14px'
                 }}
               >
-                ⚠️ {loginError}
+                {loginError}
               </div>
             )}
 
@@ -319,7 +334,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
               }}
             >
               <div style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '8px' }}>
-                ⚡ {language === 'mr' ? 'चाचणी खाती (१-क्लिक डेमो):' : 'Evaluation Accounts (1-Click Demo):'}
+                {language === 'mr' ? 'चाचणी खाती (१-क्लिक डेमो):' : 'Evaluation Accounts (1-Click Demo):'}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {DEMO_USERS.map((user) => (
@@ -378,8 +393,8 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
               </div>
               <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)', marginTop: '2px' }}>
                 {language === 'mr'
-                  ? 'कोणताही पासवर्ड किंवा क्लिष्ट माहिती नाही — फक्त नाव, वय, फोन व ईमेल.'
-                  : 'No passwords or company filings required — instant simple onboarding.'}
+                  ? 'कोणताही पासवर्ड किंवा क्लिष्ट माहिती नाही; फक्त नाव, वय, फोन व ईमेल.'
+                  : 'No passwords or company filings required; instant simple onboarding.'}
               </div>
             </div>
 
@@ -395,7 +410,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
                   marginBottom: '14px'
                 }}
               >
-                ⚠️ {signupError}
+                {signupError}
               </div>
             )}
 
@@ -560,7 +575,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
               }}
             >
               <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#991b1b' }}>
-                🛡️ {language === 'mr' ? 'विभागीय अधिकारी / जिल्हा उद्योग केंद्र (DIC) लॉगिन' : 'Department Officer / DIC Scrutiny Access'}
+                {language === 'mr' ? 'विभागीय अधिकारी / जिल्हा उद्योग केंद्र (DIC) लॉगिन' : 'Department Officer / DIC Scrutiny Access'}
               </div>
               <div style={{ fontSize: '11px', color: '#7f1d1d', marginTop: '2px' }}>
                 {language === 'mr'
@@ -581,7 +596,7 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
                   marginBottom: '14px'
                 }}
               >
-                ⚠️ {adminError}
+                {adminError}
               </div>
             )}
 
@@ -680,11 +695,39 @@ export default function AuthModal({ initialTab = 'citizen_login', onClose, onSuc
                   cursor: 'pointer'
                 }}
               >
-                ⚡ 1-Click Officer Demo Login
+                1-Click Officer Demo Login
               </button>
             </div>
           </div>
         )}
+
+        {/* Public Guest Option */}
+        <div
+          style={{
+            padding: '12px 24px',
+            backgroundColor: '#f8fafc',
+            borderTop: '1px solid #e2e8f0',
+            textAlign: 'center'
+          }}
+        >
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#475569',
+              fontSize: '12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              textDecoration: 'underline'
+            }}
+          >
+            {language === 'mr'
+              ? 'सार्वजनिक अतिथी म्हणून पोर्टलवर सुरू ठेवा →'
+              : 'Continue as Public Visitor / Guest →'}
+          </button>
+        </div>
       </div>
     </div>
   );
