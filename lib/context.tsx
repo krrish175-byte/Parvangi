@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type Language = 'en' | 'mr';
+export type Language = 'en' | 'mr' | 'hi';
 export type FontSize = 'small' | 'normal' | 'large';
 
 interface AppContextType {
@@ -39,7 +39,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, [highContrast]);
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'en' ? 'mr' : 'en'));
+    setLanguage((prev) => {
+      if (prev === 'en') return 'mr';
+      if (prev === 'mr') return 'hi';
+      return 'en';
+    });
   };
 
   return (

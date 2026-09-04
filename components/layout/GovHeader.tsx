@@ -49,22 +49,20 @@ export default function GovHeader({ onHomeClick }: GovHeaderProps) {
                 <span className="gov-wordmark-devanagari">परवानगी</span>
               </div>
               <span className="gov-subtitle">
-                {language === 'mr'
-                  ? 'महाराष्ट्र राज्य नाविन्यता सोसायटी · सूक्ष्म व लघु उद्योगांसाठी वैधानिक परवानगी प्रणाली'
-                  : 'Maharashtra State Innovation Society (MSIS) · Statutory Approval Checklist Engine'}
+                {language === 'mr' ? 'महाराष्ट्र राज्य नाविन्यता सोसायटी · सूक्ष्म व लघु उद्योगांसाठी वैधानिक परवानगी प्रणाली' : language === 'hi' ? 'Maharashtra State Innovation Society (MSIS) · Statutory Approval Checklist Engine' : 'Maharashtra State Innovation Society (MSIS) · Statutory Approval Checklist Engine'}
               </span>
             </div>
           </div>
 
           <div className="gov-header-meta no-print">
             <span className="gov-initiative-tag">
-              {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : 'State Innovation Initiative'}
+              {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : language === 'hi' ? 'राज्य नवाचार पहल' : 'State Innovation Initiative'}
             </span>
             <span className="gov-sih-tag">
               <strong>SIH26130</strong> · Govt of Maharashtra
             </span>
             <span style={{ fontSize: '11px', color: '#16a34a', fontWeight: 600 }}>
-              ● {language === 'mr' ? 'नियम डेटाबेस अद्ययावत (फेब्रुवारी २०२५)' : 'Rules Database Live (Feb 2025)'}
+              ● {language === 'mr' ? 'नियम डेटाबेस अद्ययावत (फेब्रुवारी २०२५)' : language === 'hi' ? 'नियम डेटाबेस लाइव (फरवरी 2025)' : 'Rules Database Live (Feb 2025)'}
             </span>
           </div>
         </div>

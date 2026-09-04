@@ -103,7 +103,7 @@ export default function ChecklistDashboard({
           <div style={{ fontSize: '13px', color: 'var(--gov-text-muted)' }}>
             <span>Home / </span>
             <strong style={{ color: 'var(--gov-navy)' }}>
-              {language === 'mr' ? 'वैधानिक परवानगी अनुक्रम पत्र' : 'Approval Compliance Schedule'}
+              {language === 'mr' ? 'वैधानिक परवानगी अनुक्रम पत्र' : language === 'hi' ? 'अनुमोदन अनुपालन अनुसूची' : 'Approval Compliance Schedule'}
             </strong>
           </div>
 
@@ -128,7 +128,7 @@ export default function ChecklistDashboard({
               title="Print official letterhead schedule"
             >
               <span>🖨️</span>
-              <span>{language === 'mr' ? 'प्रिंट / पीडीएफ जतन करा' : 'Print / Save as PDF'}</span>
+              <span>{language === 'mr' ? 'प्रिंट / पीडीएफ जतन करा' : language === 'hi' ? 'प्रिंट / पीडीएफ सहेजें' : 'Print / Save as PDF'}</span>
             </button>
 
             <button
@@ -138,7 +138,7 @@ export default function ChecklistDashboard({
               style={{ fontSize: '12.5px', padding: '7px 16px' }}
             >
               <span>🔄</span>
-              <span>{language === 'mr' ? 'नवीन तपासणी' : 'New Evaluation'}</span>
+              <span>{language === 'mr' ? 'नवीन तपासणी' : language === 'hi' ? 'नया मूल्यांकन' : 'New Evaluation'}</span>
             </button>
           </div>
         </div>
@@ -177,7 +177,7 @@ export default function ChecklistDashboard({
           {/* Filter Pills */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginRight: '6px' }}>
-              {language === 'mr' ? 'फिल्टर:' : 'Filter Approvals:'}
+              {language === 'mr' ? 'फिल्टर:' : language === 'hi' ? 'फिल्टर अनुमोदन:' : 'Filter Approvals:'}
             </span>
 
             <button
@@ -194,7 +194,7 @@ export default function ChecklistDashboard({
                 cursor: 'pointer'
               }}
             >
-              {language === 'mr' ? 'सर्व परवानग्या' : 'All Clearances'} ({result.metrics.total})
+              {language === 'mr' ? 'सर्व परवानग्या' : language === 'hi' ? 'सभी मंजूरी' : 'All Clearances'} ({result.metrics.total})
             </button>
 
             <button
@@ -211,7 +211,7 @@ export default function ChecklistDashboard({
                 cursor: 'pointer'
               }}
             >
-              {language === 'mr' ? 'फक्त अनिवार्य' : 'Mandatory Only'} ({result.metrics.mandatoryCount})
+              {language === 'mr' ? 'फक्त अनिवार्य' : language === 'hi' ? 'केवल अनिवार्य' : 'Mandatory Only'} ({result.metrics.mandatoryCount})
             </button>
 
             {result.metrics.conditionalCount > 0 && (
@@ -229,7 +229,7 @@ export default function ChecklistDashboard({
                   cursor: 'pointer'
                 }}
               >
-                {language === 'mr' ? 'फक्त सशर्त' : 'Conditional Only'} ({result.metrics.conditionalCount})
+                {language === 'mr' ? 'फक्त सशर्त' : language === 'hi' ? 'केवल सशर्त' : 'Conditional Only'} ({result.metrics.conditionalCount})
               </button>
             )}
           </div>
@@ -244,7 +244,7 @@ export default function ChecklistDashboard({
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <input
               type="text"
-              placeholder={language === 'mr' ? 'परवाना किंवा कायदा शोधा...' : 'Search clearance or act...'}
+              placeholder={language === 'mr' ? 'परवाना किंवा कायदा शोधा...' : language === 'hi' ? 'मंजूरी या अधिनियम खोजें...' : 'Search clearance or act...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -307,7 +307,7 @@ export default function ChecklistDashboard({
           >
             <div style={{ fontSize: '24px', marginBottom: '8px' }}>🔍</div>
             <p style={{ fontSize: '14px', fontWeight: 600 }}>
-              No approvals match the current filter or search query.
+              {language === 'mr' ? 'कोणत्याही परवानग्या सध्याच्या फिल्टर किंवा शोधाशी जुळत नाहीत.' : language === 'hi' ? 'कोई भी अनुमोदन वर्तमान फ़िल्टर या खोज से मेल नहीं खाता।' : 'No approvals match the current filter or search query.'}
             </p>
             <button
               type="button"
@@ -318,7 +318,7 @@ export default function ChecklistDashboard({
               }}
               style={{ marginTop: '12px' }}
             >
-              Clear Filters
+              {language === 'mr' ? 'फिल्टर हटवा' : language === 'hi' ? 'फ़िल्टर साफ़ करें' : 'Clear Filters'}
             </button>
           </div>
         )}
@@ -341,10 +341,10 @@ export default function ChecklistDashboard({
         >
           <div style={{ maxWidth: '720px' }}>
             <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '2px' }}>
-              🏛️ {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) मार्गदर्शन कक्ष' : 'District Industries Centre (DIC) Assistance'}
+              🏛️ {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) मार्गदर्शन कक्ष' : language === 'hi' ? 'जिला उद्योग केंद्र सहायता' : 'District Industries Centre (DIC) Assistance'}
             </div>
             <p style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)', lineHeight: 1.45 }}>
-              Under the Maharashtra Industrial Policy, General Managers of DICs function as single-point nodal officers for micro and small enterprises. For fee waivers or physical verification assistance, contact the DIC at {result.profile.district || 'your local district headquarter'}.
+              {language === 'mr' ? `महाराष्ट्र औद्योगिक धोरणानुसार, सूक्ष्म व लघु उद्योगांसाठी DIC चे महाव्यवस्थापक सिंगल-पॉइंट नोडल ऑफिसर म्हणून काम करतात. शुल्क सवलत किंवा प्रत्यक्ष तपासणीसाठी, ${result.profile.district || 'तुमच्या स्थानिक'} येथील DIC शी संपर्क साधा.` : language === 'hi' ? `महाराष्ट्र औद्योगिक नीति के तहत, DIC के महाप्रबंधक सूक्ष्म और लघु उद्यमों के लिए सिंगल-पॉइंट नोडल अधिकारी के रूप में कार्य करते हैं। शुल्क में छूट या भौतिक सत्यापन सहायता के लिए, ${result.profile.district || 'अपने स्थानीय'} में DIC से संपर्क करें।` : `Under the Maharashtra Industrial Policy, General Managers of DICs function as single-point nodal officers for micro and small enterprises. For fee waivers or physical verification assistance, contact the DIC at ${result.profile.district || 'your local district headquarter'}.`}
             </p>
           </div>
 
@@ -354,7 +354,7 @@ export default function ChecklistDashboard({
             onClick={handlePrint}
             style={{ fontSize: '12.5px', padding: '7px 16px' }}
           >
-            🖨️ {language === 'mr' ? 'अधिकृत पत्र डाऊनलोड करा' : 'Download Letterhead PDF'}
+            🖨️ {language === 'mr' ? 'अधिकृत पत्र डाऊनलोड करा' : language === 'hi' ? 'लेटरहेड पीडीएफ डाउनलोड करें' : 'Download Letterhead PDF'}
           </button>
         </div>
       </div>

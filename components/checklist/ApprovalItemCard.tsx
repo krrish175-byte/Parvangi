@@ -59,8 +59,8 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
 
           <span className={isMandatory ? 'badge-mandatory' : 'badge-conditional'}>
             {isMandatory
-              ? language === 'mr' ? 'अनिवार्य परवाना' : 'Mandatory Approval'
-              : language === 'mr' ? 'सशर्त परवाना' : 'Conditional Approval'}
+              ? language === 'mr' ? 'अनिवार्य परवाना' : language === 'hi' ? 'अनिवार्य अनुमोदन' : 'Mandatory Approval'
+              : language === 'mr' ? 'सशर्त परवाना' : language === 'hi' ? 'सशर्त अनुमोदन' : 'Conditional Approval'}
           </span>
 
           <span
@@ -93,10 +93,9 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
           lineHeight: 1.3
         }}
       >
-        {approval.name}
+        {language === 'hi' ? approval.hindi_name || approval.name : language === 'mr' ? approval.marathi_name || approval.name : approval.name}
       </h3>
 
-      {/* Marathi Title */}
       <div
         style={{
           fontSize: '13px',
@@ -105,12 +104,12 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
           marginBottom: '8px'
         }}
       >
-        {approval.marathi_name}
+        {language === 'hi' || language === 'mr' ? approval.name : approval.marathi_name}
       </div>
 
       {/* Plain Description (One-line as mandated) */}
       <p style={{ fontSize: '13px', color: 'var(--gov-text-secondary)', lineHeight: 1.55, marginBottom: '10px' }}>
-        {approval.one_line_description}
+        {language === 'mr' ? approval.marathi_one_line_description || approval.one_line_description : language === 'hi' ? approval.hindi_one_line_description || approval.one_line_description : approval.one_line_description}
       </p>
 
       {/* Explicit Prerequisite Alert Banner */}
@@ -132,11 +131,9 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
           <span style={{ fontSize: '14px' }}>🔗</span>
           <span>
             <strong>
-              {language === 'mr' ? 'कायदेशीर पूर्वअट (Prerequisite):' : 'Legal Precedence Prerequisite:'}
+              {language === 'mr' ? 'कायदेशीर पूर्वअट (Prerequisite):' : language === 'hi' ? 'कानूनी प्राथमिकता पूर्वापेक्षा:' : 'Legal Precedence Prerequisite:'}
             </strong>{' '}
-            {language === 'mr'
-              ? `हा अर्ज करण्यापूर्वी खालील मंजुरी आवश्यक आहे: `
-              : `Must be preceded by approval of `}
+            {language === 'mr' ? `हा अर्ज करण्यापूर्वी खालील मंजुरी आवश्यक आहे: ` : language === 'hi' ? `इस अनुमोदन से पहले निम्नलिखित मंजूरी आवश्यक है: ` : `Must be preceded by approval of `}
             <span style={{ textDecoration: 'underline', fontWeight: 700 }}>
               {prerequisiteNames.join(' & ')}
             </span>
@@ -157,7 +154,7 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
             color: '#92400e'
           }}
         >
-          ⚠️ <strong>{language === 'mr' ? 'लागू असण्याची अट:' : 'Conditionality Trigger:'}</strong>{' '}
+          ⚠️ <strong>{language === 'mr' ? 'लागू असण्याची अट:' : language === 'hi' ? 'शर्त ट्रिगर:' : 'Conditionality Trigger:'}</strong>{' '}
           {approval.conditional_reason}
         </div>
       )}
@@ -178,16 +175,20 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
       >
         <div>
           <span style={{ color: 'var(--gov-text-muted)', display: 'block' }}>
-            {language === 'mr' ? 'संबंधित कायदा / नियम:' : 'Statutory Act & Rules:'}
+            {language === 'mr' ? 'संबंधित कायदा / नियम:' : language === 'hi' ? 'वैधानिक अधिनियम और नियम:' : 'Statutory Act & Rules:'}
           </span>
-          <strong style={{ color: 'var(--gov-text-primary)' }}>{approval.act_and_rule}</strong>
+          <strong style={{ color: 'var(--gov-text-primary)' }}>
+            {language === 'mr' ? approval.marathi_act_and_rule || approval.act_and_rule : language === 'hi' ? approval.hindi_act_and_rule || approval.act_and_rule : approval.act_and_rule}
+          </strong>
         </div>
 
         <div>
           <span style={{ color: 'var(--gov-text-muted)', display: 'block' }}>
-            {language === 'mr' ? 'अधिकृत सरकारी शुल्क रचना:' : 'Statutory Fee Schedule:'}
+            {language === 'mr' ? 'अधिकृत सरकारी शुल्क रचना:' : language === 'hi' ? 'वैधानिक शुल्क अनुसूची:' : 'Statutory Fee Schedule:'}
           </span>
-          <strong style={{ color: 'var(--gov-text-primary)' }}>{approval.fee_structure}</strong>
+          <strong style={{ color: 'var(--gov-text-primary)' }}>
+            {language === 'mr' ? approval.marathi_fee_structure || approval.fee_structure : language === 'hi' ? approval.hindi_fee_structure || approval.fee_structure : approval.fee_structure}
+          </strong>
         </div>
       </div>
 
@@ -221,8 +222,8 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
           <span>{showDocs ? '▼' : '►'}</span>
           <span>
             {showDocs
-              ? language === 'mr' ? 'कागदपत्रे लपवा' : 'Hide Required Documents'
-              : language === 'mr' ? 'आवश्यक कागदपत्रे पहा' : 'View Key Required Documents'}
+              ? language === 'mr' ? 'कागदपत्रे लपवा' : language === 'hi' ? 'दस्तावेज छुपाएं' : 'Hide Required Documents'
+              : language === 'mr' ? 'आवश्यक कागदपत्रे पहा' : language === 'hi' ? 'आवश्यक दस्तावेज देखें' : 'View Key Required Documents'}
           </span>
           <span style={{ color: 'var(--gov-text-muted)', fontWeight: 'normal' }}>
             ({approval.documents_preview.length})
@@ -248,7 +249,7 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
           }}
         >
           <span>🌐</span>
-          <span>{language === 'mr' ? 'शासकीय पोर्टल उघडा' : 'Access Government Portal'}</span>
+          <span>{language === 'mr' ? 'शासकीय पोर्टल उघडा' : language === 'hi' ? 'सरकारी पोर्टल तक पहुंचें' : 'Access Government Portal'}</span>
           <span>↗</span>
         </a>
       </div>
@@ -265,7 +266,7 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
           }}
         >
           <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gov-navy)', textTransform: 'uppercase', marginBottom: '4px' }}>
-            📑 {language === 'mr' ? 'अर्जासाठी लागणारी प्राथमिक कागदपत्रे:' : 'Mandatory Submission Documents Checklist:'}
+            📑 {language === 'mr' ? 'अर्जासाठी लागणारी प्राथमिक कागदपत्रे:' : language === 'hi' ? 'अनिवार्य प्रस्तुत दस्तावेज सूची:' : 'Mandatory Submission Documents Checklist:'}
           </div>
           <ul style={{ listStyleType: 'disc', paddingLeft: '18px', fontSize: '12px', color: 'var(--gov-text-secondary)', lineHeight: 1.6 }}>
             {approval.documents_preview.map((doc, idx) => (

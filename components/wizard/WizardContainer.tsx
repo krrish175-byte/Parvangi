@@ -107,9 +107,9 @@ export default function WizardContainer({
               style={{ color: 'var(--gov-navy)', cursor: 'pointer', textDecoration: 'underline' }}
               onClick={onCancel}
             >
-              {language === 'mr' ? 'मुख्यपृष्ठ' : 'Home'}
+              {language === 'mr' ? 'मुख्यपृष्ठ' : language === 'hi' ? 'होम' : 'Home'}
             </span>{' '}
-            / {language === 'mr' ? 'वैयक्तिक परवानगी इंजिन' : 'Personalized Approval Engine'}
+            / {language === 'mr' ? 'वैयक्तिक परवानगी इंजिन' : language === 'hi' ? 'व्यक्तिगत अनुमोदन इंजन' : 'Personalized Approval Engine'}
           </div>
 
           <button
@@ -118,7 +118,7 @@ export default function WizardContainer({
             onClick={onCancel}
             title="Cancel and return to home"
           >
-            ✕ {language === 'mr' ? 'रद्द करा' : 'Cancel'}
+            ✕ {language === 'mr' ? 'रद्द करा' : language === 'hi' ? 'रद्द करें' : 'Cancel'}
           </button>
         </div>
 
@@ -161,7 +161,7 @@ export default function WizardContainer({
                   htmlFor="district-select"
                   style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}
                 >
-                  📍 {language === 'mr' ? 'महाराष्ट्रातील जिल्हा निवडा:' : 'Select District in Maharashtra:'}
+                  📍 {language === 'mr' ? 'महाराष्ट्रातील जिल्हा निवडा:' : language === 'hi' ? 'महाराष्ट्र में जिले का चयन करें:' : 'Select District in Maharashtra:'}
                 </label>
                 <select
                   id="district-select"
@@ -184,7 +184,7 @@ export default function WizardContainer({
                   ))}
                 </select>
                 <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)', marginTop: '4px' }}>
-                  Used to identify your specific District Industries Centre (DIC) and regional MPCB sub-regional office.
+                  {language === 'mr' ? 'हे तुमचे संबंधित जिल्हा उद्योग केंद्र (DIC) आणि MPCB चे प्रादेशिक कार्यालय निश्चित करण्यासाठी वापरले जाते.' : language === 'hi' ? 'आपके विशिष्ट जिला उद्योग केंद्र (DIC) और क्षेत्रीय MPCB उप-क्षेत्रीय कार्यालय की पहचान करने के लिए उपयोग किया जाता है।' : 'Used to identify your specific District Industries Centre (DIC) and regional MPCB sub-regional office.'}
                 </div>
               </div>
             </div>
@@ -229,18 +229,18 @@ export default function WizardContainer({
                   className="btn-gov-outline"
                   onClick={goToPrevStep}
                 >
-                  ← {language === 'mr' ? 'मागे' : 'Back'}
+                  ← {language === 'mr' ? 'मागे' : language === 'hi' ? 'पीछे' : 'Back'}
                 </button>
               ) : (
-                <span style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
-                  Step 1 of 4: Business Category
-                </span>
+              <span style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
+                {language === 'mr' ? '४ पैकी टप्पा १: उद्योग प्रकार' : language === 'hi' ? '4 में से चरण 1: व्यवसाय श्रेणी' : 'Step 1 of 4: Business Category'}
+              </span>
               )}
             </div>
 
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
               <span style={{ fontSize: '12px', color: 'var(--gov-text-muted)', fontWeight: 600 }}>
-                {language === 'mr' ? `टप्पा ${currentStep} / ४` : `Step ${currentStep} of 4`}
+                {language === 'mr' ? `टप्पा ${currentStep} / ४` : language === 'hi' ? `चरण ${currentStep} / 4` : `Step ${currentStep} of 4`}
               </span>
 
               {currentStep < 4 ? (
@@ -249,7 +249,7 @@ export default function WizardContainer({
                   className="btn-gov-secondary"
                   onClick={goToNextStep}
                 >
-                  <span>{language === 'mr' ? 'पुढील टप्पा' : 'Continue to Next Step'}</span>
+                  <span>{language === 'mr' ? 'पुढील टप्पा' : language === 'hi' ? 'अगले चरण पर जारी रखें' : 'Continue to Next Step'}</span>
                   <span>→</span>
                 </button>
               ) : (
@@ -262,6 +262,7 @@ export default function WizardContainer({
                 >
                   <span>{isGenerating ? '⏳' : '⚡'}</span>
                   <span>
+                    {language === 'mr' ? 'माझी वैधानिक परवानगी सूची तयार करा' : language === 'hi' ? 'मेरी अनुमोदन चेकलिस्ट जनरेट करें' : 'Generate My Approval Checklist'}
                     {isGenerating
                       ? language === 'mr' ? 'तयार होत आहे...' : 'Generating...'
                       : language === 'mr'
