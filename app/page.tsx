@@ -16,6 +16,8 @@ import TrackChecklistModal from '@/components/tracking/TrackChecklistModal';
 import ApprovalsDirectoryModal from '@/components/directory/ApprovalsDirectoryModal';
 import MaitriGapModal from '@/components/home/MaitriGapModal';
 import HelpdeskModal from '@/components/helpdesk/HelpdeskModal';
+import AuthModal from '@/components/auth/AuthModal';
+import AdminDashboard from '@/components/admin/AdminDashboard';
 import { useApp } from '@/lib/context';
 
 const SAVED_CHECKLIST_KEY = 'parvangi-saved-checklist';
@@ -35,7 +37,7 @@ export default function HomePage() {
   const { language } = useApp();
 
   const [savedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap'>(
+  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin'>(
     savedChecklist ? 'checklist' : 'home'
   );
   const [activeResult, setActiveResult] = useState<ChecklistResult | null>(savedChecklist);
@@ -46,6 +48,10 @@ export default function HomePage() {
   const [showDirectoryModal, setShowDirectoryModal] = useState<boolean>(false);
   const [showMaitriModal, setShowMaitriModal] = useState<boolean>(false);
   const [showHelpdeskModal, setShowHelpdeskModal] = useState<boolean>(false);
+
+  // Auth Modal
+  const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [authModalTab, setAuthModalTab] = useState<'citizen_login' | 'citizen_signup' | 'admin_login'>('citizen_login');
 
   // Handlers
   const handleStartWizard = () => {
@@ -78,6 +84,17 @@ export default function HomePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleOpenAuth = (tab: 'citizen_login' | 'citizen_signup' | 'admin_login') => {
+    setAuthModalTab(tab);
+    setShowAuthModal(true);
+  };
+
+  const handleAuthSuccess = (type: 'citizen' | 'admin') => {
+    if (type === 'admin') {
+      setCurrentView('admin');
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {/* Official Tricolor National Stripe */}
@@ -87,7 +104,11 @@ export default function HomePage() {
       <AccessibilityBar />
 
       {/* Header */}
-      <GovHeader onHomeClick={() => setCurrentView('home')} />
+      <GovHeader
+        onHomeClick={() => setCurrentView('home')}
+        onOpenAuth={handleOpenAuth}
+        onNavigateAdmin={() => setCurrentView('admin')}
+      />
 
       {/* Navigation Bar */}
       <GovNavBar
@@ -109,6 +130,13 @@ export default function HomePage() {
 
       {/* Main Content Area */}
       <main id="main-content" style={{ flex: 1 }}>
+        {/* VIEW: ADMIN / OFFICER SCRUTINY CONSOLE */}
+        {currentView === 'admin' && (
+          <AdminDashboard
+            onBackToCitizenView={() => setCurrentView(activeResult ? 'checklist' : 'home')}
+          />
+        )}
+
         {/* VIEW 1: HOMEPAGE */}
         {currentView === 'home' && (
           <div>
@@ -247,6 +275,7 @@ export default function HomePage() {
             result={activeResult}
             onModifyProfile={handleModifyProfile}
             onRestartWizard={handleStartWizard}
+            onOpenAuthModal={() => handleOpenAuth('citizen_login')}
           />
         )}
       </main>
@@ -255,6 +284,14 @@ export default function HomePage() {
       <GovFooter />
 
       {/* MODALS */}
+      {showAuthModal && (
+        <AuthModal
+          initialTab={authModalTab}
+          onClose={() => setShowAuthModal(false)}
+          onSuccess={handleAuthSuccess}
+        />
+      )}
+
       {showTrackModal && (
         <TrackChecklistModal
           onClose={() => setShowTrackModal(false)}
