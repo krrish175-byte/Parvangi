@@ -137,15 +137,12 @@ export default function ApplyModal({
             borderBottom: '3px solid var(--gov-saffron)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '20px' }}>📋</span>
-            <div>
-              <div style={{ fontSize: '15px', fontWeight: 800 }}>
-                {language === 'mr' ? 'परवानगी अर्ज व स्थिती ट्रॅकिंग' : 'Approval Application & Status Tracking'}
-              </div>
-              <div style={{ fontSize: '11px', color: '#ffb74d' }}>
-                {approval.department}
-              </div>
+          <div>
+            <div style={{ fontSize: '15px', fontWeight: 800 }}>
+              {language === 'mr' ? 'परवानगी अर्ज व स्थिती ट्रॅकिंग' : 'Approval Application & Status Tracking'}
+            </div>
+            <div style={{ fontSize: '11px', color: '#ffb74d' }}>
+              {approval.department}
             </div>
           </div>
 
@@ -183,9 +180,9 @@ export default function ApplyModal({
             <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--gov-navy-dark)', margin: '4px 0 2px 0' }}>
               {language === 'mr' ? approval.marathi_name || approval.name : approval.name}
             </h4>
-            <div style={{ fontSize: '12px', color: 'var(--gov-text-muted)', display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '6px' }}>
-              <span>🏛️ {approval.issuing_authority}</span>
-              <span>⏱️ {approval.typical_timeline}</span>
+            <div style={{ fontSize: '12px', color: 'var(--gov-text-muted)', display: 'flex', gap: '14px', flexWrap: 'wrap', marginTop: '6px' }}>
+              <span>Authority: <strong>{approval.issuing_authority}</strong></span>
+              <span>Timeline: <strong>{approval.typical_timeline}</strong></span>
             </div>
           </div>
 
@@ -199,12 +196,9 @@ export default function ApplyModal({
                 padding: '10px 14px',
                 marginBottom: '16px',
                 fontSize: '12px',
-                color: '#92400e',
-                display: 'flex',
-                gap: '8px'
+                color: '#92400e'
               }}
             >
-              <span style={{ fontSize: '16px' }}>⚠️</span>
               <div>
                 <strong>
                   {language === 'mr' ? 'कायदेशीर पूर्वअट प्रलंबित आहे:' : 'Statutory Precedence Warning:'}
@@ -240,7 +234,6 @@ export default function ApplyModal({
                 marginBottom: '16px'
               }}
             >
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>👤</div>
               <h5 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '4px' }}>
                 {language === 'mr' ? 'नागरिक लॉगिन आवश्यक आहे' : 'Citizen Sign-In Required'}
               </h5>
@@ -277,7 +270,7 @@ export default function ApplyModal({
                 <div>
                   <span style={{ color: '#64748b' }}>Applicant:</span>{' '}
                   <strong style={{ color: 'var(--gov-navy)' }}>{currentUser.name}</strong>{' '}
-                  <span style={{ color: '#64748b' }}>| Age: {currentUser.age} | 📞 {currentUser.phone}</span>
+                  <span style={{ color: '#64748b' }}>| Age: {currentUser.age} | Phone: {currentUser.phone}</span>
                 </div>
                 <span
                   style={{
@@ -289,7 +282,7 @@ export default function ApplyModal({
                     fontWeight: 700
                   }}
                 >
-                  VERIFIED CITIZEN
+                  VERIFIED APPLICANT
                 </span>
               </div>
 
@@ -348,7 +341,7 @@ export default function ApplyModal({
                   )}
                   {existingApp.sanctionCertificateId && (
                     <div style={{ marginTop: '6px', fontSize: '11.5px', color: '#15803d', fontWeight: 700 }}>
-                      🎉 Sanction Certificate ID: {existingApp.sanctionCertificateId}
+                      Sanction Certificate ID: {existingApp.sanctionCertificateId}
                     </div>
                   )}
                 </div>
@@ -366,7 +359,6 @@ export default function ApplyModal({
                     marginBottom: '16px'
                   }}
                 >
-                  <div style={{ fontSize: '28px', marginBottom: '4px' }}>✅</div>
                   <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#065f46', marginBottom: '4px' }}>
                     {language === 'mr' ? 'अर्ज यशस्वीरीत्या नोंदवला गेला!' : 'Application Successfully Synced & Registered!'}
                   </h4>
@@ -482,7 +474,7 @@ export default function ApplyModal({
                             textDecoration: 'underline'
                           }}
                         >
-                          ⚡ Auto-Fill Mock Ack #
+                          Generate Sample Ack #
                         </button>
                       </div>
                       <input

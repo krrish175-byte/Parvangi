@@ -12,20 +12,52 @@ interface Step1CategoryProps {
 export default function Step1Category({ selectedCategory, onSelect }: Step1CategoryProps) {
   const { language } = useApp();
 
-  const getCategoryIcon = (iconName: string) => {
+  const renderCategoryIcon = (iconName: string) => {
     switch (iconName) {
       case 'utensils':
-        return '🍲';
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+            <line x1="6" y1="1" x2="6" y2="4" />
+            <line x1="10" y1="1" x2="10" y2="4" />
+            <line x1="14" y1="1" x2="14" y2="4" />
+          </svg>
+        );
       case 'cogs':
-        return '⚙️';
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+        );
       case 'tshirt':
-        return '🧵';
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
+          </svg>
+        );
       case 'flask':
-        return '🧪';
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <path d="M10 2v7.31L4.1 19.46A2 2 0 0 0 5.8 22h12.4a2 2 0 0 0 1.7-2.54L14 9.31V2" />
+            <line x1="8.5" y1="2" x2="15.5" y2="2" />
+            <line x1="14" y1="9" x2="10" y2="9" />
+          </svg>
+        );
       case 'laptop':
-        return '💻';
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="2" y1="20" x2="22" y2="20" />
+          </svg>
+        );
       default:
-        return '🏭';
+        return (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+            <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
+          </svg>
+        );
     }
   };
 
@@ -40,7 +72,7 @@ export default function Step1Category({ selectedCategory, onSelect }: Step1Categ
         </p>
       </div>
 
-      {/* Grid of Category Cards (Card-Select, NOT Dropdown) */}
+      {/* Grid of Category Cards */}
       <div
         style={{
           display: 'grid',
@@ -83,7 +115,7 @@ export default function Step1Category({ selectedCategory, onSelect }: Step1Categ
                       flexShrink: 0
                     }}
                   />
-                  <span style={{ fontSize: '24px' }}>{getCategoryIcon(cat.icon)}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center' }}>{renderCategoryIcon(cat.icon)}</span>
                 </div>
 
                 <span
@@ -140,16 +172,20 @@ export default function Step1Category({ selectedCategory, onSelect }: Step1Categ
           marginTop: '16px',
           padding: '10px 14px',
           backgroundColor: '#f8fafc',
-          border: '1px dashed #cbd5e1',
+          border: '1px solid #cbd5e1',
           borderRadius: '4px',
           fontSize: '12px',
           color: 'var(--gov-text-muted)'
         }}
       >
-        💡 <span style={{ fontWeight: 600 }}>
-          {language === 'mr' ? 'विस्तार करण्यायोग्य प्रणाली:' : language === 'hi' ? 'विस्तार योग्य वास्तुकला:' : 'Extensible Architecture:'}
+        <span style={{ fontWeight: 700, color: 'var(--gov-navy)' }}>
+          {language === 'mr' ? 'शासकीय नोंद:' : language === 'hi' ? 'शासकीय टिप्पणी:' : 'Official Regulatory Notice:'}
         </span>{' '}
-        {language === 'mr' ? 'श्रेणीची व्याख्या data/categories.json मधून डायनॅमिकरित्या लोड केली जाते. भविष्यात नवीन क्लस्टर्स (उदा. इलेक्ट्रॉनिक्स, औषधनिर्माण, सौर) जोडण्यासाठी कोड बदलण्याची आवश्यकता नाही.' : language === 'hi' ? 'श्रेणी परिभाषाएँ data/categories.json से गतिशील रूप से लोड की जाती हैं। भविष्य के क्लस्टर (जैसे, इलेक्ट्रॉनिक्स, फार्मास्यूटिकल्स, सोलर) को जोड़ने के लिए शून्य कोड संशोधन की आवश्यकता होती है।' : 'Category definitions are dynamically loaded from data/categories.json. Adding future clusters (e.g., Electronics, Pharmaceuticals, Solar) requires zero code modifications.'}
+        {language === 'mr'
+          ? 'उद्योगाचे वर्गीकरण महाराष्ट्र प्रदूषण नियंत्रण मंडळ (MPCB) प्रदूषण श्रेणीनुसार (लाल, नारंगी, हिरवा, पांढरा) नियमित केले जाते.'
+          : language === 'hi'
+          ? 'उद्योगों का वर्गीकरण महाराष्ट्र प्रदूषण नियंत्रण बोर्ड (MPCB) के प्रदूषण रंग सूचकांक (लाल, नारंगी, हरा, सफेद) के तहत मान्य है।'
+          : 'Industrial categorization is aligned directly with the Maharashtra Pollution Control Board (MPCB) environmental index classification (Red, Orange, Green, White).'}
       </div>
     </div>
   );

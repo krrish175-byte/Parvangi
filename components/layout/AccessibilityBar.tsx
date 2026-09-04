@@ -29,7 +29,25 @@ export default function AccessibilityBar() {
         <div className="gov-strip-content">
           <div className="gov-strip-left">
             <span className="gov-strip-item">
-              <span style={{ color: '#ff9933', fontWeight: 700 }}>🇮🇳</span>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '2px',
+                  width: '16px',
+                  height: '11px',
+                  borderRadius: '1px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  verticalAlign: 'middle',
+                  marginRight: '6px'
+                }}
+                title="National Flag of India"
+              >
+                <span style={{ display: 'block', width: '100%', height: '33.3%', backgroundColor: '#FF9933' }} />
+                <span style={{ display: 'block', width: '100%', height: '33.3%', backgroundColor: '#FFFFFF' }} />
+                <span style={{ display: 'block', width: '100%', height: '33.3%', backgroundColor: '#138808' }} />
+              </span>
               <span>
                 {language === 'mr'
                   ? 'महाराष्ट्र शासन | महाराष्ट्र राज्य नाविन्यता सोसायटी'
@@ -41,7 +59,7 @@ export default function AccessibilityBar() {
             <span className="gov-strip-item" style={{ borderLeft: '1px solid #1e3a5f', paddingLeft: '12px' }}>
               <span>{language === 'mr' ? 'हेल्पलाइन:' : language === 'hi' ? 'हेल्पलाइन:' : 'Citizen Toll-Free:'}</span>
               <strong style={{ color: '#ffb74d' }}>1800-120-8040</strong>
-              <span style={{ opacity: 0.7 }}>(09:00 AM – 06:00 PM)</span>
+              <span style={{ opacity: 0.7 }}>(09:00 AM - 06:00 PM)</span>
             </span>
           </div>
 

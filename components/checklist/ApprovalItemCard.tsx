@@ -100,7 +100,7 @@ export default function ApprovalItemCard({
               gap: '4px'
             }}
           >
-            ⏱️ <strong>{approval.typical_timeline}</strong>
+            <strong>{approval.typical_timeline}</strong>
           </span>
         </div>
 
@@ -125,12 +125,12 @@ export default function ApprovalItemCard({
               }}
             >
               {liveApp.status === 'Approved'
-                ? '✅ SANCTIONED'
+                ? 'SANCTIONED'
                 : liveApp.status === 'In Process'
-                ? '🔄 IN PROCESS'
+                ? 'IN PROCESS'
                 : liveApp.status === 'Denied'
-                ? '❌ ACTION REQUIRED'
-                : '⏳ SUBMITTED'}
+                ? 'ACTION REQUIRED'
+                : 'SUBMITTED'}
             </span>
           ) : (
             <span
@@ -149,7 +149,7 @@ export default function ApprovalItemCard({
           )}
 
           <span className="badge-authority">
-            🏛️ {approval.issuing_authority}
+            {approval.issuing_authority}
           </span>
         </div>
       </div>
@@ -245,7 +245,6 @@ export default function ApprovalItemCard({
             gap: '8px'
           }}
         >
-          <span style={{ fontSize: '14px' }}>🔗</span>
           <span>
             <strong>
               {language === 'mr' ? 'कायदेशीर पूर्वअट (Prerequisite):' : language === 'hi' ? 'कानूनी प्राथमिकता पूर्वापेक्षा:' : 'Legal Precedence Prerequisite:'}
@@ -271,7 +270,7 @@ export default function ApprovalItemCard({
             color: '#92400e'
           }}
         >
-          ⚠️ <strong>{language === 'mr' ? 'लागू असण्याची अट:' : language === 'hi' ? 'शर्त ट्रिगर:' : 'Conditionality Trigger:'}</strong>{' '}
+          <strong>{language === 'mr' ? 'लागू असण्याची अट:' : language === 'hi' ? 'शर्त विवरण:' : 'Conditionality Trigger:'}</strong>{' '}
           {approval.conditional_reason}
         </div>
       )}
@@ -311,17 +310,9 @@ export default function ApprovalItemCard({
 
       {/* Action Footer */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-        <label className="approval-status-control">
-          <span>{language === 'mr' ? 'स्थिती:' : language === 'hi' ? 'स्थिति:' : 'Status:'}</span>
-          <select value={status} onChange={(e) => onStatusChange(e.target.value as ApprovalStatus)} aria-label={`${approval.name} status`}>
-            {(Object.keys(statusLabels) as ApprovalStatus[]).map((option) => (
-              <option key={option} value={option}>{statusLabels[option]}</option>
-            ))}
-          </select>
-        </label>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <label className="approval-status-control">
-            <span>{language === 'mr' ? 'स्थिती:' : 'Status:'}</span>
+            <span>{language === 'mr' ? 'स्थिती:' : language === 'hi' ? 'स्थिति:' : 'Status:'}</span>
             <select value={status} onChange={(e) => onStatusChange(e.target.value as ApprovalStatus)} aria-label={`${approval.name} status`}>
               {(Object.keys(statusLabels) as ApprovalStatus[]).map((option) => (
                 <option key={option} value={option}>{statusLabels[option]}</option>
@@ -348,7 +339,6 @@ export default function ApprovalItemCard({
                 gap: '4px'
               }}
             >
-              <span>{liveApp ? '🔄' : '📝'}</span>
               <span>
                 {liveApp
                   ? language === 'mr' ? 'अर्ज अद्ययावत / ट्रॅक करा' : 'Manage / Track Application'
@@ -375,7 +365,6 @@ export default function ApprovalItemCard({
               gap: '4px'
             }}
           >
-            <span>{showDocs ? '▼' : '►'}</span>
             <span>
               {showDocs
                 ? language === 'mr' ? 'कागदपत्रे लपवा' : language === 'hi' ? 'दस्तावेज छुपाएं' : 'Hide Required Documents'
@@ -404,9 +393,8 @@ export default function ApprovalItemCard({
               gap: '4px'
             }}
           >
-            <span>🌐</span>
             <span>{language === 'mr' ? 'शासकीय पोर्टल उघडा' : language === 'hi' ? 'सरकारी पोर्टल तक पहुंचें' : 'Access Government Portal'}</span>
-            <span>↗</span>
+            <span>&rarr;</span>
           </a>
         </div>
       </div>
@@ -423,7 +411,7 @@ export default function ApprovalItemCard({
           }}
         >
           <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--gov-navy)', textTransform: 'uppercase', marginBottom: '4px' }}>
-            📑 {language === 'mr' ? 'अर्जासाठी लागणारी प्राथमिक कागदपत्रे:' : language === 'hi' ? 'अनिवार्य प्रस्तुत दस्तावेज सूची:' : 'Mandatory Submission Documents Checklist:'}
+            {language === 'mr' ? 'अर्जासाठी लागणारी प्राथमिक कागदपत्रे:' : language === 'hi' ? 'अनिवार्य प्रस्तुत दस्तावेज सूची:' : 'Mandatory Submission Documents Checklist:'}
           </div>
           <ul style={{ listStyleType: 'disc', paddingLeft: '18px', fontSize: '12px', color: 'var(--gov-text-secondary)', lineHeight: 1.6 }}>
             {approval.documents_preview.map((doc, idx) => (

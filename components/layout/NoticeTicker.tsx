@@ -16,15 +16,15 @@ export default function NoticeTicker() {
           <div style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
             {language === 'mr' ? (
               <span>
-                <strong>परवानगी (Parvangi) v1.0 कार्यरत:</strong> महाराष्ट्र राज्यातील सूक्ष्म व लघु उद्योजकांसाठी (गुंतवणूक ₹१० लाखांपासून ₹१० कोटींपर्यंत) वैधानिक परवानगी तपासणी इंजिन. सर्व नियम आणि परवानग्या MIDC ईओडीबी व विभागीय मार्गदर्शक तत्त्वांनुसार सत्यापित आहेत.
+                <strong>परवानगी (Parvangi) एकल खिडकी पोर्टल:</strong> महाराष्ट्र राज्यातील सूक्ष्म, लघू व मध्यम औद्योगिक उपक्रमांसाठी वैधानिक नियामक अनुक्रम व परवानग्या पडताळणी प्रणाली. उद्योग संचालनालय व संबंधित विभागांच्या मार्गदर्शक तत्त्वांनुसार कार्यरत.
               </span>
             ) : language === 'hi' ? (
               <span>
-                <strong>परवानगी (Parvangi) v1.0 लाइव:</strong> महाराष्ट्र में पहली बार सूक्ष्म और लघु उद्यमियों के लिए समर्पित वैधानिक अनुमोदन चेकलिस्ट इंजन। एमआईडीसी, एमपीसीबी और डिश नियामक दिशानिर्देशों के खिलाफ सत्यापित (फरवरी 2025)। ₹10-लाख के उद्यमी के लिए निर्मित।
+                <strong>परवानगी (Parvangi) एकल खिड़की पोर्टल:</strong> महाराष्ट्र में सूक्ष्म, लघु एवं मध्यम औद्योगिक इकाइयों के लिए वैधानिक नियामक अनुक्रम और अनुमोदन अनुसूची। उद्योग निदेशालय के आधिकारिक दिशा-निर्देशों के तहत संचालित।
               </span>
             ) : (
               <span>
-                <strong>PARVANGI v1.0 LIVE:</strong> Dedicated Statutory Approval Checklist Engine for first-time Micro & Small entrepreneurs in Maharashtra. Verified against MIDC EODB, MPCB, and DISH regulatory guidelines (Feb 2025). Built for the ₹10-lakh entrepreneur.
+                <strong>PARVANGI Single Window Clearance Portal:</strong> Statutory Regulatory Sequencing and Approval Schedule for Micro, Small and Medium Enterprises across Maharashtra. Operational under Directorate of Industries guidelines.
               </span>
             )}
           </div>

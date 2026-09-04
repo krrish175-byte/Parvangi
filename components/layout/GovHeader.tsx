@@ -16,6 +16,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
   const { language } = useApp();
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [currentDateTime, setCurrentDateTime] = useState<string>('');
 
   useEffect(() => {
     const checkAuth = () => {
@@ -25,6 +26,26 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
     checkAuth();
     window.addEventListener('parvangi_auth_change', checkAuth);
     return () => window.removeEventListener('parvangi_auth_change', checkAuth);
+  }, []);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      setCurrentDateTime(now.toLocaleString('en-IN', options));
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const handleLogout = () => {
@@ -44,7 +65,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
             onKeyDown={(e) => e.key === 'Enter' && onHomeClick?.()}
           >
             <div className="gov-emblem-container">
-              {/* National Emblem of India (Local SVG) */}
+              {/* National Emblem of India */}
               <div className="gov-national-emblem" title="भारत सरकारचे राजचिन्ह / State Emblem of India">
                 <Image
                   src="/emblem-of-india.svg"
@@ -57,13 +78,13 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
 
               <div className="gov-emblem-divider" aria-hidden="true" />
 
-              {/* Official PARVANGI Project Logo */}
-              <div className="gov-project-logo" title="PARVANGI (परवानगी) — अधिकृत बोधचिन्ह">
+              {/* Official PARVANGI Seal / Logo */}
+              <div className="gov-project-logo" title="PARVANGI (परवानगी) - अधिकृत बोधचिन्ह">
                 <Image
                   src="/logo.png"
                   alt="PARVANGI Official Project Logo"
-                  width={54}
-                  height={54}
+                  width={48}
+                  height={48}
                   priority
                 />
               </div>
@@ -72,10 +93,10 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
             <div className="gov-title-block">
               <span className="gov-title-marathi">
                 {language === 'mr'
-                  ? 'महाराष्ट्र शासन · उद्योग, ऊर्जा, कामगार व कौशल्य विकास विभाग'
+                  ? 'महाराष्ट्र शासन · उद्योग संचालनालय'
                   : language === 'hi'
-                  ? 'महाराष्ट्र शासन · उद्योग, ऊर्जा, श्रम एवं कौशल विकास विभाग'
-                  : 'Government of Maharashtra · Industry, Energy, Labour & Skill Development Dept.'}
+                  ? 'महाराष्ट्र शासन · उद्योग निदेशालय'
+                  : 'Government of Maharashtra · Directorate of Industries'}
               </span>
               <div className="gov-wordmark">
                 <span>PARVANGI</span>
@@ -83,19 +104,47 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
               </div>
               <span className="gov-subtitle">
                 {language === 'mr'
-                  ? 'महाराष्ट्र राज्य नाविन्यता सोसायटी · सूक्ष्म व लघु उद्योगांसाठी वैधानिक परवानगी प्रणाली'
+                  ? 'औद्योगिक वैधानिक मंजुरी व एकल खिडकी अनुपालन प्रणाली'
                   : language === 'hi'
-                  ? 'महाराष्ट्र राज्य नवाचार सोसायटी · सूक्ष्म व लघु उद्योगों के लिए वैधानिक मंजूरी प्रणाली'
-                  : 'Maharashtra State Innovation Society (MSIS) · Statutory Approval Checklist Engine'}
+                  ? 'औद्योगिक वैधानिक अनुमोदन एवं एकल खिड़की अनुपालन प्रणाली'
+                  : 'Statutory Regulatory Sequencing & Single Window Compliance Portal'}
               </span>
             </div>
           </div>
 
           <div className="gov-header-actions no-print" style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-            {/* Authentication Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {currentDateTime && (
+              <div
+                style={{
+                  fontSize: '11px',
+                  color: '#475569',
+                  fontWeight: 600,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ color: '#002244' }}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                {currentDateTime}
+              </div>
+            )}
+
+            <div>
               {isAdmin ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <button
                     type="button"
                     onClick={onNavigateAdmin}
@@ -103,18 +152,14 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                       backgroundColor: '#991b1b',
                       color: '#ffffff',
                       border: 'none',
-                      padding: '5px 12px',
+                      padding: '6px 12px',
                       borderRadius: '3px',
                       fontSize: '11.5px',
                       fontWeight: 700,
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px'
+                      cursor: 'pointer'
                     }}
                   >
-                    <span>🛡️</span>
-                    <span>{language === 'mr' ? 'अधिकारी कक्ष (DIC)' : language === 'hi' ? 'अधिकारी कक्ष' : 'Officer Console (DIC)'}</span>
+                    {language === 'mr' ? 'अधिकारी नियंत्रण कक्ष' : 'Officer Console (DIC)'}
                   </button>
                   <button
                     type="button"
@@ -123,29 +168,29 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                       backgroundColor: 'transparent',
                       color: '#64748b',
                       border: '1px solid #cbd5e1',
-                      padding: '4px 8px',
+                      padding: '5px 10px',
                       borderRadius: '3px',
                       fontSize: '11px',
                       cursor: 'pointer'
                     }}
                   >
-                    Logout
+                    Sign Out
                   </button>
                 </div>
               ) : currentUser ? (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span
                     style={{
                       backgroundColor: '#eff6ff',
                       color: 'var(--gov-navy)',
                       border: '1px solid #bfdbfe',
-                      padding: '4px 8px',
+                      padding: '5px 10px',
                       borderRadius: '3px',
                       fontSize: '11.5px',
                       fontWeight: 700
                     }}
                   >
-                    👤 {currentUser.name}
+                    {currentUser.name}
                   </span>
                   <button
                     type="button"
@@ -154,59 +199,32 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                       backgroundColor: 'transparent',
                       color: '#64748b',
                       border: '1px solid #cbd5e1',
-                      padding: '3px 8px',
+                      padding: '5px 10px',
                       borderRadius: '3px',
                       fontSize: '11px',
                       cursor: 'pointer'
                     }}
                   >
-                    Logout
+                    Sign Out
                   </button>
                 </div>
               ) : (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <button
-                    type="button"
-                    onClick={() => onOpenAuth?.('citizen_login')}
-                    style={{
-                      backgroundColor: 'var(--gov-navy)',
-                      color: '#ffffff',
-                      border: 'none',
-                      padding: '5px 12px',
-                      borderRadius: '3px',
-                      fontSize: '11.5px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px'
-                    }}
-                  >
-                    <span>👤</span>
-                    <span>{language === 'mr' ? 'नागरिक लॉगिन' : language === 'hi' ? 'नागरिक लॉगिन' : 'Citizen Sign In'}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => onOpenAuth?.('admin_login')}
-                    style={{
-                      backgroundColor: '#ffffff',
-                      color: '#991b1b',
-                      border: '1px solid #f87171',
-                      padding: '4px 10px',
-                      borderRadius: '3px',
-                      fontSize: '11.5px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px'
-                    }}
-                  >
-                    <span>🛡️</span>
-                    <span>{language === 'mr' ? 'अधिकारी' : language === 'hi' ? 'अधिकारी' : 'Officer'}</span>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => onOpenAuth?.('citizen_login')}
+                  style={{
+                    backgroundColor: 'var(--gov-navy)',
+                    color: '#ffffff',
+                    border: 'none',
+                    padding: '6px 14px',
+                    borderRadius: '3px',
+                    fontSize: '11.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  {language === 'mr' ? 'पोर्टल प्रवेश' : language === 'hi' ? 'पोर्टल लॉगिन' : 'Portal Login'}
+                </button>
               )}
             </div>
           </div>

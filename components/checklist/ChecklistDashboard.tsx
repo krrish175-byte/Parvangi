@@ -163,8 +163,7 @@ export default function ChecklistDashboard({
               style={{ fontSize: '12px', padding: '6px 12px' }}
               title="Copy Reference ID for tracking"
             >
-              <span>📋</span>
-              <span>{copied ? 'Copied!' : result.referenceId}</span>
+              <span>{copied ? 'Copied Reference' : result.referenceId}</span>
             </button>
 
             <button
@@ -174,7 +173,6 @@ export default function ChecklistDashboard({
               style={{ fontSize: '12.5px', padding: '7px 16px' }}
               title="Print official letterhead schedule"
             >
-              <span>🖨️</span>
               <span>{language === 'mr' ? 'प्रिंट / पीडीएफ जतन करा' : language === 'hi' ? 'प्रिंट / पीडीएफ सहेजें' : 'Print / Save as PDF'}</span>
             </button>
 
@@ -184,7 +182,6 @@ export default function ChecklistDashboard({
               onClick={onRestartWizard}
               style={{ fontSize: '12.5px', padding: '7px 16px' }}
             >
-              <span>🔄</span>
               <span>{language === 'mr' ? 'नवीन तपासणी' : language === 'hi' ? 'नया मूल्यांकन' : 'New Evaluation'}</span>
             </button>
           </div>
@@ -207,8 +204,23 @@ export default function ChecklistDashboard({
             borderLeft: '5px solid #e65100'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '20px' }}>🏛️</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div
+              style={{
+                width: '26px',
+                height: '26px',
+                borderRadius: '4px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffb74d" strokeWidth="2">
+                <path d="M3 21h18M3 7v1a3 3 0 006 0V7m0 1a3 3 0 006 0V7m0 1a3 3 0 006 0V7H3l2-4h14l2 4" />
+              </svg>
+            </div>
             <div>
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
                 {language === 'mr' ? 'एकल खिडकी अर्ज ट्रॅकिंग' : 'Single Window Application Sync & Tracking'}
@@ -385,7 +397,7 @@ export default function ChecklistDashboard({
                   cursor: 'pointer'
                 }}
               >
-                ✕
+                Clear
               </button>
             )}
           </div>
@@ -423,7 +435,6 @@ export default function ChecklistDashboard({
               color: 'var(--gov-text-muted)'
             }}
           >
-            <div style={{ fontSize: '24px', marginBottom: '8px' }}>🔍</div>
             <p style={{ fontSize: '14px', fontWeight: 600 }}>
               {language === 'mr' ? 'कोणत्याही परवानग्या सध्याच्या फिल्टर किंवा शोधाशी जुळत नाहीत.' : language === 'hi' ? 'कोई भी अनुमोदन वर्तमान फ़िल्टर या खोज से मेल नहीं खाता।' : 'No approvals match the current filter or search query.'}
             </p>
@@ -459,7 +470,7 @@ export default function ChecklistDashboard({
         >
           <div style={{ maxWidth: '720px' }}>
             <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '2px' }}>
-              🏛️ {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) मार्गदर्शन कक्ष' : language === 'hi' ? 'जिला उद्योग केंद्र सहायता' : 'District Industries Centre (DIC) Assistance'}
+              {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) मार्गदर्शन कक्ष' : language === 'hi' ? 'जिला उद्योग केंद्र सहायता' : 'District Industries Centre (DIC) Assistance'}
             </div>
             <p style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)', lineHeight: 1.45 }}>
               {language === 'mr' ? `महाराष्ट्र औद्योगिक धोरणानुसार, सूक्ष्म व लघु उद्योगांसाठी DIC चे महाव्यवस्थापक सिंगल-पॉइंट नोडल ऑफिसर म्हणून काम करतात. शुल्क सवलत किंवा प्रत्यक्ष तपासणीसाठी, ${result.profile.district || 'तुमच्या स्थानिक'} येथील DIC शी संपर्क साधा.` : language === 'hi' ? `महाराष्ट्र औद्योगिक नीति के तहत, DIC के महाप्रबंधक सूक्ष्म और लघु उद्यमों के लिए सिंगल-पॉइंट नोडल अधिकारी के रूप में कार्य करते हैं। शुल्क में छूट या भौतिक सत्यापन सहायता के लिए, ${result.profile.district || 'अपने स्थानीय'} में DIC से संपर्क करें।` : `Under the Maharashtra Industrial Policy, General Managers of DICs function as single-point nodal officers for micro and small enterprises. For fee waivers or physical verification assistance, contact the DIC at ${result.profile.district || 'your local district headquarter'}.`}
@@ -472,7 +483,7 @@ export default function ChecklistDashboard({
             onClick={handlePrint}
             style={{ fontSize: '12.5px', padding: '7px 16px' }}
           >
-            🖨️ {language === 'mr' ? 'अधिकृत पत्र डाऊनलोड करा' : language === 'hi' ? 'लेटरहेड पीडीएफ डाउनलोड करें' : 'Download Letterhead PDF'}
+            {language === 'mr' ? 'अधिकृत पत्र डाऊनलोड करा' : language === 'hi' ? 'लेटरहेड पीडीएफ डाउनलोड करें' : 'Download Letterhead PDF'}
           </button>
         </div>
       </div>

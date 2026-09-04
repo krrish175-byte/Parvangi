@@ -28,7 +28,12 @@ export default function QuickLinksRow({
       actionText: language === 'mr' ? 'प्रारंभ करा →' : language === 'hi' ? 'प्रारंभ करें →' : 'Start Wizard →',
       badge: language === 'mr' ? 'मुख्य इंजिन' : language === 'hi' ? 'मुख्य इंजन' : 'CORE ENGINE',
       badgeColor: 'var(--gov-saffron)',
-      icon: '⚡',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+          <path d="M9 11l3 3L22 4" />
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+        </svg>
+      ),
       onClick: onStartWizard,
       highlight: true
     },
@@ -41,7 +46,12 @@ export default function QuickLinksRow({
       actionText: language === 'mr' ? 'संदर्भ शोधा →' : language === 'hi' ? 'कोड ट्रैक करें →' : 'Track Code →',
       badge: language === 'mr' ? 'त्वरित शोध' : language === 'hi' ? 'त्वरित खोज' : 'INSTANT LOOKUP',
       badgeColor: 'var(--gov-navy)',
-      icon: '🔍',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+      ),
       onClick: onTrackChecklist,
       highlight: false
     },
@@ -54,7 +64,12 @@ export default function QuickLinksRow({
       actionText: language === 'mr' ? 'सूची उघडा →' : language === 'hi' ? 'सभी 16 ब्राउज़ करें →' : 'Browse All 16 →',
       badge: language === 'mr' ? 'सत्यापित संकलन' : language === 'hi' ? 'सत्यापित रिपॉजिटरी' : 'VERIFIED REPOSITORY',
       badgeColor: '#1e3a5f',
-      icon: '📚',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </svg>
+      ),
       onClick: onViewDirectory,
       highlight: false
     },
@@ -67,7 +82,14 @@ export default function QuickLinksRow({
       actionText: language === 'mr' ? 'मदत संपर्क →' : language === 'hi' ? 'निर्देशिका देखें →' : 'View Directory →',
       badge: language === 'mr' ? '३६ जिल्हे' : language === 'hi' ? '36 जिले' : '36 DISTRICTS',
       badgeColor: 'var(--gov-green)',
-      icon: '🏛️',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gov-navy)" strokeWidth="2">
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <line x1="9" y1="9" x2="15" y2="9" />
+          <line x1="9" y1="13" x2="15" y2="13" />
+          <line x1="9" y1="17" x2="12" y2="17" />
+        </svg>
+      ),
       onClick: onViewHelpdesk,
       highlight: false
     }
@@ -91,15 +113,10 @@ export default function QuickLinksRow({
                 gap: '8px'
               }}
             >
-              <span>📌</span>
               <span>{language === 'mr' ? 'नागरिक जलद सेवा व साधने' : language === 'hi' ? 'नागरिक त्वरित सेवाएं और पोर्टल' : 'Citizen Quick Services & Portals'}</span>
             </h2>
             <span style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
-              {language === 'mr'
-                ? 'अधिकृत उद्योजक सहाय्यता व सेवा प्रणाली'
-                : language === 'hi'
-                ? 'आधिकारिक उद्यमी सहायता एवं सेवा ढांचा'
-                : 'Official Citizen Facilitation Framework'}
+              {language === 'mr' ? 'उद्योग संचालनालय · महाराष्ट्र शासन' : language === 'hi' ? 'उद्योग निदेशालय · महाराष्ट्र शासन' : 'Directorate of Industries · Govt of Maharashtra'}
             </span>
           </div>
         </div>
@@ -133,7 +150,19 @@ export default function QuickLinksRow({
             >
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '26px' }}>{card.icon}</span>
+                  <div
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '4px',
+                      backgroundColor: card.highlight ? 'rgba(230, 81, 0, 0.08)' : 'rgba(0, 34, 68, 0.06)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {card.icon}
+                  </div>
                   <span
                     style={{
                       backgroundColor: card.highlight ? 'var(--gov-saffron-light)' : 'var(--gov-navy-subtle)',

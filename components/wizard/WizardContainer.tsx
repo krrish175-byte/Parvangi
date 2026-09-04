@@ -161,7 +161,7 @@ export default function WizardContainer({
                   htmlFor="district-select"
                   style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}
                 >
-                  📍 {language === 'mr' ? 'महाराष्ट्रातील जिल्हा निवडा:' : language === 'hi' ? 'महाराष्ट्र में जिले का चयन करें:' : 'Select District in Maharashtra:'}
+                  {language === 'mr' ? 'महाराष्ट्रातील जिल्हा निवडा:' : language === 'hi' ? 'महाराष्ट्र में जिले का चयन करें:' : 'Select District in Maharashtra:'}
                 </label>
                 <select
                   id="district-select"
@@ -260,14 +260,10 @@ export default function WizardContainer({
                   disabled={isGenerating}
                   style={{ fontSize: '15px', padding: '12px 28px' }}
                 >
-                  <span>{isGenerating ? '⏳' : '⚡'}</span>
                   <span>
-                    {language === 'mr' ? 'माझी वैधानिक परवानगी सूची तयार करा' : language === 'hi' ? 'मेरी अनुमोदन चेकलिस्ट जनरेट करें' : 'Generate My Approval Checklist'}
                     {isGenerating
-                      ? language === 'mr' ? 'तयार होत आहे...' : 'Generating...'
-                      : language === 'mr'
-                      ? 'माझी वैधानिक परवानगी सूची तयार करा'
-                      : 'Generate My Approval Checklist'}
+                      ? (language === 'mr' ? 'तयार होत आहे...' : language === 'hi' ? 'तैयार किया जा रहा है...' : 'Generating...')
+                      : (language === 'mr' ? 'माझी वैधानिक परवानगी सूची तयार करा' : language === 'hi' ? 'मेरी अनुमोदन चेकलिस्ट जनरेट करें' : 'Generate Approval Checklist')}
                   </span>
                 </button>
               )}

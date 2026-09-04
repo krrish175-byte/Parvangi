@@ -66,7 +66,7 @@ export function classifyMSME(investmentInLakhs: number, turnoverInLakhs?: number
       hindi_description: 'स्थापित एसएमई, विशेष घटक निर्माण, और मध्यम-स्तरीय निर्माण इकाइयों के लिए उपयुक्त।',
       subsidiesEligible: [
         'Capital Subsidy up to 25% of Fixed Capital Investment',
-        'Power Tariff Subsidy of ₹1 to ₹2 per unit for 3–5 years',
+        'Power Tariff Subsidy of ₹1 to ₹2 per unit for 3-5 years',
         'Industrial cluster infrastructure incentives'
       ],
       marathi_subsidiesEligible: [
