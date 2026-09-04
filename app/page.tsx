@@ -16,6 +16,8 @@ import TrackChecklistModal from '@/components/tracking/TrackChecklistModal';
 import ApprovalsDirectoryModal from '@/components/directory/ApprovalsDirectoryModal';
 import MaitriGapModal from '@/components/home/MaitriGapModal';
 import HelpdeskModal from '@/components/helpdesk/HelpdeskModal';
+import AuthModal from '@/components/auth/AuthModal';
+import AdminDashboard from '@/components/admin/AdminDashboard';
 import { useApp } from '@/lib/context';
 
 const SAVED_CHECKLIST_KEY = 'parvangi-saved-checklist';
@@ -35,7 +37,7 @@ export default function HomePage() {
   const { language } = useApp();
 
   const [savedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap'>(
+  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin'>(
     savedChecklist ? 'checklist' : 'home'
   );
   const [activeResult, setActiveResult] = useState<ChecklistResult | null>(savedChecklist);
@@ -46,6 +48,10 @@ export default function HomePage() {
   const [showDirectoryModal, setShowDirectoryModal] = useState<boolean>(false);
   const [showMaitriModal, setShowMaitriModal] = useState<boolean>(false);
   const [showHelpdeskModal, setShowHelpdeskModal] = useState<boolean>(false);
+
+  // Auth Modal
+  const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [authModalTab, setAuthModalTab] = useState<'citizen_login' | 'citizen_signup' | 'admin_login'>('citizen_login');
 
   // Handlers
   const handleStartWizard = () => {
@@ -78,6 +84,17 @@ export default function HomePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleOpenAuth = (tab: 'citizen_login' | 'citizen_signup' | 'admin_login') => {
+    setAuthModalTab(tab);
+    setShowAuthModal(true);
+  };
+
+  const handleAuthSuccess = (type: 'citizen' | 'admin') => {
+    if (type === 'admin') {
+      setCurrentView('admin');
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {/* Official Tricolor National Stripe */}
@@ -87,7 +104,11 @@ export default function HomePage() {
       <AccessibilityBar />
 
       {/* Header */}
-      <GovHeader onHomeClick={() => setCurrentView('home')} />
+      <GovHeader
+        onHomeClick={() => setCurrentView('home')}
+        onOpenAuth={handleOpenAuth}
+        onNavigateAdmin={() => setCurrentView('admin')}
+      />
 
       {/* Navigation Bar */}
       <GovNavBar
@@ -109,17 +130,24 @@ export default function HomePage() {
 
       {/* Main Content Area */}
       <main id="main-content" style={{ flex: 1 }}>
+        {/* VIEW: ADMIN / OFFICER SCRUTINY CONSOLE */}
+        {currentView === 'admin' && (
+          <AdminDashboard
+            onBackToCitizenView={() => setCurrentView(activeResult ? 'checklist' : 'home')}
+          />
+        )}
+
         {/* VIEW 1: HOMEPAGE */}
         {currentView === 'home' && (
           <div>
             {savedChecklist && activeResult && (
               <div className="saved-checklist-banner gov-container no-print">
                 <div>
-                  <strong>{language === 'mr' ? 'तुमची जतन केलेली तपासणी उपलब्ध आहे' : 'Your saved checklist is ready'}</strong>
-                  <span>{language === 'mr' ? 'तुमचा मागील परवानगी अनुक्रम पुन्हा उघडा.' : 'Resume your previous approval roadmap.'}</span>
+                  <strong>{language === 'mr' ? 'तुमची जतन केलेली तपासणी उपलब्ध आहे' : language === 'hi' ? 'आपकी सहेजी गई चेकलिस्ट तैयार है' : 'Your saved checklist is ready'}</strong>
+                  <span>{language === 'mr' ? 'तुमचा मागील परवानगी अनुक्रम पुन्हा उघडा.' : language === 'hi' ? 'अपना पिछला अनुमोदन रोडमैप फिर से शुरू करें।' : 'Resume your previous approval roadmap.'}</span>
                 </div>
                 <button type="button" className="btn-gov-secondary" onClick={() => setCurrentView('checklist')}>
-                  {language === 'mr' ? 'पुन्हा उघडा' : 'Resume Checklist'}
+                  {language === 'mr' ? 'पुन्हा उघडा' : language === 'hi' ? 'चेकलिस्ट फिर से शुरू करें' : 'Resume Checklist'}
                 </button>
               </div>
             )}
@@ -154,10 +182,10 @@ export default function HomePage() {
                         textTransform: 'uppercase'
                       }}
                     >
-                      THE VERIFIABLE COMPLIANCE ARCHITECTURE
+                      {language === 'mr' ? 'सत्यापन करण्यायोग्य अनुपालन प्रणाली' : language === 'hi' ? 'सत्यापन योग्य अनुपालन वास्तुकला' : 'THE VERIFIABLE COMPLIANCE ARCHITECTURE'}
                     </span>
                     <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--gov-navy-dark)', marginTop: '8px' }}>
-                      {language === 'mr' ? 'परवानगी हे इतर साधनांपेक्षा वेगळे कसे आहे?' : language === 'hi' ? 'How Parvangi Eliminates the Compliance Roadblock' : 'How Parvangi Eliminates the Compliance Roadblock'}
+                      {language === 'mr' ? 'परवानगी हे इतर साधनांपेक्षा वेगळे कसे आहे?' : language === 'hi' ? 'परवानगी अनुपालन की बाधाओं को कैसे दूर करती है' : 'How Parvangi Eliminates the Compliance Roadblock'}
                     </h2>
                   </div>
 
@@ -247,6 +275,7 @@ export default function HomePage() {
             result={activeResult}
             onModifyProfile={handleModifyProfile}
             onRestartWizard={handleStartWizard}
+            onOpenAuthModal={() => handleOpenAuth('citizen_login')}
           />
         )}
       </main>
@@ -255,6 +284,14 @@ export default function HomePage() {
       <GovFooter />
 
       {/* MODALS */}
+      {showAuthModal && (
+        <AuthModal
+          initialTab={authModalTab}
+          onClose={() => setShowAuthModal(false)}
+          onSuccess={handleAuthSuccess}
+        />
+      )}
+
       {showTrackModal && (
         <TrackChecklistModal
           onClose={() => setShowTrackModal(false)}

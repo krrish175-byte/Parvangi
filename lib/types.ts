@@ -97,3 +97,37 @@ export interface ChecklistResult {
   referenceId: string;
   generatedAt: string;
 }
+
+export interface UserAccount {
+  id: string;
+  name: string;
+  age: number;
+  phone: string;
+  email: string;
+  createdAt: string;
+}
+
+export type ApplicationStatus = 'Submitted' | 'In Process' | 'Approved' | 'Denied';
+
+export interface ApplicationSubmission {
+  id: string;
+  userId: string;
+  userName: string;
+  userPhone: string;
+  userAge: number;
+  userEmail?: string;
+  approvalId: string;
+  approvalName: string;
+  approvalMarathiName?: string;
+  approvalHindiName?: string;
+  department: string;
+  issuingAuthority: string;
+  phase: number;
+  acknowledgementNumber: string;
+  sourcePortal: string;
+  status: ApplicationStatus;
+  submittedAt: string;
+  updatedAt: string;
+  officerRemarks?: string;
+  sanctionCertificateId?: string;
+}

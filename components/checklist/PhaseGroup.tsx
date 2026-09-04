@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
-import { ApprovalStatus, PhaseGroup as PhaseGroupType } from '@/lib/types';
+import { ApprovalRecord, ApprovalStatus, PhaseGroup as PhaseGroupType } from '@/lib/types';
 import ApprovalItemCard from './ApprovalItemCard';
 
 interface PhaseGroupProps {
@@ -10,9 +10,16 @@ interface PhaseGroupProps {
   globalStartIndex: number;
   statuses: Record<string, ApprovalStatus>;
   onStatusChange: (approvalId: string, status: ApprovalStatus) => void;
+  onApplyClick?: (approval: ApprovalRecord) => void;
 }
 
-export default function PhaseGroup({ group, globalStartIndex, statuses, onStatusChange }: PhaseGroupProps) {
+export default function PhaseGroup({
+  group,
+  globalStartIndex,
+  statuses,
+  onStatusChange,
+  onApplyClick
+}: PhaseGroupProps) {
   const { language } = useApp();
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
@@ -119,6 +126,7 @@ export default function PhaseGroup({ group, globalStartIndex, statuses, onStatus
               itemIndex={globalStartIndex + idx}
               status={statuses[app.id] || 'pending'}
               onStatusChange={(status) => onStatusChange(app.id, status)}
+              onApplyClick={onApplyClick}
             />
           ))}
         </div>
