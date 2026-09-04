@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type Language = 'en' | 'mr';
+export type Language = 'en' | 'mr' | 'hi';
 export type FontSize = 'small' | 'normal' | 'large';
 
 interface AppContextType {
@@ -10,15 +10,13 @@ interface AppContextType {
   setLanguage: (lang: Language) => void;
   fontSize: FontSize;
   setFontSize: (size: FontSize) => void;
-  toggleLanguage: () => void;
 }
 
 const AppContext = createContext<AppContextType>({
   language: 'en',
   setLanguage: () => {},
   fontSize: 'normal',
-  setFontSize: () => {},
-  toggleLanguage: () => {}
+  setFontSize: () => {}
 });
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
@@ -29,18 +27,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.setAttribute('data-font-size', fontSize);
   }, [fontSize]);
 
-  const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'en' ? 'mr' : 'en'));
-  };
-
   return (
     <AppContext.Provider
       value={{
         language,
         setLanguage,
         fontSize,
-        setFontSize,
-        toggleLanguage
+        setFontSize
       }}
     >
       {children}

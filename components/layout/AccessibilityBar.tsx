@@ -68,14 +68,35 @@ export default function AccessibilityBar() {
 
             {/* Language Switcher */}
             <div className="gov-strip-item">
-              <button
-                type="button"
-                className="gov-lang-toggle"
-                onClick={() => setLanguage(language === 'en' ? 'mr' : 'en')}
-                title="Toggle Language"
-              >
-                {language === 'en' ? 'मराठी (MR)' : 'English (EN)'}
-              </button>
+              <span style={{ fontSize: '11px', marginRight: '4px' }}>
+                {language === 'mr' ? 'भाषा:' : language === 'hi' ? 'भाषा:' : 'Language:'}
+              </span>
+              <div className="gov-font-toggles" role="group" aria-label="Language controls">
+                <button
+                  type="button"
+                  className={`gov-font-btn ${language === 'en' ? 'active' : ''}`}
+                  onClick={() => setLanguage('en')}
+                  title="English"
+                >
+                  EN
+                </button>
+                <button
+                  type="button"
+                  className={`gov-font-btn ${language === 'mr' ? 'active' : ''}`}
+                  onClick={() => setLanguage('mr')}
+                  title="मराठी"
+                >
+                  MR
+                </button>
+                <button
+                  type="button"
+                  className={`gov-font-btn ${language === 'hi' ? 'active' : ''}`}
+                  onClick={() => setLanguage('hi')}
+                  title="हिंदी"
+                >
+                  HI
+                </button>
+              </div>
             </div>
           </div>
         </div>

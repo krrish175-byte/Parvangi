@@ -3,13 +3,26 @@
     "id": "udyam-registration",
     "name": "Udyam MSME Online Registration",
     "marathi_name": "उद्यम नोंदणी (सूक्ष्म, लघु व मध्यम उद्योग)",
+    "hindi_name": "उद्यम पंजीकरण (सूक्ष्म, लघु और मध्यम उद्यम)",
     "issuing_authority": "Ministry of Micro, Small & Medium Enterprises, Govt. of India",
     "department": "District Industries Centre (DIC) / MSME Directorate, Maharashtra",
     "act_and_rule": "Micro, Small and Medium Enterprises Development (MSMED) Act, 2006",
-    "category_tags": ["all"],
-    "location_tags": ["all"],
-    "scale_tags": ["micro", "small", "medium"],
-    "stage_tags": ["new_unit", "expansion", "formalize"],
+    "category_tags": [
+      "all"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "micro",
+      "small",
+      "medium"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "Instant (Paperless / Same Day)",
     "timeline_days_min": 1,
@@ -26,25 +39,41 @@
       "PAN Card of Enterprise / Entity",
       "Bank Account details & IFSC",
       "NIC 2-digit & 4-digit activity code"
-    ]
+    ],
+    "hindi_one_line_description": "एमएसएमई के लिए आधारभूत 12-अंकीय डिजिटल पहचान; राज्य सब्सिडी, संपार्श्विक-मुक्त ऋण और औद्योगिक बिजली शुल्क सब्सिडी के लिए अनिवार्य।",
+    "hindi_act_and_rule": "सूक्ष्म, लघु और मध्यम उद्यम विकास (MSMED) अधिनियम, 2006",
+    "hindi_fee_structure": "₹0 (पूरी तरह से नि:शुल्क)"
   },
   {
     "id": "gst-registration",
     "name": "Goods and Services Tax (GST) Registration",
     "marathi_name": "वस्तू व सेवा कर (जीएसटी) नोंदणी",
+    "hindi_name": "वस्तु एवं सेवा कर (जीएसटी) पंजीकरण",
     "issuing_authority": "Maharashtra Goods & Services Tax Department / CBIC",
     "department": "Finance Department, Government of Maharashtra",
     "act_and_rule": "Maharashtra Goods and Services Tax Act, 2017 & Central GST Act, 2017",
-    "category_tags": ["all"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion", "formalize"],
+    "category_tags": [
+      "all"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "3–7 Working Days",
     "timeline_days_min": 3,
     "timeline_days_max": 7,
     "fee_structure": "₹0 (Official Statutory Fee)",
-    "depends_on": ["udyam-registration"],
+    "depends_on": [
+      "udyam-registration"
+    ],
     "one_line_description": "Mandatory state and central tax registration allowing commercial invoicing, input tax credits, and inter-state purchase of capital machinery.",
     "portal_url": "https://www.gst.gov.in",
     "stage_phase": 1,
@@ -55,25 +84,41 @@
       "Proof of Business Premise (MIDC Allotment Letter / Electricity Bill / Rent Deed)",
       "Cancelled Cheque / Bank Statement",
       "Letter of Authorization / Board Resolution"
-    ]
+    ],
+    "hindi_one_line_description": "अनिवार्य राज्य और केंद्रीय कर पंजीकरण जो वाणिज्यिक चालान, इनपुट टैक्स क्रेडिट और पूंजी मशीनरी की अंतर-राज्यीय खरीद की अनुमति देता है।",
+    "hindi_act_and_rule": "महाराष्ट्र वस्तु एवं सेवा कर अधिनियम, 2017 और केंद्रीय जीएसटी अधिनियम, 2017",
+    "hindi_fee_structure": "₹0 (आधिकारिक वैधानिक शुल्क)"
   },
   {
     "id": "professional-tax-registration",
     "name": "Professional Tax Enrollment (PTEC) & Registration (PTRC)",
     "marathi_name": "व्यवसाय कर नोंदणी (PTEC / PTRC)",
+    "hindi_name": "व्यावसायिक कर पंजीकरण (PTEC / PTRC)",
     "issuing_authority": "Department of Goods & Services Tax, Government of Maharashtra",
     "department": "Finance Department, Government of Maharashtra",
     "act_and_rule": "Maharashtra State Tax on Professions, Trades, Callings and Employments Act, 1975",
-    "category_tags": ["all"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion", "formalize"],
+    "category_tags": [
+      "all"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "1–3 Working Days",
     "timeline_days_min": 1,
     "timeline_days_max": 3,
     "fee_structure": "₹2,500/year (PTEC) + monthly deductions per staff salary slab (PTRC)",
-    "depends_on": ["gst-registration"],
+    "depends_on": [
+      "gst-registration"
+    ],
     "one_line_description": "PTEC certifies the employer/proprietor's professional tax liability; PTRC enables monthly deduction and remittance for salaried employees.",
     "portal_url": "https://www.mahagst.gov.in",
     "stage_phase": 1,
@@ -84,25 +129,44 @@
       "GSTIN Certificate",
       "Electricity bill of business address",
       "List of employees and gross salary details"
-    ]
+    ],
+    "hindi_one_line_description": "PTEC नियोक्ता/मालिक की पेशेवर कर देयता को प्रमाणित करता है; PTRC वेतनभोगी कर्मचारियों के लिए मासिक कटौती और प्रेषण को सक्षम बनाता है।",
+    "hindi_act_and_rule": "महाराष्ट्र राज्य व्यवसायों, व्यापारों, आजीविकाओं और रोजगारों पर कर अधिनियम, 1975",
+    "hindi_fee_structure": "₹2,500/वर्ष (PTEC) + कर्मचारी वेतन स्लैब (PTRC) के अनुसार मासिक कटौती"
   },
   {
     "id": "shops-and-establishment",
     "name": "Maharashtra Shops & Establishment Registration (Gumasta)",
     "marathi_name": "महाराष्ट्र दुकाने व आस्थापना नोंदणी / सूचना (गुमास्ता)",
+    "hindi_name": "महाराष्ट्र दुकान और स्थापना पंजीकरण (गुमास्ता)",
     "issuing_authority": "Labour Commissionerate / Local Urban Body via Aaple Sarkar",
     "department": "Industries, Energy and Labour Department, Government of Maharashtra",
     "act_and_rule": "Maharashtra Shops and Establishments (Regulation of Employment and Conditions of Service) Act, 2017",
-    "category_tags": ["it_services", "small_manufacturing", "food_processing"],
-    "location_tags": ["municipal", "rural"],
-    "scale_tags": ["micro", "small"],
-    "stage_tags": ["new_unit", "formalize"],
+    "category_tags": [
+      "it_services",
+      "small_manufacturing",
+      "food_processing"
+    ],
+    "location_tags": [
+      "municipal",
+      "rural"
+    ],
+    "scale_tags": [
+      "micro",
+      "small"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "Instant (Online Intimation for <10 workers) / 5–7 Days (≥10 workers)",
     "timeline_days_min": 1,
     "timeline_days_max": 7,
     "fee_structure": "₹0 for Intimation (<10 workers); ₹1,000–₹5,000 for Registration (≥10 workers)",
-    "depends_on": ["udyam-registration"],
+    "depends_on": [
+      "udyam-registration"
+    ],
     "one_line_description": "Statutory local labor sanction governing working hours, employee records, statutory leaves, and primary municipal proof of commercial operation.",
     "portal_url": "https://lms.mahaonline.gov.in",
     "stage_phase": 1,
@@ -113,25 +177,43 @@
       "Photo of Shop / Establishment with Marathi Signboard in Devanagari script",
       "Electricity Bill / Rent Agreement",
       "Partnership Deed / MoA / AoA (if applicable)"
-    ]
+    ],
+    "hindi_one_line_description": "काम के घंटे, कर्मचारी रिकॉर्ड, वैधानिक अवकाश और वाणिज्यिक संचालन के प्राथमिक नगरपालिका प्रमाण को नियंत्रित करने वाला वैधानिक स्थानीय श्रम स्वीकृति।",
+    "hindi_act_and_rule": "महाराष्ट्र दुकान और स्थापना (रोजगार और सेवा की शर्तें) अधिनियम, 2017",
+    "hindi_fee_structure": "सूचना के लिए ₹0 (<10 कर्मचारी); पंजीकरण के लिए ₹1,000–₹5,000 (≥10 कर्मचारी)"
   },
   {
     "id": "building-plan-approval",
     "name": "Industrial Building Plan Approval & Construction Permission",
     "marathi_name": "औद्योगिक इमारत नकाशा मंजुरी व विकास परवानगी",
+    "hindi_name": "औद्योगिक भवन योजना स्वीकृति और निर्माण अनुमति",
     "issuing_authority": "MIDC Special Planning Authority (SPA) / Municipal Town Planning / Collectorate",
     "department": "Industries Department / Urban Development Department, Maharashtra",
     "act_and_rule": "Maharashtra Regional and Town Planning (MRTP) Act, 1966 & Unified DCR",
-    "category_tags": ["small_manufacturing", "food_processing", "textile", "chemical"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "small_manufacturing",
+      "food_processing",
+      "textile",
+      "chemical"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "30–45 Working Days",
     "timeline_days_min": 30,
     "timeline_days_max": 45,
     "fee_structure": "Calculated per sq. meter built-up area and scrutiny charges as per MIDC/ULB rates",
-    "depends_on": ["udyam-registration"],
+    "depends_on": [
+      "udyam-registration"
+    ],
     "one_line_description": "Technical sanction of architectural layout, setbacks, structural stability, and zoning parameters before initiating any civil construction.",
     "portal_url": "https://eodb.midcindia.org",
     "stage_phase": 2,
@@ -142,25 +224,40 @@
       "Architectural drawings in CAD / AutoDCR format signed by licensed architect",
       "Structural Stability Certificate from registered structural engineer",
       "Soil investigation test report"
-    ]
+    ],
+    "hindi_one_line_description": "कोई भी सिविल निर्माण शुरू करने से पहले वास्तुशिल्प लेआउट, सेटबैक, संरचनात्मक स्थिरता और ज़ोनिंग मापदंडों की तकनीकी स्वीकृति।",
+    "hindi_act_and_rule": "महाराष्ट्र क्षेत्रीय और नगर नियोजन (MRTP) अधिनियम, 1966 और एकीकृत DCR",
+    "hindi_fee_structure": "MIDC/ULB दरों के अनुसार प्रति वर्ग मीटर निर्मित क्षेत्र और जांच शुल्क के आधार पर गणना की जाती है"
   },
   {
     "id": "fire-noc-provisional",
     "name": "Provisional Fire NOC (Pre-Construction Blueprint Sanction)",
     "marathi_name": "तात्पुरता अग्निशमन ना हरकत दाखला (बांधकाम पूर्व)",
+    "hindi_name": "अस्थायी अग्नि एनओसी (निर्माण पूर्व)",
     "issuing_authority": "Chief Fire Officer, MIDC Fire Services / Municipal Fire Brigade",
     "department": "Urban Development Department / MIDC Fire Brigade, Maharashtra",
     "act_and_rule": "Maharashtra Fire Prevention and Life Safety Measures Act, 2006",
-    "category_tags": ["all"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "all"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "15–21 Working Days",
     "timeline_days_min": 15,
     "timeline_days_max": 21,
     "fee_structure": "Fire Protection Fund fee assessed as per industrial hazard class & plot size",
-    "depends_on": ["building-plan-approval"],
+    "depends_on": [
+      "building-plan-approval"
+    ],
     "one_line_description": "Scrutiny of fire prevention blueprints specifying fire hydrants, emergency exits, access road width, and underground static water tanks before construction.",
     "portal_url": "https://midcindia.org",
     "stage_phase": 2,
@@ -171,25 +268,44 @@
       "Detailed floor plans indicating fire escape staircases and sprinkler layout",
       "Water requirement calculation for firefighting reserves",
       "Form A signed by licensed Fire Safety Agency"
-    ]
+    ],
+    "hindi_one_line_description": "निर्माण से पहले अग्नि हाइड्रेंट, आपातकालीन निकास, पहुंच सड़क की चौड़ाई और भूमिगत स्थिर पानी के टैंक को निर्दिष्ट करने वाले अग्नि निवारण ब्लूप्रिंट की जांच।",
+    "hindi_act_and_rule": "महाराष्ट्र अग्नि निवारण और जीवन सुरक्षा उपाय अधिनियम, 2006",
+    "hindi_fee_structure": "औद्योगिक खतरे के वर्ग और प्लॉट के आकार के अनुसार अग्नि सुरक्षा निधि शुल्क का आकलन किया जाता है"
   },
   {
     "id": "mpcb-cte",
     "name": "MPCB Consent to Establish (CTE)",
     "marathi_name": "महाराष्ट्र प्रदूषण नियंत्रण मंडळ - स्थापनेची संमती (CTE)",
+    "hindi_name": "महाराष्ट्र प्रदूषण नियंत्रण बोर्ड - स्थापना की सहमति (CTE)",
     "issuing_authority": "Maharashtra Pollution Control Board (MPCB)",
     "department": "Environment and Climate Change Department, Government of Maharashtra",
     "act_and_rule": "Water (Prevention & Control of Pollution) Act, 1974 & Air Act, 1981",
-    "category_tags": ["food_processing", "small_manufacturing", "textile", "chemical"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "food_processing",
+      "small_manufacturing",
+      "textile",
+      "chemical"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "30–60 Working Days (Orange/Green 30–45 Days; Red 60 Days)",
     "timeline_days_min": 30,
     "timeline_days_max": 60,
     "fee_structure": "Tiered by capital investment (e.g. ₹5,000 for <₹25L, ₹15,000 for ₹25L–₹1Cr, up to ₹50,000)",
-    "depends_on": ["building-plan-approval", "fire-noc-provisional"],
+    "depends_on": [
+      "building-plan-approval",
+      "fire-noc-provisional"
+    ],
     "one_line_description": "Statutory environmental consent required before civil work or machinery installation; strictly legally required prior to Factory License application.",
     "portal_url": "https://ecmpcb.mpcb.gov.in",
     "stage_phase": 3,
@@ -200,25 +316,45 @@
       "Effluent Treatment Plant (ETP) / Sewage Treatment Plant (STP) design proposal",
       "Air pollution control system details (Chimney / Cyclone / Scrubber)",
       "Audited balance sheet / CA capital investment certificate"
-    ]
+    ],
+    "hindi_one_line_description": "सिविल कार्य या मशीनरी स्थापना से पहले आवश्यक वैधानिक पर्यावरण सहमति; फैक्ट्री लाइसेंस आवेदन से पहले कड़ाई से कानूनी रूप से आवश्यक।",
+    "hindi_act_and_rule": "जल (प्रदूषण निवारण और नियंत्रण) अधिनियम, 1974 और वायु अधिनियम, 1981",
+    "hindi_fee_structure": "पूंजी निवेश द्वारा स्तरीकृत (उदा. <₹25L के लिए ₹5,000, ₹25L–₹1Cr के लिए ₹15,000, ₹50,000 तक)"
   },
   {
     "id": "dish-factory-license",
     "name": "Factory Building Plan Approval & Factory License",
     "marathi_name": "कारखाना नकाशा मंजुरी व कारखाना परवाना (DISH)",
+    "hindi_name": "कारखाना योजना स्वीकृति और कारखाना लाइसेंस (DISH)",
     "issuing_authority": "Directorate of Industrial Safety & Health (DISH), Maharashtra",
     "department": "Industries, Energy and Labour Department, Government of Maharashtra",
     "act_and_rule": "Factories Act, 1948 & Maharashtra Factories Rules, 1963",
-    "category_tags": ["small_manufacturing", "textile", "chemical", "food_processing"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion", "formalize"],
+    "category_tags": [
+      "small_manufacturing",
+      "textile",
+      "chemical",
+      "food_processing"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "30–45 Working Days",
     "timeline_days_min": 30,
     "timeline_days_max": 45,
     "fee_structure": "Graduated scale based on connected horse power (HP) and maximum worker headcount (₹2,500–₹25,000)",
-    "depends_on": ["mpcb-cte", "fire-noc-provisional"],
+    "depends_on": [
+      "mpcb-cte",
+      "fire-noc-provisional"
+    ],
     "one_line_description": "Workplace occupational health, worker safety, ventilation, and machinery guarding approval; legally requires MPCB Consent to Establish first.",
     "portal_url": "https://lms.mahaonline.gov.in",
     "stage_phase": 3,
@@ -229,26 +365,43 @@
       "Approved building plan drawings showing machinery layout and worker passages",
       "Form 1 (Application for permission to construct/extend factory)",
       "Form 2 (Application for registration and grant of license)"
-    ]
+    ],
+    "hindi_one_line_description": "कार्यस्थल व्यावसायिक स्वास्थ्य, श्रमिक सुरक्षा, वेंटिलेशन और मशीनरी सुरक्षा अनुमोदन; कानूनी रूप से पहले MPCB स्थापना की सहमति की आवश्यकता है।",
+    "hindi_act_and_rule": "कारखाना अधिनियम, 1948 और महाराष्ट्र कारखाना नियम, 1963",
+    "hindi_fee_structure": "कनेक्टेड हॉर्स पावर (HP) और अधिकतम कार्यकर्ता गणना (₹2,500–₹25,000) के आधार पर स्नातक पैमाने"
   },
   {
     "id": "boiler-registration",
     "name": "Steam Boiler Registration & Pipeline Drawing Approval",
     "marathi_name": "स्टीम बॉइलर नोंदणी व मंजुरी",
+    "hindi_name": "स्टीम बॉयलर पंजीकरण और योजना स्वीकृति",
     "issuing_authority": "Directorate of Steam Boilers, Maharashtra",
     "department": "Industries, Energy and Labour Department, Government of Maharashtra",
     "act_and_rule": "Indian Boilers Act, 1923 & Maharashtra Boiler Rules, 1962",
-    "category_tags": ["textile", "chemical", "food_processing"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "textile",
+      "chemical",
+      "food_processing"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Conditional",
     "conditional_reason": "Required only if unit utilizes steam boilers or closed vessels under pressure exceeding 25 liters capacity.",
     "typical_timeline": "21–30 Working Days",
     "timeline_days_min": 21,
     "timeline_days_max": 30,
     "fee_structure": "Based on boiler rating surface area (₹3,000 to ₹15,000)",
-    "depends_on": ["dish-factory-license"],
+    "depends_on": [
+      "dish-factory-license"
+    ],
     "one_line_description": "Mandatory pre-commissioning inspection, hydraulic pressure test, and safety valve certification for high-pressure industrial steam boilers.",
     "portal_url": "https://lms.mahaonline.gov.in",
     "stage_phase": 3,
@@ -258,25 +411,41 @@
       "Maker's Certificate (Form II & Form III) from boiler manufacturer",
       "Steam piping isometric drawings and material test certificates",
       "Hydraulic test report witnessed by Boiler Inspector"
-    ]
+    ],
+    "hindi_one_line_description": "उच्च दबाव वाले औद्योगिक स्टीम बॉयलर के लिए अनिवार्य पूर्व-चालू निरीक्षण, हाइड्रोलिक दबाव परीक्षण और सुरक्षा वाल्व प्रमाणन।",
+    "hindi_act_and_rule": "भारतीय बॉयलर अधिनियम, 1923 और महाराष्ट्र बॉयलर नियम, 1962",
+    "hindi_fee_structure": "बॉयलर के हीटिंग सतह क्षेत्र (वर्ग मीटर) के आधार पर शुल्क"
   },
   {
     "id": "peso-storage-license",
     "name": "PESO Petroleum / Chemical Bulk Storage License",
     "marathi_name": "पेट्रोलियम, वायू व स्फोटक साठा परवाना (PESO)",
+    "hindi_name": "पेट्रोलियम, गैस और विस्फोटक भंडारण लाइसेंस (PESO)",
     "issuing_authority": "Petroleum and Explosives Safety Organization (PESO), West Circle",
     "department": "Department for Promotion of Industry and Internal Trade (DPIIT), Govt. of India",
     "act_and_rule": "Petroleum Act, 1934 & Static and Mobile Pressure Vessels (Unfired) Rules, 2016",
-    "category_tags": ["chemical"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "chemical"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "45–60 Working Days",
     "timeline_days_min": 45,
     "timeline_days_max": 60,
     "fee_structure": "Calculated by storage volume (e.g. ₹5,000 to ₹25,000 per tank installation)",
-    "depends_on": ["mpcb-cte", "fire-noc-provisional"],
+    "depends_on": [
+      "mpcb-cte",
+      "fire-noc-provisional"
+    ],
     "one_line_description": "Mandatory site safety layout verification and storage license for bulk storage of inflammable solvents, chemicals, compressed LPG/hydrogen.",
     "portal_url": "https://peso.gov.in",
     "stage_phase": 3,
@@ -286,25 +455,42 @@
       "Approved site plan showing safety distances from boundaries and ignition sources",
       "Fabrication drawings of storage vessel and pressure relief valves",
       "Safety audit and hazardous area classification report"
-    ]
+    ],
+    "hindi_one_line_description": "ज्वलनशील सॉल्वैंट्स, रसायन, संपीड़ित एलपीजी/हाइड्रोजन के थोक भंडारण के लिए अनिवार्य साइट सुरक्षा लेआउट सत्यापन और भंडारण लाइसेंस।",
+    "hindi_act_and_rule": "पेट्रोलियम अधिनियम, 1934 और विस्फोटक अधिनियम, 1884",
+    "hindi_fee_structure": "भंडारित ज्वलनशील सामग्री के वर्ग और लीटर क्षमता (₹1,000 से ₹15,000) पर निर्भर करता है"
   },
   {
     "id": "fssai-license",
     "name": "FSSAI Food Safety Manufacturing License / Registration",
     "marathi_name": "अन्न सुरक्षा व मानके प्राधिकरण परवाना (FSSAI)",
+    "hindi_name": "खाद्य सुरक्षा और मानक प्राधिकरण लाइसेंस (FSSAI)",
     "issuing_authority": "Food & Drugs Administration (FDA), Maharashtra",
     "department": "Medical Education and Drugs Department / FSSAI Western Region",
     "act_and_rule": "Food Safety and Standards Act, 2006 & Licensing Regulations, 2011",
-    "category_tags": ["food_processing"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion", "formalize"],
+    "category_tags": [
+      "food_processing"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "15–30 Working Days (State License) / 7 Days (Basic Registration)",
     "timeline_days_min": 15,
     "timeline_days_max": 30,
     "fee_structure": "₹100/yr (Registration <₹12L turnover); ₹2,000–₹5,000/yr (State Manufacturing License)",
-    "depends_on": ["gst-registration", "mpcb-cte"],
+    "depends_on": [
+      "gst-registration",
+      "mpcb-cte"
+    ],
     "one_line_description": "Mandatory food hygiene and safety certification confirming sanitary manufacturing premises, potable water laboratory test, and recall plans.",
     "portal_url": "https://foscos.fssai.gov.in",
     "stage_phase": 3,
@@ -315,25 +501,41 @@
       "Laboratory testing report of processing water by NABL accredited lab",
       "List of food categories, machinery specifications, and horse power used",
       "Medical fitness certificates of all food handling workers"
-    ]
+    ],
+    "hindi_one_line_description": "स्वच्छ निर्माण परिसर, पीने योग्य पानी प्रयोगशाला परीक्षण, और रिकॉल योजनाओं की पुष्टि करने वाले अनिवार्य खाद्य स्वच्छता और सुरक्षा प्रमाणन।",
+    "hindi_act_and_rule": "खाद्य सुरक्षा और मानक अधिनियम, 2006",
+    "hindi_fee_structure": "उत्पादन क्षमता के आधार पर ₹2,000, ₹5,000, या ₹7,500 प्रति वर्ष"
   },
   {
     "id": "fire-noc-final",
     "name": "Final Fire NOC & Occupancy Clearance",
     "marathi_name": "अंतिम अग्निशमन दाखला व भोगवटा मंजुरी",
+    "hindi_name": "अंतिम अग्नि एनओसी और अधिभोग मंजूरी",
     "issuing_authority": "Chief Fire Officer, MIDC Fire Brigade / Municipal Fire Services",
     "department": "Urban Development Department / MIDC Fire Services, Maharashtra",
     "act_and_rule": "Maharashtra Fire Prevention and Life Safety Measures Act, 2006",
-    "category_tags": ["all"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "all"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "15–25 Working Days",
     "timeline_days_min": 15,
     "timeline_days_max": 25,
     "fee_structure": "Physical on-site inspection fees as per published schedule",
-    "depends_on": ["fire-noc-provisional", "building-plan-approval"],
+    "depends_on": [
+      "fire-noc-provisional",
+      "building-plan-approval"
+    ],
     "one_line_description": "Physical site verification confirming functional hydrants, alarms, smoke detectors, and emergency lighting installed as per provisional NOC conditions.",
     "portal_url": "https://midcindia.org",
     "stage_phase": 4,
@@ -343,25 +545,45 @@
       "Copy of Provisional Fire NOC",
       "Completion Certificate from registered Licensed Fire Agency (Form B)",
       "Photograph proof of static fire tank and booster pump installation"
-    ]
+    ],
+    "hindi_one_line_description": "भौतिक साइट सत्यापन इस बात की पुष्टि करता है कि कार्यात्मक हाइड्रेंट, अलार्म, स्मोक डिटेक्टर, और आपातकालीन प्रकाश व्यवस्था अनंतिम एनओसी शर्तों के अनुसार स्थापित की गई है।",
+    "hindi_act_and_rule": "महाराष्ट्र अग्नि निवारण और जीवन सुरक्षा उपाय अधिनियम, 2006",
+    "hindi_fee_structure": "प्रकाशित कार्यक्रम के अनुसार भौतिक ऑन-साइट निरीक्षण शुल्क"
   },
   {
     "id": "mpcb-cto",
     "name": "MPCB Consent to Operate (CTO)",
     "marathi_name": "महाराष्ट्र प्रदूषण नियंत्रण मंडळ - संचालनाची संमती (CTO)",
+    "hindi_name": "महाराष्ट्र प्रदूषण नियंत्रण बोर्ड - संचालन की सहमति (CTO)",
     "issuing_authority": "Maharashtra Pollution Control Board (MPCB)",
     "department": "Environment and Climate Change Department, Government of Maharashtra",
     "act_and_rule": "Water (Prevention & Control of Pollution) Act, 1974 & Air Act, 1981",
-    "category_tags": ["food_processing", "small_manufacturing", "textile", "chemical"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion", "formalize"],
+    "category_tags": [
+      "food_processing",
+      "small_manufacturing",
+      "textile",
+      "chemical"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "30–45 Working Days",
     "timeline_days_min": 30,
     "timeline_days_max": 45,
     "fee_structure": "Annual or 5-year block fee commensurate with capital investment tier",
-    "depends_on": ["mpcb-cte", "fire-noc-final"],
+    "depends_on": [
+      "mpcb-cte",
+      "fire-noc-final"
+    ],
     "one_line_description": "Final environmental green-light permitting commercial operations, effluent discharge within permissible standards, and emission generation.",
     "portal_url": "https://ecmpcb.mpcb.gov.in",
     "stage_phase": 4,
@@ -371,25 +593,41 @@
       "Copy of MPCB Consent to Establish (CTE) & compliance status report",
       "Photographs and commissioning certificate of ETP / STP / scrubbers",
       "Analysis report of treated effluent and stack emissions by MPCB recognized lab"
-    ]
+    ],
+    "hindi_one_line_description": "वाणिज्यिक संचालन, अनुमेय मानकों के भीतर प्रवाह निर्वहन, और उत्सर्जन उत्पादन की अनुमति देने वाला अंतिम पर्यावरणीय ग्रीन-लाइट।",
+    "hindi_act_and_rule": "जल (प्रदूषण निवारण और नियंत्रण) अधिनियम, 1974 और वायु अधिनियम, 1981",
+    "hindi_fee_structure": "पूंजी निवेश स्तर के अनुरूप वार्षिक या 5-वर्षीय ब्लॉक शुल्क"
   },
   {
     "id": "msedcl-power-connection",
     "name": "MSEDCL Industrial Power Connection / Load Sanction",
     "marathi_name": "महावितरण औद्योगिक वीज जोडणी व भार मंजुरी",
+    "hindi_name": "महावितरण औद्योगिक बिजली कनेक्शन और भार स्वीकृति",
     "issuing_authority": "Maharashtra State Electricity Distribution Co. Ltd. (MSEDCL / महावितरण)",
     "department": "Energy Department, Government of Maharashtra",
     "act_and_rule": "Electricity Act, 2003 & MERC Supply Code Regulations",
-    "category_tags": ["all"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "all"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "15–30 Working Days (LT Industrial) / 45 Days (HT Industrial)",
     "timeline_days_min": 15,
     "timeline_days_max": 30,
     "fee_structure": "Application fee + Security deposit calculated per kW/kVA contracted load",
-    "depends_on": ["dish-factory-license", "fire-noc-final"],
+    "depends_on": [
+      "dish-factory-license",
+      "fire-noc-final"
+    ],
     "one_line_description": "Sanction and physical meter energization of commercial industrial electricity connection with tariff subsidy eligibility under Maharashtra Industrial Policy.",
     "portal_url": "https://www.mahadiscom.in",
     "stage_phase": 4,
@@ -400,25 +638,44 @@
       "Test report (Form A) issued by Licensed Electrical Contractor",
       "Factory License / Gumasta copy",
       "No Objection Certificate from local authority"
-    ]
+    ],
+    "hindi_one_line_description": "महाराष्ट्र औद्योगिक नीति के तहत टैरिफ सब्सिडी पात्रता के साथ वाणिज्यिक औद्योगिक बिजली कनेक्शन की स्वीकृति और भौतिक मीटर ऊर्जाकरण।",
+    "hindi_act_and_rule": "विद्युत अधिनियम, 2003 और MERC आपूर्ति संहिता विनियम",
+    "hindi_fee_structure": "आवेदन शुल्क + प्रति kW/kVA अनुबंधित लोड की गणना की गई सुरक्षा जमा"
   },
   {
     "id": "water-supply-connection",
     "name": "Industrial Piped Water Connection & Allocation",
     "marathi_name": "औद्योगिक पाणी पुरवठा जोडणी व कोटा वाटप",
+    "hindi_name": "औद्योगिक पाइप जलापूर्ति कनेक्शन और आवंटन",
     "issuing_authority": "MIDC Water Works / Municipal Water Dept. / Maharashtra Jeevan Pradhikaran",
     "department": "Water Resources Department / MIDC Engineering, Maharashtra",
     "act_and_rule": "MIDC Water Supply Regulations / Maharashtra Municipal Corporations Act",
-    "category_tags": ["food_processing", "small_manufacturing", "textile", "chemical"],
-    "location_tags": ["all"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "expansion"],
+    "category_tags": [
+      "food_processing",
+      "small_manufacturing",
+      "textile",
+      "chemical"
+    ],
+    "location_tags": [
+      "all"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "expansion"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "15–21 Working Days",
     "timeline_days_min": 15,
     "timeline_days_max": 21,
     "fee_structure": "Pipe connection charges + refundable security deposit based on required daily m3 quota",
-    "depends_on": ["building-plan-approval", "mpcb-cte"],
+    "depends_on": [
+      "building-plan-approval",
+      "mpcb-cte"
+    ],
     "one_line_description": "Allotment of daily industrial water quota, pipeline tapping sanction, and commercial volumetric water meter installation.",
     "portal_url": "https://eodb.midcindia.org",
     "stage_phase": 4,
@@ -428,25 +685,44 @@
       "Plumbing schematic drawing showing industrial vs domestic line separation",
       "Water requirement calculation sheet",
       "MIDC plot allotment letter / property tax receipt"
-    ]
+    ],
+    "hindi_one_line_description": "दैनिक औद्योगिक जल कोटे का आवंटन, पाइपलाइन टैपिंग स्वीकृति, और वाणिज्यिक वॉल्यूमेट्रिक जल मीटर की स्थापना।",
+    "hindi_act_and_rule": "MIDC जल आपूर्ति विनियम / महाराष्ट्र नगर निगम अधिनियम",
+    "hindi_fee_structure": "पाइप कनेक्शन शुल्क + आवश्यक दैनिक m3 कोटे के आधार पर वापसी योग्य सुरक्षा जमा"
   },
   {
     "id": "municipal-trade-license",
     "name": "Local Municipal / Gram Panchayat Trade License",
     "marathi_name": "स्थानिक स्वराज्य संस्था व्यापार परवाना",
+    "hindi_name": "स्थानीय नगर निगम / ग्राम पंचायत व्यापार लाइसेंस",
     "issuing_authority": "Local Municipal Corporation (e.g. BMC, PMC, PCMC, NMMC) / Gram Panchayat",
     "department": "Urban Development / Rural Development Department, Maharashtra",
     "act_and_rule": "Maharashtra Municipal Corporations Act / Maharashtra Village Panchayats Act",
-    "category_tags": ["food_processing", "small_manufacturing", "it_services"],
-    "location_tags": ["municipal", "rural"],
-    "scale_tags": ["all"],
-    "stage_tags": ["new_unit", "formalize"],
+    "category_tags": [
+      "food_processing",
+      "small_manufacturing",
+      "it_services"
+    ],
+    "location_tags": [
+      "municipal",
+      "rural"
+    ],
+    "scale_tags": [
+      "all"
+    ],
+    "stage_tags": [
+      "new_unit",
+      "formalize"
+    ],
     "mandatory_or_conditional": "Mandatory",
     "typical_timeline": "14–21 Working Days",
     "timeline_days_min": 14,
     "timeline_days_max": 21,
     "fee_structure": "Annual trade license fee assessed by local ward office as per schedule",
-    "depends_on": ["shops-and-establishment", "fire-noc-final"],
+    "depends_on": [
+      "shops-and-establishment",
+      "fire-noc-final"
+    ],
     "one_line_description": "Civic clearance permitting commercial operations and trade activities within municipal or rural jurisdiction boundaries.",
     "portal_url": "https://aaplesarkar.mahaonline.gov.in",
     "stage_phase": 4,
@@ -457,6 +733,9 @@
       "Fire Department NOC",
       "Property Tax No Dues Certificate",
       "Premises lease deed / ownership deed"
-    ]
+    ],
+    "hindi_one_line_description": "नगरपालिका या ग्रामीण क्षेत्राधिकार की सीमाओं के भीतर वाणिज्यिक संचालन और व्यापार गतिविधियों की अनुमति देने वाली नागरिक निकासी।",
+    "hindi_act_and_rule": "महाराष्ट्र नगर निगम अधिनियम / महाराष्ट्र ग्राम पंचायत अधिनियम",
+    "hindi_fee_structure": "अनुसूची के अनुसार स्थानीय वार्ड कार्यालय द्वारा मूल्यांकन किया गया वार्षिक व्यापार लाइसेंस शुल्क"
   }
 ]

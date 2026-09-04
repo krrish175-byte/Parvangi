@@ -69,7 +69,7 @@ export default function HelpdeskModal({ onClose }: HelpdeskModalProps) {
         >
           <div>
             <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-              🏛️ {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) संपर्क निर्देशिका' : 'District Industries Centres (DIC) Directory'}
+              🏛️ {language === 'mr' ? 'जिल्हा उद्योग केंद्र (DIC) संपर्क निर्देशिका' : language === 'hi' ? 'जिला उद्योग केंद्र निर्देशिका' : 'District Industries Centres (DIC) Directory'}
             </h2>
             <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
               Official contact coordinates for General Managers of DICs across Maharashtra

@@ -17,11 +17,13 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
   const sampleProfiles: {
     label: string;
     marathiLabel: string;
+    hindiLabel: string;
     profile: UserProfileInput;
   }[] = [
     {
       label: 'Small Manufacturing Workshop (MIDC · ₹45L Micro)',
       marathiLabel: 'लघु उत्पादन कार्यशाळा (एमआयडीसी · ₹४५ लाख)',
+      hindiLabel: 'लघु विनिर्माण कार्यशाला (एमआईडीसी · ₹45L)',
       profile: {
         category: 'small_manufacturing',
         location: 'midc',
@@ -34,6 +36,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
     {
       label: 'Food Processing Center (Municipal · ₹25L Micro)',
       marathiLabel: 'खाद्य प्रक्रिया केंद्र (मनपा · ₹२५ लाख)',
+      hindiLabel: 'खाद्य प्रसंस्करण केंद्र (मनपा · ₹25L)',
       profile: {
         category: 'food_processing',
         location: 'municipal',
@@ -46,6 +49,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
     {
       label: 'Textile Unit with Boilers (MIDC · ₹1.80 Cr Small)',
       marathiLabel: 'कापड व बॉइलर उद्योग (एमआयडीसी · ₹१.८० कोटी)',
+      hindiLabel: 'बॉयलर वाली कपड़ा इकाई (एमआईडीसी · ₹1.80Cr)',
       profile: {
         category: 'textile',
         location: 'midc',
@@ -58,6 +62,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
     {
       label: 'IT & Digital Services Hub (Municipal · ₹15L Micro)',
       marathiLabel: 'माहिती तंत्रज्ञान सेवा (मनपा · ₹१५ लाख)',
+      hindiLabel: 'आईटी और डिजिटल सेवा हब (मनपा · ₹15L)',
       profile: {
         category: 'it_services',
         location: 'municipal',
@@ -121,7 +126,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
         >
           <div>
             <h2 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-              🔍 {language === 'mr' ? 'परवानगी सूची ट्रॅक करा / शोधा' : 'Track Existing Approval Schedule'}
+              🔍 {language === 'mr' ? 'परवानगी सूची ट्रॅक करा / शोधा' : language === 'hi' ? 'मौजूदा अनुसूची ट्रैक करें' : 'Track Existing Approval Schedule'}
             </h2>
             <span style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
               Recall your previously evaluated regulatory sequence
@@ -149,7 +154,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
               htmlFor="reference-code-input"
               style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}
             >
-              {language === 'mr' ? 'संदर्भ क्रमांक टाका:' : 'Enter 16-Character Reference Number:'}
+              {language === 'mr' ? 'संदर्भ क्रमांक टाका:' : language === 'hi' ? 'Enter 16-Character Reference Number:' : 'Enter 16-Character Reference Number:'}
             </label>
             <div style={{ display: 'flex', gap: '8px' }}>
               <input
@@ -177,7 +182,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
                 onClick={handleLookup}
                 style={{ padding: '9px 18px' }}
               >
-                {language === 'mr' ? 'शोधा' : 'Lookup'}
+                {language === 'mr' ? 'शोधा' : language === 'hi' ? 'खोजें' : 'Lookup'}
               </button>
             </div>
             {error && (
@@ -190,7 +195,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
           {/* Quick Demo Pre-sets */}
           <div style={{ borderTop: '1px solid var(--gov-border-subtle)', paddingTop: '14px' }}>
             <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '8px' }}>
-              💡 {language === 'mr' ? 'किंवा चाचणीसाठी थेट नमुना उद्योग लोड करा:' : 'Or Instantly Test With Real Case Profiles:'}
+              💡 {language === 'mr' ? 'किंवा चाचणीसाठी थेट नमुना उद्योग लोड करा:' : language === 'hi' ? 'Or Instantly Test With Real Case Profiles:' : 'Or Instantly Test With Real Case Profiles:'}
             </div>
             <div style={{ display: 'grid', gap: '8px' }}>
               {sampleProfiles.map((s, idx) => (
@@ -212,7 +217,7 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
                   }}
                 >
                   <strong style={{ color: 'var(--gov-navy)' }}>
-                    {language === 'mr' ? s.marathiLabel : s.label}
+                    {language === 'mr' ? s.marathiLabel : language === 'hi' ? s.hindiLabel : s.label}
                   </strong>
                   <span style={{ color: 'var(--gov-saffron)', fontWeight: 700 }}>Load →</span>
                 </button>

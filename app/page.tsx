@@ -127,9 +127,7 @@ export default function HomePage() {
                       THE VERIFIABLE COMPLIANCE ARCHITECTURE
                     </span>
                     <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--gov-navy-dark)', marginTop: '8px' }}>
-                      {language === 'mr'
-                        ? 'परवानगी हे इतर साधनांपेक्षा वेगळे कसे आहे?'
-                        : 'How Parvangi Eliminates the Compliance Roadblock'}
+                      {language === 'mr' ? 'परवानगी हे इतर साधनांपेक्षा वेगळे कसे आहे?' : language === 'hi' ? 'How Parvangi Eliminates the Compliance Roadblock' : 'How Parvangi Eliminates the Compliance Roadblock'}
                     </h2>
                   </div>
 
@@ -137,30 +135,30 @@ export default function HomePage() {
                     <div className="gov-card" style={{ borderTop: '3px solid var(--gov-navy)' }}>
                       <div style={{ fontSize: '24px', marginBottom: '8px' }}>🎯</div>
                       <h3 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}>
-                        {language === 'mr' ? 'सूक्ष्म उद्योजकांसाठी विशेष' : 'Built for the ₹10-Lakh Founder'}
+                        {language === 'mr' ? 'सूक्ष्म उद्योजकांसाठी विशेष' : language === 'hi' ? '₹10-लाख संस्थापक के लिए निर्मित' : 'Built for the ₹10-Lakh Founder'}
                       </h3>
                       <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', lineHeight: 1.55 }}>
-                        While MAITRI focuses on ₹10 Cr+ large investments, Parvangi is tailored for small workshops, food processors, and fabrication units setting up with personal savings.
+                        {language === 'mr' ? 'जेथे MAITRI १० कोटींपेक्षा मोठ्या प्रकल्पांवर लक्ष केंद्रित करते, तेथे परवानगी ही छोटे कारखाने आणि वैयक्तिक बचतीवर सुरू होणाऱ्या व्यवसायांसाठी तयार केली आहे.' : language === 'hi' ? 'जबकि MAITRI ₹10 करोड़ से अधिक के बड़े निवेश पर केंद्रित है, परवानगी छोटे कारखानों, खाद्य प्रसंस्करण और व्यक्तिगत बचत के साथ स्थापित होने वाली इकाइयों के लिए तैयार की गई है।' : 'While MAITRI focuses on ₹10 Cr+ large investments, Parvangi is tailored for small workshops, food processors, and fabrication units setting up with personal savings.'}
                       </p>
                     </div>
 
                     <div className="gov-card" style={{ borderTop: '3px solid var(--gov-saffron)' }}>
                       <div style={{ fontSize: '24px', marginBottom: '8px' }}>⚖️</div>
                       <h3 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}>
-                        {language === 'mr' ? 'कायदेशीर पूर्वअटींची खात्री' : 'Strict Legal Precedence'}
+                        {language === 'mr' ? 'कायदेशीर पूर्वअटींची खात्री' : language === 'hi' ? 'सख्त कानूनी प्राथमिकता' : 'Strict Legal Precedence'}
                       </h3>
                       <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', lineHeight: 1.55 }}>
-                        Guarantees that prerequisite approvals (e.g. MPCB CTE must precede DISH Factory License) are executed in strictly valid statutory sequence to prevent costly civil modifications.
+                        {language === 'mr' ? 'कायदेशीर अनुक्रमाचे (उदा. MPCB CTE हे फॅक्टरी परवान्याआधी असणे) अचूक पालन करते, जेणेकरून भविष्यातील महागडे कायदेशीर बदल टाळता येतील.' : language === 'hi' ? 'यह सुनिश्चित करता है कि पूर्व-आवश्यक मंजूरी (जैसे MPCB CTE को DISH फैक्ट्री लाइसेंस से पहले होना चाहिए) कड़ाई से वैध वैधानिक अनुक्रम में निष्पादित की जाती हैं, ताकि महंगे नागरिक संशोधनों से बचा जा सके।' : 'Guarantees that prerequisite approvals (e.g. MPCB CTE must precede DISH Factory License) are executed in strictly valid statutory sequence to prevent costly civil modifications.'}
                       </p>
                     </div>
 
                     <div className="gov-card" style={{ borderTop: '3px solid var(--gov-green)' }}>
                       <div style={{ fontSize: '24px', marginBottom: '8px' }}>🛡️</div>
                       <h3 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}>
-                        {language === 'mr' ? 'सत्यापित नियम डेटाबेस' : 'Deterministic Rules Engine'}
+                        {language === 'mr' ? 'सत्यापित नियम डेटाबेस' : language === 'hi' ? 'नियम आधारित इंजन' : 'Deterministic Rules Engine'}
                       </h3>
                       <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', lineHeight: 1.55 }}>
-                        Flat, version-controlled regulatory dataset matching MIDC, MPCB, and DISH official frameworks. Verifiable rules — never guessed by generative hallucinations.
+                        {language === 'mr' ? 'MIDC, MPCB आणि DISH च्या अधिकृत कार्यपद्धतीशी सुसंगत असा नियम डेटाबेस. येथे जनरेटिव्ह AI चे चुकीचे अनुमान नाही, तर फक्त सत्यापित नियम आहेत.' : language === 'hi' ? 'MIDC, MPCB, और DISH के आधिकारिक ढांचे से मेल खाने वाला नियामक डेटासेट। सत्यापन योग्य नियम — कभी भी जनरेटिव AI के अनुमानों पर आधारित नहीं।' : 'Flat, version-controlled regulatory dataset matching MIDC, MPCB, and DISH official frameworks. Verifiable rules — never guessed by generative hallucinations.'}
                       </p>
                     </div>
                   </div>
@@ -182,10 +180,10 @@ export default function HomePage() {
                   >
                     <div>
                       <strong style={{ fontSize: '14.5px', color: 'var(--gov-navy)' }}>
-                        {language === 'mr' ? 'आपला उद्योग सुरू करण्यास सज्ज आहात?' : 'Ready to verify your approval roadmap?'}
+                        {language === 'mr' ? 'आपला उद्योग सुरू करण्यास सज्ज आहात?' : language === 'hi' ? 'क्या आप अपना रोडमैप सत्यापित करने के लिए तैयार हैं?' : 'Ready to verify your approval roadmap?'}
                       </strong>
                       <div style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
-                        Takes less than 60 seconds across 4 simple guided steps.
+                        {language === 'mr' ? '४ सोप्या टप्प्यांत ६० सेकंदांपेक्षा कमी वेळेत पूर्ण करा.' : language === 'hi' ? '4 आसान निर्देशित चरणों में 60 सेकंड से भी कम समय लगता है।' : 'Takes less than 60 seconds across 4 simple guided steps.'}
                       </div>
                     </div>
 
@@ -195,7 +193,7 @@ export default function HomePage() {
                       onClick={handleStartWizard}
                       style={{ fontSize: '13.5px', padding: '10px 22px' }}
                     >
-                      Start Free Wizard →
+                      {language === 'mr' ? 'मोफत विझार्ड सुरू करा →' : language === 'hi' ? 'मुफ़्त विज़ार्ड प्रारंभ करें →' : 'Start Free Wizard →'}
                     </button>
                   </div>
                 </div>

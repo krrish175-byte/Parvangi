@@ -21,7 +21,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             onClick={() => onNavigate('home')}
           >
             <span>🏛️</span>
-            <span>{language === 'mr' ? 'मुख्यपृष्ठ' : 'Home'}</span>
+            <span>{language === 'mr' ? 'मुख्यपृष्ठ' : language === 'hi' ? 'होम' : 'Home'}</span>
           </li>
 
           <li
@@ -29,7 +29,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             onClick={() => onNavigate('wizard')}
           >
             <span>⚡</span>
-            <span>{language === 'mr' ? 'नवीन परवानगी तपासा (Wizard)' : 'Check What You Need'}</span>
+            <span>{language === 'mr' ? 'नवीन परवानगी तपासा (Wizard)' : language === 'hi' ? 'जांचें कि आपको क्या चाहिए' : 'Check What You Need'}</span>
             <span
               style={{
                 backgroundColor: '#ffffff',
@@ -50,7 +50,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
               onClick={() => onNavigate('checklist')}
             >
               <span>📋</span>
-              <span>{language === 'mr' ? 'माझी परवानगी सूची (Checklist)' : 'My Active Checklist'}</span>
+              <span>{language === 'mr' ? 'माझी परवानगी सूची (Checklist)' : language === 'hi' ? 'मेरी सक्रिय सूची' : 'My Active Checklist'}</span>
             </li>
           )}
 
@@ -59,7 +59,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             onClick={() => onNavigate('directory')}
           >
             <span>📚</span>
-            <span>{language === 'mr' ? 'सर्व १६ परवानग्या (Repository)' : 'Know Your Approvals'}</span>
+            <span>{language === 'mr' ? 'सर्व १६ परवानग्या (Repository)' : language === 'hi' ? 'अपनी मंजूरी जानें' : 'Know Your Approvals'}</span>
           </li>
 
           <li
@@ -67,7 +67,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             onClick={() => onNavigate('maitri_gap')}
           >
             <span>⚖️</span>
-            <span>{language === 'mr' ? 'MAITRI 2.0 तुलना (The Gap)' : 'MAITRI 2.0 vs Parvangi'}</span>
+            <span>{language === 'mr' ? 'MAITRI 2.0 तुलना (The Gap)' : language === 'hi' ? 'MAITRI 2.0 vs Parvangi' : 'MAITRI 2.0 vs Parvangi'}</span>
           </li>
         </ul>
       </div>

@@ -42,7 +42,7 @@ export default function HeroBanner({
                 letterSpacing: '0.5px'
               }}
             >
-              ★ {language === 'mr' ? 'महाराष्ट्र राज्य नाविन्यता उपक्रम' : 'STATE INNOVATION FACILITATION'}
+              ★ {language === 'mr' ? 'महाराष्ट्र राज्य नाविन्यता उपक्रम' : language === 'hi' ? 'राज्य नवाचार सुविधा' : 'STATE INNOVATION FACILITATION'}
             </span>
             <span
               style={{
@@ -72,6 +72,10 @@ export default function HeroBanner({
               <>
                 उद्योग उभारण्यापूर्वी लागणाऱ्या सर्व वैधानिक परवानग्यांची अचूक आणि कायदेशीर सूची
               </>
+            ) : language === 'hi' ? (
+              <>
+                महाराष्ट्र में लघु औद्योगिक इकाइयों के लिए वैधानिक अनुमोदन चेकलिस्ट इंजन
+              </>
             ) : (
               <>
                 Statutory Approval Checklist Engine for Small Industrial Units in Maharashtra
@@ -88,7 +92,7 @@ export default function HeroBanner({
               marginBottom: '14px'
             }}
           >
-            &ldquo;{language === 'mr' ? 'काय हवे आहे ते वेळेपूर्वी जाणून घ्या.' : 'Know what you need, before you need it.'}&rdquo;
+            &ldquo;{language === 'mr' ? 'काय हवे आहे ते वेळेपूर्वी जाणून घ्या.' : language === 'hi' ? 'जानें कि आपको क्या चाहिए, इससे पहले कि आपको इसकी आवश्यकता हो।' : 'Know what you need, before you need it.'}&rdquo;
           </p>
 
           {/* Problem Statement & Differentiator Box */}
@@ -109,13 +113,15 @@ export default function HeroBanner({
               <span style={{ fontSize: '20px', lineHeight: 1 }}>🛡️</span>
               <div>
                 <strong style={{ color: '#ffffff', display: 'block', marginBottom: '4px' }}>
-                  {language === 'mr'
-                    ? 'सत्यापित नियम डेटाबेस — एआय अनुमानावर आधारित नाही'
-                    : 'The Verified Regulatory Difference:'}
+                  {language === 'mr' ? 'सत्यापित नियम डेटाबेस — एआय अनुमानावर आधारित नाही' : language === 'hi' ? 'सत्यापित नियामक अंतर:' : 'The Verified Regulatory Difference:'}
                 </strong>
                 {language === 'mr' ? (
                   <span>
                     कोणीही सामान्य एआय कडून परवानग्यांची माहिती विचारू शकतो, मात्र ती असत्यापित असू शकते. परवानगीची ही तपासणी सूची महाराष्ट्र शासनाच्या अधिकृत नियमावली आणि कायदेशीर अनुक्रमावर आधारित आहे. <strong>आणि मुख्य म्हणजे, MAITRI 2.0 जिथे ₹१० कोटींवरील मोठ्या प्रकल्पांवर लक्ष केंद्रित करते, तिथे ‘परवानगी’ ही ₹१० लाखांच्या सामान्य सूक्ष्म उद्योजकासाठी तयार केली गेली आहे.</strong>
+                  </span>
+                ) : language === 'hi' ? (
+                  <span>
+                    कोई भी एआई से पूछ सकता है कि उन्हें किस लाइसेंस की आवश्यकता है और एक असत्यापित उत्तर प्राप्त कर सकता है। परवानगी की चेकलिस्ट एक <strong>संरचित नियामक डेटाबेस से आती है — सत्यापित, अनुमानित नहीं</strong>। और MAITRI (जो ₹10 करोड़+ बड़े निवेश को पूरा करता है) के विपरीत, <strong>यह ₹10-लाख वाले उद्यमी के लिए बनाया गया है</strong>।
                   </span>
                 ) : (
                   <span>
@@ -136,9 +142,7 @@ export default function HeroBanner({
             >
               <span>⚡</span>
               <span>
-                {language === 'mr'
-                  ? 'माझी वैयक्तिक परवानगी सूची तपासा (४ टप्पे)'
-                  : 'Check What You Need (4-Step Wizard)'}
+                {language === 'mr' ? 'माझी वैयक्तिक परवानगी सूची तपासा (४ टप्पे)' : language === 'hi' ? 'जांचें कि आपको क्या चाहिए (4-चरणीय विज़ार्ड)' : 'Check What You Need (4-Step Wizard)'}
               </span>
             </button>
 
@@ -149,7 +153,7 @@ export default function HeroBanner({
               onClick={onViewDirectory}
             >
               <span>📚</span>
-              <span>{language === 'mr' ? 'सर्व १६ परवानग्यांची सूची' : 'Know Your Approvals'}</span>
+              <span>{language === 'mr' ? 'सर्व १६ परवानग्यांची सूची' : language === 'hi' ? 'अपनी मंजूरी जानें' : 'Know Your Approvals'}</span>
             </button>
 
             <button
@@ -163,7 +167,9 @@ export default function HeroBanner({
               onClick={onViewMaitriGap}
             >
               <span>⚖️</span>
-              <span>{language === 'mr' ? 'MAITRI 2.0 फरक स्पष्टीकरण' : 'Why MAITRI Leaves a Gap'}</span>
+              <span style={{ fontWeight: 600 }}>
+                {language === 'mr' ? 'MAITRI 2.0 मधील उणीवा (फरक)' : language === 'hi' ? 'MAITRI 2.0 क्यों एक अंतर छोड़ती है' : 'Why MAITRI Leaves a Gap'}
+              </span>
             </button>
           </div>
         </div>
