@@ -49,6 +49,7 @@ export default function WizardContainer({
 
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [maxStepAllowed, setMaxStepAllowed] = useState<number>(1);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
   // Form State
   const [category, setCategory] = useState<string>(initialProfile?.category || 'small_manufacturing');
@@ -77,6 +78,9 @@ export default function WizardContainer({
   };
 
   const handleComplete = () => {
+    if (isGenerating) return;
+
+    setIsGenerating(true);
     const profile: UserProfileInput = {
       category,
       location,
@@ -86,8 +90,11 @@ export default function WizardContainer({
       district
     };
 
-    const result = generateApprovalChecklist(profile);
-    onChecklistGenerated(result);
+    window.setTimeout(() => {
+      const result = generateApprovalChecklist(profile);
+      onChecklistGenerated(result);
+      setIsGenerating(false);
+    }, 250);
   };
 
   return (
@@ -250,11 +257,14 @@ export default function WizardContainer({
                   type="button"
                   className="btn-gov-primary"
                   onClick={goToNextStep}
+                  disabled={isGenerating}
                   style={{ fontSize: '15px', padding: '12px 28px' }}
                 >
-                  <span>⚡</span>
+                  <span>{isGenerating ? '⏳' : '⚡'}</span>
                   <span>
-                    {language === 'mr'
+                    {isGenerating
+                      ? language === 'mr' ? 'तयार होत आहे...' : 'Generating...'
+                      : language === 'mr'
                       ? 'माझी वैधानिक परवानगी सूची तयार करा'
                       : 'Generate My Approval Checklist'}
                   </span>

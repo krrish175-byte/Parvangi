@@ -418,6 +418,10 @@ html[data-high-contrast] input {
   background-color: var(--gov-saffron-hover);
   color: #ffffff;
 }
+.btn-gov-primary:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
 
 .btn-gov-secondary {
   background-color: var(--gov-navy);
