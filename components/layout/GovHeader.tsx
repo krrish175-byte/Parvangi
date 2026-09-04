@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '@/lib/context';
 import { getCurrentUser, isAdminLoggedIn, logout } from '@/lib/auth-store';
 import { UserAccount } from '@/lib/types';
@@ -15,7 +15,6 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
   const { language } = useApp();
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [currentDateTime, setCurrentDateTime] = useState<string>('');
 
   useEffect(() => {
     const checkAuth = () => {
@@ -26,32 +25,6 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
     window.addEventListener('parvangi_auth_change', checkAuth);
     return () => window.removeEventListener('parvangi_auth_change', checkAuth);
   }, []);
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        weekday: 'short',
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-      };
-      const locale = language === 'mr' ? 'mr-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-      setCurrentDateTime(now.toLocaleString(locale, options));
-    };
-
-    const timer = setInterval(updateTime, 1000);
-    const initialTimeout = setTimeout(updateTime, 0);
-
-    return () => {
-      clearInterval(timer);
-      clearTimeout(initialTimeout);
-    };
-  }, [language]);
 
   const handleLogout = () => {
     logout();
@@ -102,42 +75,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
             </div>
           </div>
 
-          <div className="gov-header-meta no-print">
           <div className="gov-header-meta no-print" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-              <span className="gov-initiative-tag">
-                {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : language === 'hi' ? 'राज्य नवाचार पहल' : 'State Innovation Initiative'}
-              </span>
-              {currentDateTime && (
-                <span
-                  style={{
-                    fontSize: '11px',
-                    color: '#475569',
-                    fontWeight: 600,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '5px'
-                  }}
-                >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ color: '#002244' }}
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                  {currentDateTime}
-                </span>
-              )}
-            </div>
-
             {/* Authentication Strip in Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               {isAdmin ? (
