@@ -1504,13 +1504,17 @@ html[data-high-contrast] input {
 
 /* Hero Section */
 .gov-hero-section {
-  background-color: #001f3f;
+  background-color: #001833;
   background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255, 153, 51, 0.15), transparent 70%),
-    linear-gradient(180deg, #001833 0%, #002244 50%, #002b55 100%);
+    radial-gradient(ellipse 85% 65% at 50% -10%, rgba(255, 153, 51, 0.16), transparent 70%),
+    linear-gradient(180deg, rgba(0, 18, 38, 0.86) 0%, rgba(0, 31, 63, 0.89) 50%, rgba(0, 39, 80, 0.94) 100%),
+    url('/hero-industrial-bg.jpg');
+  background-position: center 38%;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #ffffff;
   border-bottom: 4px solid var(--gov-saffron);
-  padding: 42px 0 40px 0;
+  padding: 46px 0 42px 0;
   position: relative;
   overflow: hidden;
 }

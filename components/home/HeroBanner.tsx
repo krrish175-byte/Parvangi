@@ -38,7 +38,7 @@ export default function HeroBanner({
   return (
     <section className="gov-hero-section">
       <div className="gov-container">
-        <div style={{ maxWidth: '980px', margin: '0 auto', textAlign: 'center' }}>
+        <div className="gov-hero-inner" style={{ maxWidth: '980px', margin: '0 auto', textAlign: 'center' }}>
           {/* Institutional Badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
             <span
