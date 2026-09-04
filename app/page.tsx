@@ -10,6 +10,7 @@ import NoticeTicker from '@/components/layout/NoticeTicker';
 import GovFooter from '@/components/layout/GovFooter';
 import HeroBanner from '@/components/home/HeroBanner';
 import QuickLinksRow from '@/components/home/QuickLinksRow';
+import HomeImpactSection from '@/components/home/HomeImpactSection';
 import WizardContainer from '@/components/wizard/WizardContainer';
 import ChecklistDashboard from '@/components/checklist/ChecklistDashboard';
 import TrackChecklistModal from '@/components/tracking/TrackChecklistModal';
@@ -145,6 +146,8 @@ export default function HomePage() {
               onViewDirectory={() => setShowDirectoryModal(true)}
               onViewHelpdesk={() => setShowHelpdeskModal(true)}
             />
+
+            <HomeImpactSection />
 
             {/* Why Maharashtra Entrepreneurs Trust Parvangi Section */}
             <section style={{ backgroundColor: '#ffffff', borderTop: '1px solid var(--gov-border)', padding: '36px 0 40px 0' }}>
