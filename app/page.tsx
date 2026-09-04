@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChecklistResult, UserProfileInput } from '@/lib/types';
-import { generateApprovalChecklist, ALL_APPROVALS } from '@/lib/rules-engine';
+import { generateApprovalChecklist } from '@/lib/rules-engine';
 import AccessibilityBar from '@/components/layout/AccessibilityBar';
 import GovHeader from '@/components/layout/GovHeader';
 import GovNavBar from '@/components/layout/GovNavBar';
@@ -34,12 +34,21 @@ function getSavedChecklist(): ChecklistResult | null {
 export default function HomePage() {
   const { language } = useApp();
 
-  const [savedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap'>(
-    savedChecklist ? 'checklist' : 'home'
-  );
-  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(savedChecklist);
+  const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(null);
+  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap'>('home');
+  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(null);
   const [profileForEdit, setProfileForEdit] = useState<UserProfileInput | undefined>(undefined);
+
+  useEffect(() => {
+    const saved = getSavedChecklist();
+    if (saved) {
+      window.setTimeout(() => {
+        setSavedChecklist(saved);
+        setActiveResult(saved);
+        setCurrentView('checklist');
+      }, 0);
+    }
+  }, []);
 
   // Modals
   const [showTrackModal, setShowTrackModal] = useState<boolean>(false);

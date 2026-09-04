@@ -6,7 +6,7 @@ import { ScaleTier } from '@/lib/types';
 import { classifyMSME, formatINR } from '@/lib/msme-classifier';
 
 const MIN_INVESTMENT_LAKHS = 5;
-const MAX_INVESTMENT_LAKHS = 5000;
+const MAX_INVESTMENT_LAKHS = 1500;
 
 interface Step3ScaleProps {
   investmentInLakhs: number;
