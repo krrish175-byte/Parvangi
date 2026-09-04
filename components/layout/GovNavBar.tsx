@@ -6,11 +6,12 @@ import { Home, Zap, ClipboardList, BookOpen, Scale } from 'lucide-react';
 
 interface GovNavBarProps {
   currentView: 'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap';
-  onNavigate: (view: 'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap') => void;
+  onNavigate: (view: 'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'what_if') => void;
   hasExistingChecklist?: boolean;
+  onOpenWhatIf?: () => void;
 }
 
-export default function GovNavBar({ currentView, onNavigate, hasExistingChecklist }: GovNavBarProps) {
+export default function GovNavBar({ currentView, onNavigate, hasExistingChecklist, onOpenWhatIf }: GovNavBarProps) {
   const { language } = useApp();
 
   return (
@@ -42,6 +43,33 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
               }}
             >
               NEW
+            </span>
+          </li>
+
+          {/* ⚡ WHAT-IF ENGINE FEATURE ITEM */}
+          <li
+            className="gov-nav-item"
+            onClick={onOpenWhatIf}
+            style={{
+              backgroundColor: 'rgba(255, 153, 51, 0.15)',
+              border: '1px solid #ff9933',
+              color: '#ffb74d',
+              fontWeight: 700
+            }}
+          >
+            <Zap size={15} color="#ff9933" />
+            <span>{language === 'mr' ? '⚡ What-If सिम्युलेटर' : '⚡ What-If Engine'}</span>
+            <span
+              style={{
+                backgroundColor: '#ff9933',
+                color: '#000000',
+                fontSize: '9px',
+                padding: '1px 4px',
+                borderRadius: '2px',
+                fontWeight: 900
+              }}
+            >
+              SIMULATOR
             </span>
           </li>
 

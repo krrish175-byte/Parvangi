@@ -9,13 +9,15 @@ interface QuickLinksRowProps {
   onTrackChecklist: () => void;
   onViewDirectory: () => void;
   onViewHelpdesk: () => void;
+  onOpenWhatIf?: () => void;
 }
 
 export default function QuickLinksRow({
   onStartWizard,
   onTrackChecklist,
   onViewDirectory,
-  onViewHelpdesk
+  onViewHelpdesk,
+  onOpenWhatIf
 }: QuickLinksRowProps) {
   const { language } = useApp();
 
@@ -34,6 +36,22 @@ export default function QuickLinksRow({
       badgeColor: 'var(--gov-saffron)',
       icon: <Zap size={22} color="var(--gov-saffron)" />,
       onClick: onStartWizard,
+      highlight: true
+    },
+    {
+      id: 'what_if',
+      title: language === 'mr' ? '⚡ What-If सिम्युलेटर' : '⚡ What-If Impact Engine',
+      marathiSubtitle: 'उद्योगाचे गुणधर्म बदलून प्रभाव पहा',
+      subtitle: 'Compliance Change Predictor',
+      description:
+        language === 'mr'
+          ? 'कामगार संख्या (उदा. ५ → २५), वीज भार किंवा गुंतवणूक बदलल्यास कोणत्या नवीन परवानग्या लागतील याचा रिअल-टाइम प्रभाव पहा.'
+          : 'Simulate business scale changes (e.g. 5 → 25 workers) to instantly predict added/removed compliance requirements & growth scale milestones.',
+      actionText: language === 'mr' ? 'सिम्युलेटर उघडा' : 'Launch Simulator',
+      badge: 'MAIN UNIQUE FEATURE',
+      badgeColor: '#ff9933',
+      icon: <Zap size={22} color="#ff9933" />,
+      onClick: onOpenWhatIf || onStartWizard,
       highlight: true
     },
     {

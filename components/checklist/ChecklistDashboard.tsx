@@ -7,18 +7,20 @@ import PhaseGroup from './PhaseGroup';
 import PrintLetterhead from './PrintLetterhead';
 import ComplianceCharts from './ComplianceCharts';
 import { ItemStatus } from './ApprovalItemCard';
-import { Printer, Copy, RotateCcw, Search, ListCheck, BarChart2, ShieldCheck, MapPin, Building, Edit3 } from 'lucide-react';
+import { Printer, Copy, RotateCcw, Search, ListCheck, BarChart2, ShieldCheck, MapPin, Building, Edit3, Zap } from 'lucide-react';
 
 interface ChecklistDashboardProps {
   result: ChecklistResult;
   onModifyProfile: () => void;
   onRestartWizard: () => void;
+  onOpenWhatIf?: () => void;
 }
 
 export default function ChecklistDashboard({
   result,
   onModifyProfile,
-  onRestartWizard
+  onRestartWizard,
+  onOpenWhatIf
 }: ChecklistDashboardProps) {
   const { language } = useApp();
 
@@ -134,7 +136,27 @@ export default function ChecklistDashboard({
             </strong>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            {onOpenWhatIf && (
+              <button
+                type="button"
+                className="btn-gov-primary"
+                onClick={onOpenWhatIf}
+                style={{
+                  fontSize: '12.5px',
+                  padding: '7px 16px',
+                  gap: '6px',
+                  backgroundColor: '#002244',
+                  borderColor: '#ff9933',
+                  color: '#ffffff'
+                }}
+                title="Simulate Business Changes"
+              >
+                <Zap size={14} color="#ff9933" />
+                <span>{language === 'mr' ? '⚡ What-If सिम्युलेटर' : '⚡ What-If Impact Engine'}</span>
+              </button>
+            )}
+
             <button
               type="button"
               className="btn-gov-outline"

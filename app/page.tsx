@@ -16,6 +16,7 @@ import TrackChecklistModal from '@/components/tracking/TrackChecklistModal';
 import ApprovalsDirectoryModal from '@/components/directory/ApprovalsDirectoryModal';
 import MaitriGapModal from '@/components/home/MaitriGapModal';
 import HelpdeskModal from '@/components/helpdesk/HelpdeskModal';
+import WhatIfSimulatorModal from '@/components/simulator/WhatIfSimulatorModal';
 import { useApp } from '@/lib/context';
 
 export default function HomePage() {
@@ -30,6 +31,7 @@ export default function HomePage() {
   const [showDirectoryModal, setShowDirectoryModal] = useState<boolean>(false);
   const [showMaitriModal, setShowMaitriModal] = useState<boolean>(false);
   const [showHelpdeskModal, setShowHelpdeskModal] = useState<boolean>(false);
+  const [showWhatIfModal, setShowWhatIfModal] = useState<boolean>(false);
 
   // Handlers
   const handleStartWizard = () => {
@@ -79,11 +81,14 @@ export default function HomePage() {
             setShowDirectoryModal(true);
           } else if (view === 'maitri_gap') {
             setShowMaitriModal(true);
+          } else if (view === 'what_if') {
+            setShowWhatIfModal(true);
           } else {
             setCurrentView(view);
           }
         }}
         hasExistingChecklist={Boolean(activeResult)}
+        onOpenWhatIf={() => setShowWhatIfModal(true)}
       />
 
       {/* Official Notice Ticker */}
@@ -105,6 +110,7 @@ export default function HomePage() {
               onTrackChecklist={() => setShowTrackModal(true)}
               onViewDirectory={() => setShowDirectoryModal(true)}
               onViewHelpdesk={() => setShowHelpdeskModal(true)}
+              onOpenWhatIf={() => setShowWhatIfModal(true)}
             />
 
             {/* Why Maharashtra Entrepreneurs Trust Parvangi Section */}
@@ -219,6 +225,7 @@ export default function HomePage() {
             result={activeResult}
             onModifyProfile={handleModifyProfile}
             onRestartWizard={handleStartWizard}
+            onOpenWhatIf={() => setShowWhatIfModal(true)}
           />
         )}
       </main>
@@ -250,6 +257,10 @@ export default function HomePage() {
 
       {showHelpdeskModal && (
         <HelpdeskModal onClose={() => setShowHelpdeskModal(false)} />
+      )}
+
+      {showWhatIfModal && (
+        <WhatIfSimulatorModal onClose={() => setShowWhatIfModal(false)} />
       )}
     </div>
   );

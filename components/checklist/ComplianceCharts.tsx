@@ -22,23 +22,26 @@ export default function ComplianceCharts({ approvals }: ComplianceChartsProps) {
 
   const totalCount = approvals.length || 1;
 
-  const deptColors: Record<string, string> = {
-    'MPCB (Pollution Control)': '#10b981',
-    'DISH (Factory Safety)': '#ef4444',
-    'MIDC / Gram Panchayat': '#f59e0b',
-    'GST / MSME Ministry': '#3b82f6',
-    'MSEDCL (Electricity Board)': '#8b5cf6',
-    'State Excise / Revenue': '#ec4899',
-    'Town Planning / Municipal Corp': '#6366f1'
+  const palette = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#ec4899', '#f97316', '#6366f1', '#14b8a6'];
+
+  const getDeptColor = (deptName: string, index: number) => {
+    const d = deptName.toLowerCase();
+    if (d.includes('mpcb') || d.includes('pollution')) return '#10b981';
+    if (d.includes('dish') || d.includes('safety')) return '#ef4444';
+    if (d.includes('msme') || d.includes('micro')) return '#0284c7';
+    if (d.includes('gst') || d.includes('tax')) return '#6366f1';
+    if (d.includes('fire')) return '#f97316';
+    if (d.includes('midc') || d.includes('planning')) return '#f59e0b';
+    if (d.includes('water')) return '#06b6d4';
+    if (d.includes('electricity') || d.includes('msedcl')) return '#8b5cf6';
+    return palette[index % palette.length];
   };
 
-  const defaultColor = '#64748b';
-
-  const departmentData = Object.entries(departmentCounts).map(([dept, count]) => ({
+  const departmentData = Object.entries(departmentCounts).map(([dept, count], index) => ({
     name: dept,
     count,
     percentage: Math.round((count / totalCount) * 100),
-    color: deptColors[dept] || defaultColor
+    color: getDeptColor(dept, index)
   })).sort((a, b) => b.count - a.count);
 
   // 2. Timeline Breakdown Calculation (Fast vs Medium vs Long)
