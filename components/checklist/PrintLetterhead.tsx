@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { ChecklistResult } from '@/lib/types';
 import { getCategoryById } from '@/lib/rules-engine';
 import { formatINR } from '@/lib/msme-classifier';
@@ -16,10 +17,12 @@ export default function PrintLetterhead({ result }: PrintLetterheadProps) {
     <div className="print-only-header" style={{ display: 'none' }}>
       {/* Top Emblem & Department Banner */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #000000', paddingBottom: '12px', marginBottom: '16px' }}>
-        <img
+        <Image
           src="/logo.png"
           alt="PARVANGI Official Logo"
-          style={{ width: '56px', height: '56px', objectFit: 'contain' }}
+          width={56}
+          height={56}
+          style={{ objectFit: 'contain' }}
         />
         <div style={{ textAlign: 'center', flex: 1, padding: '0 12px' }}>
           <div style={{ fontSize: '13pt', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
@@ -35,10 +38,12 @@ export default function PrintLetterhead({ result }: PrintLetterheadProps) {
             Issued under State Industrial Facilitation Framework | Reference: SIH26130
           </div>
         </div>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+        <Image
+          src="/emblem-of-india.svg"
           alt="State Emblem of India"
-          style={{ width: '42px', height: '54px', objectFit: 'contain' }}
+          width={42}
+          height={54}
+          style={{ objectFit: 'contain' }}
         />
       </div>
 

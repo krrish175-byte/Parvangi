@@ -63,14 +63,17 @@ export default function ChecklistDashboard({
     }
   });
 
-  useEffect(() => {
+  const [prevRefId, setPrevRefId] = useState<string>(result.referenceId);
+
+  if (prevRefId !== result.referenceId) {
+    setPrevRefId(result.referenceId);
     try {
-      const saved = window.localStorage.getItem(`parvangi-status-${result.referenceId}`);
+      const saved = typeof window !== 'undefined' ? window.localStorage.getItem(`parvangi-status-${result.referenceId}`) : null;
       setStatuses(saved ? (JSON.parse(saved) as Record<string, ApprovalStatus>) : {});
     } catch {
       setStatuses({});
     }
-  }, [result.referenceId]);
+  }
 
   const handlePrint = () => {
     window.print();

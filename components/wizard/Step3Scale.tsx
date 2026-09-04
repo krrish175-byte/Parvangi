@@ -23,10 +23,12 @@ export default function Step3Scale({
   const { language } = useApp();
   const [investmentError, setInvestmentError] = React.useState<string>('');
   const [inputValue, setInputValue] = React.useState<string>(String(investmentInLakhs));
+  const [prevInvestment, setPrevInvestment] = React.useState<number>(investmentInLakhs);
 
-  React.useEffect(() => {
+  if (prevInvestment !== investmentInLakhs) {
+    setPrevInvestment(investmentInLakhs);
     setInputValue(String(investmentInLakhs));
-  }, [investmentInLakhs]);
+  }
 
   const presets = [
     {

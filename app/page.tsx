@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ChecklistResult, UserProfileInput } from '@/lib/types';
 import { generateApprovalChecklist } from '@/lib/rules-engine';
 import AccessibilityBar from '@/components/layout/AccessibilityBar';
@@ -37,18 +37,10 @@ function getSavedChecklist(): ChecklistResult | null {
 export default function HomePage() {
   const { language } = useApp();
 
-  const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(null);
+  const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
   const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin'>('home');
-  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(null);
+  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(() => getSavedChecklist());
   const [profileForEdit, setProfileForEdit] = useState<UserProfileInput | undefined>(undefined);
-
-  useEffect(() => {
-    const saved = getSavedChecklist();
-    if (saved) {
-      setSavedChecklist(saved);
-      setActiveResult(saved);
-    }
-  }, []);
 
   // Modals
   const [showTrackModal, setShowTrackModal] = useState<boolean>(false);
