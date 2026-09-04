@@ -22,6 +22,7 @@ export default function Step3Scale({
   onScaleTierChange
 }: Step3ScaleProps) {
   const { language } = useApp();
+  const [investmentError, setInvestmentError] = React.useState<string>('');
 
   const presets = [
     {
@@ -60,6 +61,7 @@ export default function Step3Scale({
     const normalizedValue = Math.min(MAX_INVESTMENT_LAKHS, Math.max(MIN_INVESTMENT_LAKHS, value));
     onInvestmentChange(normalizedValue);
     onScaleTierChange(classifyMSME(normalizedValue).tier);
+    setInvestmentError('');
   };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,7 +174,32 @@ export default function Step3Scale({
               min={MIN_INVESTMENT_LAKHS}
               max={MAX_INVESTMENT_LAKHS}
               value={investmentInLakhs}
-              onChange={(e) => updateInvestment(Number(e.target.value))}
+              onChange={(e) => {
+                const rawValue = e.target.value.trim();
+                const value = Number(rawValue);
+                if (!rawValue || !Number.isFinite(value) || value < MIN_INVESTMENT_LAKHS || value > MAX_INVESTMENT_LAKHS) {
+                  setInvestmentError(
+                    language === 'mr'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम निवडा.`
+                      : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
+                  );
+                  return;
+                }
+                updateInvestment(value);
+              }}
+              onBlur={(e) => {
+                const rawValue = e.target.value.trim();
+                const value = Number(rawValue);
+                if (!rawValue || !Number.isFinite(value) || value < MIN_INVESTMENT_LAKHS || value > MAX_INVESTMENT_LAKHS) {
+                  setInvestmentError(
+                    language === 'mr'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम निवडा.`
+                      : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
+                  );
+                }
+              }}
+              aria-invalid={Boolean(investmentError)}
+              aria-describedby={investmentError ? 'investment-error' : undefined}
               style={{
                 width: '120px',
                 padding: '8px 10px',
@@ -198,6 +225,11 @@ export default function Step3Scale({
               = {formatINR(investmentInLakhs)}
             </span>
           </div>
+          {investmentError && (
+            <div id="investment-error" role="alert" style={{ width: '100%', color: 'var(--gov-status-mandatory)', fontSize: '12px', marginTop: '6px' }}>
+              {investmentError}
+            </div>
+          )}
         </div>
 
         {/* Range Slider */}
