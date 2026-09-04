@@ -6,7 +6,7 @@ import { ScaleTier } from '@/lib/types';
 import { classifyMSME, formatINR } from '@/lib/msme-classifier';
 
 const MIN_INVESTMENT_LAKHS = 5;
-const MAX_INVESTMENT_LAKHS = 5000;
+const MAX_INVESTMENT_LAKHS = 1500;
 
 interface Step3ScaleProps {
   investmentInLakhs: number;
@@ -22,6 +22,13 @@ export default function Step3Scale({
 }: Step3ScaleProps) {
   const { language } = useApp();
   const [investmentError, setInvestmentError] = React.useState<string>('');
+  const [inputValue, setInputValue] = React.useState<string>(String(investmentInLakhs));
+  const [prevInvestment, setPrevInvestment] = React.useState<number>(investmentInLakhs);
+
+  if (prevInvestment !== investmentInLakhs) {
+    setPrevInvestment(investmentInLakhs);
+    setInputValue(String(investmentInLakhs));
+  }
 
   const presets = [
     {
@@ -70,6 +77,7 @@ export default function Step3Scale({
   const handlePresetSelect = (p: (typeof presets)[0]) => {
     onInvestmentChange(p.lakhs);
     onScaleTierChange(p.tier);
+    setInputValue(String(p.lakhs));
   };
 
   return (
@@ -176,11 +184,32 @@ export default function Step3Scale({
               type="number"
               min={MIN_INVESTMENT_LAKHS}
               max={MAX_INVESTMENT_LAKHS}
-              value={investmentInLakhs}
+              value={inputValue}
               onChange={(e) => {
-                const rawValue = e.target.value.trim();
-                const value = Number(rawValue);
-                if (!rawValue || !Number.isFinite(value) || value < MIN_INVESTMENT_LAKHS || value > MAX_INVESTMENT_LAKHS) {
+                const raw = e.target.value;
+                setInputValue(raw);
+                if (!raw.trim()) {
+                  setInvestmentError(
+                    language === 'mr'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम प्रविष्ट करा.`
+                      : language === 'hi'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} से ₹${MAX_INVESTMENT_LAKHS} लाख के बीच निवेश दर्ज करें।`
+                      : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
+                  );
+                  return;
+                }
+                const num = Number(raw);
+                if (!Number.isFinite(num)) {
+                  setInvestmentError(
+                    language === 'mr'
+                      ? 'कृपया वैध संख्या प्रविष्ट करा.'
+                      : language === 'hi'
+                      ? 'कृपया एक वैध संख्या दर्ज करें।'
+                      : 'Please enter a valid number.'
+                  );
+                  return;
+                }
+                if (num < MIN_INVESTMENT_LAKHS || num > MAX_INVESTMENT_LAKHS) {
                   setInvestmentError(
                     language === 'mr'
                       ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम निवडा.`
@@ -190,19 +219,21 @@ export default function Step3Scale({
                   );
                   return;
                 }
-                updateInvestment(value);
+                updateInvestment(num);
               }}
-              onBlur={(e) => {
-                const rawValue = e.target.value.trim();
-                const value = Number(rawValue);
-                if (!rawValue || !Number.isFinite(value) || value < MIN_INVESTMENT_LAKHS || value > MAX_INVESTMENT_LAKHS) {
-                  setInvestmentError(
-                    language === 'mr'
-                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम निवडा.`
-                      : language === 'hi'
-                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} से ₹${MAX_INVESTMENT_LAKHS} लाख के बीच निवेश दर्ज करें।`
-                      : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
-                  );
+              onBlur={() => {
+                const num = Number(inputValue);
+                if (!inputValue.trim() || !Number.isFinite(num) || num < MIN_INVESTMENT_LAKHS) {
+                  updateInvestment(MIN_INVESTMENT_LAKHS);
+                  setInputValue(String(MIN_INVESTMENT_LAKHS));
+                  setInvestmentError('');
+                } else if (num > MAX_INVESTMENT_LAKHS) {
+                  updateInvestment(MAX_INVESTMENT_LAKHS);
+                  setInputValue(String(MAX_INVESTMENT_LAKHS));
+                  setInvestmentError('');
+                } else {
+                  updateInvestment(num);
+                  setInvestmentError('');
                 }
               }}
               aria-invalid={Boolean(investmentError)}

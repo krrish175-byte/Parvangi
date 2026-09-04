@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/context';
 
 interface MaitriGapModalProps {
@@ -56,12 +57,25 @@ export default function MaitriGapModal({ onClose, onStartWizard }: MaitriGapModa
             backgroundColor: '#ffffff'
           }}
         >
-          <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-              ⚖️ {language === 'mr' ? 'MAITRI 2.0 आणि परवानगी — नेमका फरक व अंतर' : language === 'hi' ? 'The Real Regulatory Gap: MAITRI 2.0 vs Parvangi' : 'The Real Regulatory Gap: MAITRI 2.0 vs Parvangi'}
-            </h2>
-            <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
-              {language === 'mr' ? 'महाराष्ट्रातील छोट्या नवउद्योजकांना स्वतंत्र परवानगी शोध इंजिनची गरज का आहे?' : language === 'hi' ? 'महाराष्ट्र के छोटे पहली बार के उद्यमियों को एक समर्पित खोज इंजन की आवश्यकता क्यों है' : 'Why Maharashtra&apos;s small first-time entrepreneurs need a dedicated discovery engine'}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <Image
+              src="/logo.png"
+              alt="PARVANGI Official Logo"
+              width={42}
+              height={42}
+              style={{ objectFit: 'contain', flexShrink: 0 }}
+            />
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--gov-navy)', margin: 0 }}>
+                ⚖️ {language === 'mr' ? 'MAITRI 2.0 आणि परवानगी — नेमका फरक व अंतर' : language === 'hi' ? 'MAITRI 2.0 और परवानगी — मुख्य नियामक अंतर' : 'The Real Regulatory Gap: MAITRI 2.0 vs Parvangi'}
+              </h2>
+              <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
+                {language === 'mr'
+                  ? 'महाराष्ट्रातील छोट्या नवउद्योजकांना स्वतंत्र परवानगी शोध इंजिनची गरज का आहे?'
+                  : language === 'hi'
+                  ? 'महाराष्ट्र के छोटे पहली बार के उद्यमियों को एक समर्पित खोज इंजन की आवश्यकता क्यों है'
+                  : 'Why Maharashtra\'s small first-time entrepreneurs need a dedicated discovery engine'}
+              </div>
             </div>
           </div>
           <button

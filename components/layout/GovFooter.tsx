@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/context';
 
 export default function GovFooter() {
@@ -94,6 +95,27 @@ export default function GovFooter() {
 
           <div className="gov-footer-col">
             <h4>{language === 'mr' ? 'प्रकल्प माहिती' : language === 'hi' ? 'पहल विवरण' : 'Initiative Details'}</h4>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+              <Image
+                src="/logo.png"
+                alt="PARVANGI Official Project Logo"
+                width={48}
+                height={48}
+                style={{
+                  filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.4))',
+                  objectFit: 'contain',
+                  flexShrink: 0
+                }}
+              />
+              <div>
+                <strong style={{ color: '#ffffff', fontSize: '15px', letterSpacing: '0.3px', display: 'block' }}>
+                  PARVANGI (परवानगी)
+                </strong>
+                <span style={{ fontSize: '11px', color: '#ffb74d', fontWeight: 600 }}>
+                  Statutory Approval Checklist Engine
+                </span>
+              </div>
+            </div>
             <p style={{ lineHeight: 1.6, color: '#cbd5e1' }}>
               <strong>PARVANGI (परवानगी)</strong> is developed under Smart India Hackathon (SIH26130) for the{' '}
               <strong>Maharashtra State Innovation Society (MSIS)</strong>, Government of Maharashtra.

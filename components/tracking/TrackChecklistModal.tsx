@@ -2,14 +2,21 @@
 
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
-import { UserProfileInput } from '@/lib/types';
+import { ChecklistResult, UserProfileInput } from '@/lib/types';
 
 interface TrackChecklistModalProps {
   onClose: () => void;
   onLoadProfile: (profile: UserProfileInput) => void;
+  savedChecklist?: ChecklistResult | null;
+  onLoadSavedResult?: (result: ChecklistResult) => void;
 }
 
-export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChecklistModalProps) {
+export default function TrackChecklistModal({
+  onClose,
+  onLoadProfile,
+  savedChecklist,
+  onLoadSavedResult
+}: TrackChecklistModalProps) {
   const { language } = useApp();
   const [refCode, setRefCode] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -75,14 +82,42 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
   ];
 
   const handleLookup = () => {
-    if (!refCode.trim()) {
-      setError('Please enter a valid Reference ID (e.g. MH-PRV-2025-XXXXX)');
+    const cleanCode = refCode.trim().toUpperCase();
+    if (!cleanCode) {
+      setError(
+        language === 'mr'
+          ? 'कृपया वैध संदर्भ क्रमांक प्रविष्ट करा (उदा. MH-PRV-2025-XXXXX)'
+          : 'Please enter a valid Reference ID (e.g. MH-PRV-2025-XXXXX)'
+      );
       return;
     }
 
-    // Load default sample if custom code is typed
-    setError('');
-    onLoadProfile(sampleProfiles[0].profile);
+    if (savedChecklist && savedChecklist.referenceId.trim().toUpperCase() === cleanCode) {
+      setError('');
+      onLoadSavedResult?.(savedChecklist);
+      return;
+    }
+
+    // Check if local cache has it under localStorage directly
+    try {
+      const stored = window.localStorage.getItem('parvangi-saved-checklist');
+      if (stored) {
+        const parsed = JSON.parse(stored) as ChecklistResult;
+        if (parsed.referenceId?.trim().toUpperCase() === cleanCode) {
+          setError('');
+          onLoadSavedResult?.(parsed);
+          return;
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    setError(
+      language === 'mr'
+        ? `संदर्भ क्रमांक '${cleanCode}' या ब्राउझरमध्ये आढळला नाही. कृपया खालील नमुना उद्योग निवडा किंवा नवीन तपासणी सुरू करा.`
+        : `Reference ID '${cleanCode}' was not found in this browser. Please select a verified sample profile below or start a new evaluation.`
+    );
   };
 
   return (
@@ -149,6 +184,44 @@ export default function TrackChecklistModal({ onClose, onLoadProfile }: TrackChe
 
         {/* Content */}
         <div style={{ padding: '20px' }}>
+          {/* Active Saved Evaluation Quick Resume */}
+          {savedChecklist && (
+            <div
+              style={{
+                marginBottom: '16px',
+                padding: '12px 14px',
+                backgroundColor: '#eff6ff',
+                border: '1.5px solid #bfdbfe',
+                borderRadius: '4px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '10px'
+              }}
+            >
+              <div>
+                <span style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--gov-navy)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  ⚡ {language === 'mr' ? 'या ब्राउझरमधील जतन केलेली तपासणी:' : 'Active Saved Evaluation in Browser:'}
+                </span>
+                <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--gov-navy-dark)', marginTop: '2px' }}>
+                  {savedChecklist.referenceId}
+                </div>
+                <div style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
+                  {savedChecklist.profile.category} · {savedChecklist.profile.district || 'Maharashtra'} · {savedChecklist.approvals.length} {language === 'mr' ? 'परवानग्या' : 'Approvals'}
+                </div>
+              </div>
+              <button
+                type="button"
+                className="btn-gov-secondary"
+                onClick={() => onLoadSavedResult?.(savedChecklist)}
+                style={{ fontSize: '12px', padding: '6px 14px' }}
+              >
+                {language === 'mr' ? 'ही सूची उघडा →' : 'Resume This →'}
+              </button>
+            </div>
+          )}
+
           <div style={{ marginBottom: '16px' }}>
             <label
               htmlFor="reference-code-input"

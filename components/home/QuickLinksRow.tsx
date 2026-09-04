@@ -95,7 +95,11 @@ export default function QuickLinksRow({
               <span>{language === 'mr' ? 'नागरिक जलद सेवा व साधने' : language === 'hi' ? 'नागरिक त्वरित सेवाएं और पोर्टल' : 'Citizen Quick Services & Portals'}</span>
             </h2>
             <span style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
-              {language === 'mr' ? 'पासपोर्ट सेवा / IRCTC प्रमाणे रचना' : language === 'hi' ? 'आधिकारिक पोर्टल ढांचा' : 'Official Portal Framework'}
+              {language === 'mr'
+                ? 'अधिकृत उद्योजक सहाय्यता व सेवा प्रणाली'
+                : language === 'hi'
+                ? 'आधिकारिक उद्यमी सहायता एवं सेवा ढांचा'
+                : 'Official Citizen Facilitation Framework'}
             </span>
           </div>
         </div>

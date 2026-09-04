@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useApp } from '@/lib/context';
 import { getCurrentUser, isAdminLoggedIn, logout } from '@/lib/auth-store';
 import { UserAccount } from '@/lib/types';
@@ -15,7 +16,6 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
   const { language } = useApp();
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [currentDateTime, setCurrentDateTime] = useState<string>('');
 
   useEffect(() => {
     const checkAuth = () => {
@@ -26,32 +26,6 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
     window.addEventListener('parvangi_auth_change', checkAuth);
     return () => window.removeEventListener('parvangi_auth_change', checkAuth);
   }, []);
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        weekday: 'short',
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-      };
-      const locale = language === 'mr' ? 'mr-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-      setCurrentDateTime(now.toLocaleString(locale, options));
-    };
-
-    const timer = setInterval(updateTime, 1000);
-    const initialTimeout = setTimeout(updateTime, 0);
-
-    return () => {
-      clearInterval(timer);
-      clearTimeout(initialTimeout);
-    };
-  }, [language]);
 
   const handleLogout = () => {
     logout();
@@ -70,25 +44,38 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
             onKeyDown={(e) => e.key === 'Enter' && onHomeClick?.()}
           >
             <div className="gov-emblem-container">
-              {/* Maharashtra State Seal Representation */}
-              <div className="gov-state-seal" title="महाराष्ट्र शासन राजमुद्रा">
-                <svg viewBox="0 0 100 100" width="46" height="46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="46" stroke="#ffb74d" strokeWidth="3" fill="#002244" />
-                  <circle cx="50" cy="50" r="41" stroke="#ffffff" strokeWidth="1" strokeDasharray="2 2" fill="none" />
-                  <polygon points="50,14 62,32 58,32 58,68 42,68 42,32 38,32" fill="#ff9933" />
-                  <rect x="36" y="68" width="28" height="8" rx="1" fill="#ffffff" />
-                  <circle cx="50" cy="46" r="6" fill="#002244" stroke="#ffffff" strokeWidth="1.5" />
-                  <path d="M26 80 Q50 90 74 80" stroke="#ff9933" strokeWidth="2.5" fill="none" />
-                  <text x="50" y="87" fill="#ffffff" fontSize="6.5" textAnchor="middle" fontWeight="bold">
-                    सत्यमेव जयते
-                  </text>
-                </svg>
+              {/* National Emblem of India (Local SVG) */}
+              <div className="gov-national-emblem" title="भारत सरकारचे राजचिन्ह / State Emblem of India">
+                <Image
+                  src="/emblem-of-india.svg"
+                  alt="State Emblem of India"
+                  width={34}
+                  height={44}
+                  priority
+                />
+              </div>
+
+              <div className="gov-emblem-divider" aria-hidden="true" />
+
+              {/* Official PARVANGI Project Logo */}
+              <div className="gov-project-logo" title="PARVANGI (परवानगी) — अधिकृत बोधचिन्ह">
+                <Image
+                  src="/logo.png"
+                  alt="PARVANGI Official Project Logo"
+                  width={54}
+                  height={54}
+                  priority
+                />
               </div>
             </div>
 
             <div className="gov-title-block">
               <span className="gov-title-marathi">
-                महाराष्ट्र शासन · उद्योग, ऊर्जा, कामगार व कौशल्य विकास विभाग
+                {language === 'mr'
+                  ? 'महाराष्ट्र शासन · उद्योग, ऊर्जा, कामगार व कौशल्य विकास विभाग'
+                  : language === 'hi'
+                  ? 'महाराष्ट्र शासन · उद्योग, ऊर्जा, श्रम एवं कौशल विकास विभाग'
+                  : 'Government of Maharashtra · Industry, Energy, Labour & Skill Development Dept.'}
               </span>
               <div className="gov-wordmark">
                 <span>PARVANGI</span>
@@ -97,48 +84,16 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
               <span className="gov-subtitle">
                 {language === 'mr'
                   ? 'महाराष्ट्र राज्य नाविन्यता सोसायटी · सूक्ष्म व लघु उद्योगांसाठी वैधानिक परवानगी प्रणाली'
+                  : language === 'hi'
+                  ? 'महाराष्ट्र राज्य नवाचार सोसायटी · सूक्ष्म व लघु उद्योगों के लिए वैधानिक मंजूरी प्रणाली'
                   : 'Maharashtra State Innovation Society (MSIS) · Statutory Approval Checklist Engine'}
               </span>
             </div>
           </div>
 
-          <div className="gov-header-meta no-print" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-              <span className="gov-initiative-tag">
-                {language === 'mr' ? 'राज्य नवोपक्रम व्यासपीठ' : language === 'hi' ? 'राज्य नवाचार पहल' : 'State Innovation Initiative'}
-              </span>
-              {currentDateTime && (
-                <span
-                  style={{
-                    fontSize: '11px',
-                    color: '#475569',
-                    fontWeight: 600,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '5px'
-                  }}
-                >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ color: '#002244' }}
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                  {currentDateTime}
-                </span>
-              )}
-            </div>
-
-            {/* Authentication Strip in Header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <div className="gov-header-actions no-print" style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            {/* Authentication Buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               {isAdmin ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <button
@@ -148,7 +103,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                       backgroundColor: '#991b1b',
                       color: '#ffffff',
                       border: 'none',
-                      padding: '4px 10px',
+                      padding: '5px 12px',
                       borderRadius: '3px',
                       fontSize: '11.5px',
                       fontWeight: 700,
@@ -159,7 +114,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                     }}
                   >
                     <span>🛡️</span>
-                    <span>{language === 'mr' ? 'अधिकारी कक्ष (DIC)' : 'Officer Console (DIC)'}</span>
+                    <span>{language === 'mr' ? 'अधिकारी कक्ष (DIC)' : language === 'hi' ? 'अधिकारी कक्ष' : 'Officer Console (DIC)'}</span>
                   </button>
                   <button
                     type="button"
@@ -168,7 +123,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                       backgroundColor: 'transparent',
                       color: '#64748b',
                       border: '1px solid #cbd5e1',
-                      padding: '3px 8px',
+                      padding: '4px 8px',
                       borderRadius: '3px',
                       fontSize: '11px',
                       cursor: 'pointer'
@@ -184,13 +139,13 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                       backgroundColor: '#eff6ff',
                       color: 'var(--gov-navy)',
                       border: '1px solid #bfdbfe',
-                      padding: '3px 8px',
+                      padding: '4px 8px',
                       borderRadius: '3px',
                       fontSize: '11.5px',
                       fontWeight: 700
                     }}
                   >
-                    👤 {currentUser.name} (Age: {currentUser.age})
+                    👤 {currentUser.name}
                   </span>
                   <button
                     type="button"
@@ -228,7 +183,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                     }}
                   >
                     <span>👤</span>
-                    <span>{language === 'mr' ? 'नागरिक लॉगिन' : 'Citizen Sign In'}</span>
+                    <span>{language === 'mr' ? 'नागरिक लॉगिन' : language === 'hi' ? 'नागरिक लॉगिन' : 'Citizen Sign In'}</span>
                   </button>
 
                   <button
@@ -249,7 +204,7 @@ export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: 
                     }}
                   >
                     <span>🛡️</span>
-                    <span>{language === 'mr' ? 'अधिकारी' : 'Officer'}</span>
+                    <span>{language === 'mr' ? 'अधिकारी' : language === 'hi' ? 'अधिकारी' : 'Officer'}</span>
                   </button>
                 </div>
               )}

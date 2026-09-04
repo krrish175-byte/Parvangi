@@ -10,6 +10,7 @@ import NoticeTicker from '@/components/layout/NoticeTicker';
 import GovFooter from '@/components/layout/GovFooter';
 import HeroBanner from '@/components/home/HeroBanner';
 import QuickLinksRow from '@/components/home/QuickLinksRow';
+import HomeImpactSection from '@/components/home/HomeImpactSection';
 import WizardContainer from '@/components/wizard/WizardContainer';
 import ChecklistDashboard from '@/components/checklist/ChecklistDashboard';
 import TrackChecklistModal from '@/components/tracking/TrackChecklistModal';
@@ -36,11 +37,9 @@ function getSavedChecklist(): ChecklistResult | null {
 export default function HomePage() {
   const { language } = useApp();
 
-  const [savedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin'>(
-    savedChecklist ? 'checklist' : 'home'
-  );
-  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(savedChecklist);
+  const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
+  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'maitri_gap' | 'admin'>('home');
+  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(() => getSavedChecklist());
   const [profileForEdit, setProfileForEdit] = useState<UserProfileInput | undefined>(undefined);
 
   // Modals
@@ -62,6 +61,7 @@ export default function HomePage() {
 
   const handleChecklistGenerated = (result: ChecklistResult) => {
     setActiveResult(result);
+    setSavedChecklist(result);
     window.localStorage.setItem(SAVED_CHECKLIST_KEY, JSON.stringify(result));
     setCurrentView('checklist');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -78,7 +78,16 @@ export default function HomePage() {
   const handleLoadSampleProfile = (profile: UserProfileInput) => {
     const result = generateApprovalChecklist(profile);
     setActiveResult(result);
+    setSavedChecklist(result);
     window.localStorage.setItem(SAVED_CHECKLIST_KEY, JSON.stringify(result));
+    setShowTrackModal(false);
+    setCurrentView('checklist');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLoadSavedChecklist = (result: ChecklistResult) => {
+    setActiveResult(result);
+    setSavedChecklist(result);
     setShowTrackModal(false);
     setCurrentView('checklist');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -143,8 +152,20 @@ export default function HomePage() {
             {savedChecklist && activeResult && (
               <div className="saved-checklist-banner gov-container no-print">
                 <div>
-                  <strong>{language === 'mr' ? 'तुमची जतन केलेली तपासणी उपलब्ध आहे' : language === 'hi' ? 'आपकी सहेजी गई चेकलिस्ट तैयार है' : 'Your saved checklist is ready'}</strong>
-                  <span>{language === 'mr' ? 'तुमचा मागील परवानगी अनुक्रम पुन्हा उघडा.' : language === 'hi' ? 'अपना पिछला अनुमोदन रोडमैप फिर से शुरू करें।' : 'Resume your previous approval roadmap.'}</span>
+                  <strong>
+                    {language === 'mr'
+                      ? 'तुमची जतन केलेली तपासणी उपलब्ध आहे'
+                      : language === 'hi'
+                      ? 'आपकी सहेजी गई चेकलिस्ट तैयार है'
+                      : 'Your saved checklist is ready'}
+                  </strong>
+                  <span>
+                    {language === 'mr'
+                      ? 'तुमचा मागील परवानगी अनुक्रम पुन्हा उघडा.'
+                      : language === 'hi'
+                      ? 'अपना पिछला अनुमोदन रोडमैप फिर से शुरू करें।'
+                      : 'Resume your previous approval roadmap.'}
+                  </span>
                 </div>
                 <button type="button" className="btn-gov-secondary" onClick={() => setCurrentView('checklist')}>
                   {language === 'mr' ? 'पुन्हा उघडा' : language === 'hi' ? 'चेकलिस्ट फिर से शुरू करें' : 'Resume Checklist'}
@@ -155,7 +176,6 @@ export default function HomePage() {
             <HeroBanner
               onStartWizard={handleStartWizard}
               onViewDirectory={() => setShowDirectoryModal(true)}
-              onViewMaitriGap={() => setShowMaitriModal(true)}
             />
 
             <QuickLinksRow
@@ -165,83 +185,166 @@ export default function HomePage() {
               onViewHelpdesk={() => setShowHelpdeskModal(true)}
             />
 
-            {/* Why Maharashtra Entrepreneurs Trust Parvangi Section */}
-            <section style={{ backgroundColor: '#ffffff', borderTop: '1px solid var(--gov-border)', padding: '36px 0 40px 0' }}>
+            <HomeImpactSection />
+
+            {/* Official Statutory Framework & Legal Precedence Section */}
+            <section className="gov-statutory-section" aria-label="Statutory Framework and Legal Mandates">
               <div className="gov-container">
-                <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-                  <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-                    <span
-                      style={{
-                        backgroundColor: 'var(--gov-navy-subtle)',
-                        color: 'var(--gov-navy)',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        padding: '3px 10px',
-                        borderRadius: '2px',
-                        letterSpacing: '0.4px',
-                        textTransform: 'uppercase'
-                      }}
-                    >
-                      {language === 'mr' ? 'सत्यापन करण्यायोग्य अनुपालन प्रणाली' : language === 'hi' ? 'सत्यापन योग्य अनुपालन वास्तुकला' : 'THE VERIFIABLE COMPLIANCE ARCHITECTURE'}
+                <div style={{ maxWidth: '1020px', margin: '0 auto' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+                    <span className="gov-section-tag">
+                      {language === 'mr'
+                        ? 'कायदेशीर वैधानिक चौकट'
+                        : language === 'hi'
+                        ? 'वैधानिक विनियामक रूपरेखा'
+                        : 'STATUTORY REGULATORY MANDATES'}
                     </span>
-                    <h2 style={{ fontSize: '22px', fontWeight: 800, color: 'var(--gov-navy-dark)', marginTop: '8px' }}>
-                      {language === 'mr' ? 'परवानगी हे इतर साधनांपेक्षा वेगळे कसे आहे?' : language === 'hi' ? 'परवानगी अनुपालन की बाधाओं को कैसे दूर करती है' : 'How Parvangi Eliminates the Compliance Roadblock'}
+                    <h2 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--gov-navy-dark)', marginTop: '8px', letterSpacing: '-0.3px' }}>
+                      {language === 'mr'
+                        ? 'महाराष्ट्र शासनाचे वैधानिक कायदे आणि कायदेशीर पूर्वअटींची खात्री'
+                        : language === 'hi'
+                        ? 'महाराष्ट्र शासन के वैधानिक अधिनियम एवं अनिवार्य विनियामक पूर्व-शर्तें'
+                        : 'Statutory Acts, Legal Precedence & Regulatory Guarantees'}
                     </h2>
+                    <p style={{ fontSize: '13.5px', color: 'var(--gov-text-secondary)', maxWidth: '780px', margin: '8px auto 0 auto', lineHeight: 1.6 }}>
+                      {language === 'mr'
+                        ? 'परवानगी इंजिन हे खालील अधिकृत संसदीय व राज्य कायदे आणि नियमावलीनुसार पूर्वअटींचा काटेकोर क्रम निश्चित करते.'
+                        : language === 'hi'
+                        ? 'परवानगी प्रणाली राज्य एवं केंद्रीय कानूनों के अनुसार सभी पूर्व-शर्तों का सटीक विनियामक क्रम निर्धारित करती है।'
+                        : 'Every approval sequence generated by Parvangi is anchored in state and central statutory frameworks, ensuring complete legal compliance and zero circular delays.'}
+                    </p>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-                    <div className="gov-card" style={{ borderTop: '3px solid var(--gov-navy)' }}>
-                      <div style={{ fontSize: '24px', marginBottom: '8px' }}>🎯</div>
-                      <h3 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}>
-                        {language === 'mr' ? 'सूक्ष्म उद्योजकांसाठी विशेष' : language === 'hi' ? '₹10-लाख संस्थापक के लिए निर्मित' : 'Built for the ₹10-Lakh Founder'}
+                  <div className="gov-framework-grid">
+                    <div className="gov-framework-card" style={{ borderTop: '4px solid #d97706' }}>
+                      <div className="gov-framework-header">
+                        <span className="gov-framework-icon">🏭</span>
+                        <span className="gov-framework-act-id">Act No. 63 of 1948</span>
+                      </div>
+                      <h3 className="gov-framework-title">
+                        {language === 'mr'
+                          ? 'कारखाना कायदा १९४८ व महाराष्ट्र नियम १९६३'
+                          : language === 'hi'
+                          ? 'कारखाना अधिनियम १९४८ एवं महाराष्ट्र नियम १९६३'
+                          : 'The Factories Act, 1948 & Maharashtra Rules'}
                       </h3>
-                      <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', lineHeight: 1.55 }}>
-                        {language === 'mr' ? 'जेथे MAITRI १० कोटींपेक्षा मोठ्या प्रकल्पांवर लक्ष केंद्रित करते, तेथे परवानगी ही छोटे कारखाने आणि वैयक्तिक बचतीवर सुरू होणाऱ्या व्यवसायांसाठी तयार केली आहे.' : language === 'hi' ? 'जबकि MAITRI ₹10 करोड़ से अधिक के बड़े निवेश पर केंद्रित है, परवानगी छोटे कारखानों, खाद्य प्रसंस्करण और व्यक्तिगत बचत के साथ स्थापित होने वाली इकाइयों के लिए तैयार की गई है।' : 'While MAITRI focuses on ₹10 Cr+ large investments, Parvangi is tailored for small workshops, food processors, and fabrication units setting up with personal savings.'}
+                      <div className="gov-framework-dept">
+                        {language === 'mr'
+                          ? 'औद्योगिक सुरक्षा व आरोग्य संचालनालय (DISH)'
+                          : language === 'hi'
+                          ? 'औद्योगिक सुरक्षा एवं स्वास्थ्य निदेशालय (DISH)'
+                          : 'Directorate of Industrial Safety & Health (DISH)'}
+                      </div>
+                      <p className="gov-framework-desc">
+                        {language === 'mr'
+                          ? 'कलम ६ व नियम ३ अंतर्गत बांधकाम सुरू करण्यापूर्वी कारखाना नकाशा मंजुरी अनिवार्य आहे. व्यावसायिक उत्पादन सुरू करण्यापूर्वी अधिकृत कारखाना परवाना मिळणे आवश्यक आहे.'
+                          : language === 'hi'
+                          ? 'धारा ६ व नियम ३ के अंतर्गत निर्माण कार्य से पूर्व कारखाना मानचित्र अनुमोदन अनिवार्य है। वाणिज्यिक उत्पादन से पूर्व आधिकारिक कारखाना लाइसेंस आवश्यक है।'
+                          : 'Mandates prior approval of factory architectural & machinery layouts under Section 6 before civil erection. Factory License is obligatory prior to running manufacturing operations.'}
                       </p>
                     </div>
 
-                    <div className="gov-card" style={{ borderTop: '3px solid var(--gov-saffron)' }}>
-                      <div style={{ fontSize: '24px', marginBottom: '8px' }}>⚖️</div>
-                      <h3 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}>
-                        {language === 'mr' ? 'कायदेशीर पूर्वअटींची खात्री' : language === 'hi' ? 'सख्त कानूनी प्राथमिकता' : 'Strict Legal Precedence'}
+                    <div className="gov-framework-card" style={{ borderTop: '4px solid #059669' }}>
+                      <div className="gov-framework-header">
+                        <span className="gov-framework-icon">🌿</span>
+                        <span className="gov-framework-act-id">Acts 6/1974 & 14/1981</span>
+                      </div>
+                      <h3 className="gov-framework-title">
+                        {language === 'mr'
+                          ? 'जल व वायू प्रदूषण प्रतिबंधक कायदे'
+                          : language === 'hi'
+                          ? 'जल एवं वायु प्रदूषण निवारण अधिनियम'
+                          : 'Water Act 1974 & Air Act 1981'}
                       </h3>
-                      <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', lineHeight: 1.55 }}>
-                        {language === 'mr' ? 'कायदेशीर अनुक्रमाचे (उदा. MPCB CTE हे फॅक्टरी परवान्याआधी असणे) अचूक पालन करते, जेणेकरून भविष्यातील महागडे कायदेशीर बदल टाळता येतील.' : language === 'hi' ? 'यह सुनिश्चित करता है कि पूर्व-आवश्यक मंजूरी (जैसे MPCB CTE को DISH फैक्ट्री लाइसेंस से पहले होना चाहिए) कड़ाई से वैध वैधानिक अनुक्रम में निष्पादित की जाती हैं, ताकि महंगे नागरिक संशोधनों से बचा जा सके।' : 'Guarantees that prerequisite approvals (e.g. MPCB CTE must precede DISH Factory License) are executed in strictly valid statutory sequence to prevent costly civil modifications.'}
+                      <div className="gov-framework-dept">
+                        {language === 'mr'
+                          ? 'महाराष्ट्र प्रदूषण नियंत्रण मंडळ (MPCB)'
+                          : language === 'hi'
+                          ? 'महाराष्ट्र प्रदूषण नियंत्रण मंडल (MPCB)'
+                          : 'Maharashtra Pollution Control Board (MPCB)'}
+                      </div>
+                      <p className="gov-framework-desc">
+                        {language === 'mr'
+                          ? 'कोणत्याही औद्योगिक बांधकामापूर्वी किंवा यंत्रसामग्री बसवण्यापूर्वी स्थापना संमती (Consent to Establish - CTE) घेणे कायदेशीर अनिवार्य आहे. प्रकल्प कार्यान्वित करण्यापूर्वी संचालन संमती (CTO) आवश्यक आहे.'
+                          : language === 'hi'
+                          ? 'किसी भी औद्योगिक निर्माण अथवा संयंत्र स्थापना से पूर्व स्थापना सहमति (CTE) लेना अनिवार्य है। उत्पादन शुरू करने से पूर्व संचालन सहमति (CTO) आवश्यक है।'
+                          : 'Prohibits setting up manufacturing facilities without prior Consent to Establish (CTE). Subsequent Consent to Operate (CTO) is statutory prior to plant commissioning.'}
                       </p>
                     </div>
 
-                    <div className="gov-card" style={{ borderTop: '3px solid var(--gov-green)' }}>
-                      <div style={{ fontSize: '24px', marginBottom: '8px' }}>🛡️</div>
-                      <h3 style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}>
-                        {language === 'mr' ? 'सत्यापित नियम डेटाबेस' : language === 'hi' ? 'नियम आधारित इंजन' : 'Deterministic Rules Engine'}
+                    <div className="gov-framework-card" style={{ borderTop: '4px solid #dc2626' }}>
+                      <div className="gov-framework-header">
+                        <span className="gov-framework-icon">🚒</span>
+                        <span className="gov-framework-act-id">Mah. Act III of 2007</span>
+                      </div>
+                      <h3 className="gov-framework-title">
+                        {language === 'mr'
+                          ? 'महाराष्ट्र अग्निसुरक्षा व जीवनरक्षा कायदा २००६'
+                          : language === 'hi'
+                          ? 'महाराष्ट्र अग्नि निवारण एवं जीवन सुरक्षा उपाय अधिनियम २००६'
+                          : 'Maharashtra Fire Prevention Act, 2006'}
                       </h3>
-                      <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', lineHeight: 1.55 }}>
-                        {language === 'mr' ? 'MIDC, MPCB आणि DISH च्या अधिकृत कार्यपद्धतीशी सुसंगत असा नियम डेटाबेस. येथे जनरेटिव्ह AI चे चुकीचे अनुमान नाही, तर फक्त सत्यापित नियम आहेत.' : language === 'hi' ? 'MIDC, MPCB, और DISH के आधिकारिक ढांचे से मेल खाने वाला नियामक डेटासेट। सत्यापन योग्य नियम — कभी भी जनरेटिव AI के अनुमानों पर आधारित नहीं।' : 'Flat, version-controlled regulatory dataset matching MIDC, MPCB, and DISH official frameworks. Verifiable rules — never guessed by generative hallucinations.'}
+                      <div className="gov-framework-dept">
+                        {language === 'mr'
+                          ? 'महाराष्ट्र अग्निशमन सेवा व स्थानिक नियोजन प्राधिकरण'
+                          : language === 'hi'
+                          ? 'महाराष्ट्र अग्निशमन सेवा एवं स्थानीय योजना प्राधिकरण'
+                          : 'Maharashtra Fire Services & Planning Authorities'}
+                      </div>
+                      <p className="gov-framework-desc">
+                        {language === 'mr'
+                          ? 'औद्योगिक इमारतीचे बांधकाम सुरू करण्यापूर्वी तात्पुरती अग्निसुरक्षा NOC अनिवार्य असून अंतिम भोगवटा प्रमाणपत्रासाठी (Occupancy) अंतिम फायर NOC आवश्यक ठरते.'
+                          : language === 'hi'
+                          ? 'औद्योगिक भवन निर्माण से पूर्व अनंतिम अग्नि सुरक्षा NOC अनिवार्य है तथा अधिभोग प्रमाण पत्र (Occupancy) हेतु अंतिम फायर NOC आवश्यक है।'
+                          : 'Requires Provisional Fire NOC prior to commencement of structural works. Final Fire Safety Certificate is mandatory before grant of Building Occupancy Certificate.'}
+                      </p>
+                    </div>
+
+                    <div className="gov-framework-card" style={{ borderTop: '4px solid #2563eb' }}>
+                      <div className="gov-framework-header">
+                        <span className="gov-framework-icon">⚡</span>
+                        <span className="gov-framework-act-id">Mah. Act XXXI of 2015</span>
+                      </div>
+                      <h3 className="gov-framework-title">
+                        {language === 'mr'
+                          ? 'महाराष्ट्र लोकसेवा हक्क कायदा व EODB धोरण'
+                          : language === 'hi'
+                          ? 'महाराष्ट्र लोकसेवा गारंटी अधिनियम एवं EODB नीति'
+                          : 'Maharashtra Right to Public Services Act & EODB'}
+                      </h3>
+                      <div className="gov-framework-dept">
+                        {language === 'mr'
+                          ? 'उद्योग, ऊर्जा व कामगार विभाग, महाराष्ट्र शासन'
+                          : language === 'hi'
+                          ? 'उद्योग, ऊर्जा एवं श्रम विभाग, महाराष्ट्र शासन'
+                          : 'Industries, Energy & Labour Department'}
+                      </div>
+                      <p className="gov-framework-desc">
+                        {language === 'mr'
+                          ? 'नागरिकांना विहीत कालमर्यादेत पारदर्शक सेवा देण्याची कायदेशीर हमी. परवानगी प्रणालीमुळे अर्जांचा अयोग्य क्रम टळतो आणि परवानग्या वेळेत मिळतात.'
+                          : language === 'hi'
+                          ? 'नागरिकों को निर्धारित समय सीमा में पारदर्शी सेवाएं सुनिश्चित करने की वैधानिक गारंटी। त्रुटिपूर्ण आवेदन क्रम से बचाव।'
+                          : 'Statutory guarantee of time-bound public services. Eliminates circular rejections and redundant fees by ordering approvals in verifiable prerequisite progression.'}
                       </p>
                     </div>
                   </div>
 
-                  {/* Launch CTA Banner */}
-                  <div
-                    style={{
-                      marginTop: '28px',
-                      backgroundColor: 'var(--gov-navy-subtle)',
-                      border: '1.5px solid #bfdbfe',
-                      borderRadius: 'var(--gov-radius)',
-                      padding: '16px 20px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                      gap: '12px'
-                    }}
-                  >
+                  {/* Official Launch Callout Banner */}
+                  <div className="gov-launch-banner">
                     <div>
-                      <strong style={{ fontSize: '14.5px', color: 'var(--gov-navy)' }}>
-                        {language === 'mr' ? 'आपला उद्योग सुरू करण्यास सज्ज आहात?' : language === 'hi' ? 'क्या आप अपना रोडमैप सत्यापित करने के लिए तैयार हैं?' : 'Ready to verify your approval roadmap?'}
+                      <strong style={{ fontSize: '15px', color: 'var(--gov-navy-dark)', display: 'block', marginBottom: '3px' }}>
+                        {language === 'mr'
+                          ? 'आपला उद्योग सुरू करण्यासाठी वैधानिक सूची तपासा'
+                          : language === 'hi'
+                          ? 'अपने उद्योग के लिए वैधानिक अनुमोदन सूची जांचें'
+                          : 'Verify your statutory approval roadmap in 4 guided steps'}
                       </strong>
                       <div style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
-                        {language === 'mr' ? '४ सोप्या टप्प्यांत ६० सेकंदांपेक्षा कमी वेळेत पूर्ण करा.' : language === 'hi' ? '4 आसान निर्देशित चरणों में 60 सेकंड से भी कम समय लगता है।' : 'Takes less than 60 seconds across 4 simple guided steps.'}
+                        {language === 'mr'
+                          ? 'कोणत्याही लॉगिनशिवाय, विनामूल्य व संपूर्ण पारदर्शक नियामक पडताळणी.'
+                          : language === 'hi'
+                          ? 'बिना लॉगिन निःशुल्क, निष्पक्ष एवं पारदर्शी विनियामक सत्यापन।'
+                          : 'Open public service · Zero registration fee · Instant statutory clearance certificate generation.'}
                       </div>
                     </div>
 
@@ -249,9 +352,14 @@ export default function HomePage() {
                       type="button"
                       className="btn-gov-primary"
                       onClick={handleStartWizard}
-                      style={{ fontSize: '13.5px', padding: '10px 22px' }}
+                      style={{ fontSize: '13.5px', padding: '10px 24px', whiteSpace: 'nowrap' }}
+                      id="statutory-framework-start-btn"
                     >
-                      {language === 'mr' ? 'मोफत विझार्ड सुरू करा →' : language === 'hi' ? 'मुफ़्त विज़ार्ड प्रारंभ करें →' : 'Start Free Wizard →'}
+                      {language === 'mr'
+                        ? 'नवीन तपासणी सुरू करा →'
+                        : language === 'hi'
+                        ? 'अनुमोदन इंजन शुरू करें →'
+                        : 'Launch Approval Engine →'}
                     </button>
                   </div>
                 </div>
@@ -265,7 +373,7 @@ export default function HomePage() {
           <WizardContainer
             initialProfile={profileForEdit}
             onChecklistGenerated={handleChecklistGenerated}
-            onCancel={() => setCurrentView(activeResult ? 'checklist' : 'home')}
+            onCancel={() => setCurrentView('home')}
           />
         )}
 
@@ -296,6 +404,8 @@ export default function HomePage() {
         <TrackChecklistModal
           onClose={() => setShowTrackModal(false)}
           onLoadProfile={handleLoadSampleProfile}
+          savedChecklist={savedChecklist}
+          onLoadSavedResult={handleLoadSavedChecklist}
         />
       )}
 

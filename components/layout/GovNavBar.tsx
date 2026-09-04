@@ -80,14 +80,6 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
             <span>{language === 'mr' ? 'सर्व १६ परवानग्या (Repository)' : language === 'hi' ? 'अपनी मंजूरी जानें' : 'Know Your Approvals'}</span>
           </li>
 
-          <li
-            className={`gov-nav-item ${currentView === 'maitri_gap' ? 'active' : ''}`}
-            onClick={() => onNavigate('maitri_gap')}
-          >
-            <span>⚖️</span>
-            <span>{language === 'mr' ? 'MAITRI 2.0 तुलना (The Gap)' : language === 'hi' ? 'MAITRI 2.0 vs Parvangi' : 'MAITRI 2.0 vs Parvangi'}</span>
-          </li>
-
           {isAdmin && (
             <li
               className={`gov-nav-item ${currentView === 'admin' ? 'active' : ''}`}
@@ -98,7 +90,7 @@ export default function GovNavBar({ currentView, onNavigate, hasExistingChecklis
               }}
             >
               <span>🛡️</span>
-              <span>{language === 'mr' ? 'अधिकारी नियंत्रण कक्ष' : 'Officer Console'}</span>
+              <span>{language === 'mr' ? 'अधिकारी नियंत्रण कक्ष' : language === 'hi' ? 'अधिकारी नियंत्रण कक्ष' : 'Officer Console'}</span>
               <span
                 style={{
                   backgroundColor: '#ffffff',

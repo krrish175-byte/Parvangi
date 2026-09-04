@@ -1,10 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '@/lib/context';
 
 export default function AccessibilityBar() {
-  const { language, setLanguage } = useApp();
+  const { language, setLanguage, fontSize, setFontSize } = useApp();
+  const [currentDateTime, setCurrentDateTime] = useState<string>('');
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      setCurrentDateTime(
+        new Intl.DateTimeFormat('en-IN', {
+          dateStyle: 'medium',
+          timeStyle: 'medium',
+          timeZone: 'Asia/Kolkata'
+        }).format(new Date())
+      );
+    };
+
+    updateDateTime();
+    const intervalId = window.setInterval(updateDateTime, 1000);
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="gov-accessibility-strip no-print">
@@ -29,6 +46,46 @@ export default function AccessibilityBar() {
           </div>
 
           <div className="gov-strip-right">
+            <time className="gov-live-clock" dateTime={currentDateTime || undefined} aria-live="polite">
+              {currentDateTime || 'Loading time...'}
+            </time>
+
+            {/* Font Size Scaling Controls */}
+            <div className="gov-strip-item">
+              <span style={{ fontSize: '11px', marginRight: '4px' }}>
+                {language === 'mr' ? 'अक्षर आकार:' : language === 'hi' ? 'अक्षर आकार:' : 'Text Size:'}
+              </span>
+              <div className="gov-font-toggles" role="group" aria-label="Font size controls">
+                <button
+                  type="button"
+                  className={`gov-font-btn ${fontSize === 'small' ? 'active' : ''}`}
+                  onClick={() => setFontSize('small')}
+                  aria-pressed={fontSize === 'small'}
+                  title="Smaller Text"
+                >
+                  A-
+                </button>
+                <button
+                  type="button"
+                  className={`gov-font-btn ${fontSize === 'normal' ? 'active' : ''}`}
+                  onClick={() => setFontSize('normal')}
+                  aria-pressed={fontSize === 'normal'}
+                  title="Normal Text"
+                >
+                  A
+                </button>
+                <button
+                  type="button"
+                  className={`gov-font-btn ${fontSize === 'large' ? 'active' : ''}`}
+                  onClick={() => setFontSize('large')}
+                  aria-pressed={fontSize === 'large'}
+                  title="Larger Text"
+                >
+                  A+
+                </button>
+              </div>
+            </div>
+
             {/* Language Switcher */}
             <div className="gov-strip-item">
               <span style={{ fontSize: '11px', marginRight: '4px' }}>
