@@ -51,9 +51,9 @@ export default function ApprovalItemCard({
 
   const isMandatory = approval.mandatory_or_conditional === 'Mandatory';
   const statusLabels: Record<ApprovalStatus, string> = {
-    pending: language === 'mr' ? 'प्रलंबित' : 'Pending',
-    in_progress: language === 'mr' ? 'प्रगतीपथावर' : 'In Progress',
-    completed: language === 'mr' ? 'पूर्ण' : 'Completed'
+    pending: language === 'mr' ? 'प्रलंबित' : language === 'hi' ? 'लंबित' : 'Pending',
+    in_progress: language === 'mr' ? 'प्रगतीपथावर' : language === 'hi' ? 'प्रगति पर' : 'In Progress',
+    completed: language === 'mr' ? 'पूर्ण' : language === 'hi' ? 'पूर्ण' : 'Completed'
   };
 
   return (
@@ -311,6 +311,14 @@ export default function ApprovalItemCard({
 
       {/* Action Footer */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+        <label className="approval-status-control">
+          <span>{language === 'mr' ? 'स्थिती:' : language === 'hi' ? 'स्थिति:' : 'Status:'}</span>
+          <select value={status} onChange={(e) => onStatusChange(e.target.value as ApprovalStatus)} aria-label={`${approval.name} status`}>
+            {(Object.keys(statusLabels) as ApprovalStatus[]).map((option) => (
+              <option key={option} value={option}>{statusLabels[option]}</option>
+            ))}
+          </select>
+        </label>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <label className="approval-status-control">
             <span>{language === 'mr' ? 'स्थिती:' : 'Status:'}</span>
