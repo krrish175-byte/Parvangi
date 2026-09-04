@@ -11,14 +11,13 @@ const MAX_INVESTMENT_LAKHS = 5000;
 interface Step3ScaleProps {
   investmentInLakhs: number;
   onInvestmentChange: (val: number) => void;
-  scaleTier: ScaleTier;
+  scaleTier?: ScaleTier;
   onScaleTierChange: (tier: ScaleTier) => void;
 }
 
 export default function Step3Scale({
   investmentInLakhs,
   onInvestmentChange,
-  scaleTier,
   onScaleTierChange
 }: Step3ScaleProps) {
   const { language } = useApp();
@@ -161,6 +160,8 @@ export default function Step3Scale({
             >
               {language === 'mr'
                 ? 'यंत्रसामग्री व उपकरणांमधील अंदाजे भांडवली गुंतवणूक (₹ लाख):'
+                : language === 'hi'
+                ? 'संयंत्र और मशीनरी में अनुमानित निवेश (₹ लाख में):'
                 : 'Estimated Investment in Plant & Machinery (in ₹ Lakhs):'}
             </label>
             <span style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
@@ -183,6 +184,8 @@ export default function Step3Scale({
                   setInvestmentError(
                     language === 'mr'
                       ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम निवडा.`
+                      : language === 'hi'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} से ₹${MAX_INVESTMENT_LAKHS} लाख के बीच निवेश दर्ज करें।`
                       : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
                   );
                   return;
@@ -196,6 +199,8 @@ export default function Step3Scale({
                   setInvestmentError(
                     language === 'mr'
                       ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम निवडा.`
+                      : language === 'hi'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} से ₹${MAX_INVESTMENT_LAKHS} लाख के बीच निवेश दर्ज करें।`
                       : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
                   );
                 }
@@ -255,8 +260,9 @@ export default function Step3Scale({
             <span>{language === 'mr' ? '₹५०० लाख (₹५ कोटी)' : language === 'hi' ? '₹500 लाख (₹5 करोड़)' : '₹500 Lakhs (₹5 Cr)'}</span>
             <span>{language === 'mr' ? '₹१००० लाख (₹१० कोटी लघु मर्यादा)' : language === 'hi' ? '₹1000 लाख (₹10 करोड़ लघु सीमा)' : '₹1000 Lakhs (₹10 Cr Small Limit)'}</span>
             <span>{language === 'mr' ? '₹१५०० लाख+ (मध्यम)' : language === 'hi' ? '₹1500 लाख+ (मध्यम)' : '₹1500 Lakhs+ (Medium)'}</span>
+          </div>
           <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', textAlign: 'center', marginTop: '6px' }}>
-            {language === 'mr' ? 'निवडलेली गुंतवणूक:' : 'Selected investment:'} ₹{investmentInLakhs} Lakhs ({formatINR(investmentInLakhs)})
+            {language === 'mr' ? 'निवडलेली गुंतवणूक:' : language === 'hi' ? 'चयनित निवेश:' : 'Selected investment:'} ₹{investmentInLakhs} Lakhs ({formatINR(investmentInLakhs)})
           </div>
         </div>
       </div>

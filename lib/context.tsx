@@ -19,7 +19,6 @@ const AppContext = createContext<AppContextType>({
   language: 'en',
   setLanguage: () => {},
   fontSize: 'normal',
-  setFontSize: () => {}
   setFontSize: () => {},
   highContrast: false,
   setHighContrast: () => {},
@@ -40,7 +39,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, [highContrast]);
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'en' ? 'mr' : 'en'));
+    setLanguage((prev) => {
+      if (prev === 'en') return 'mr';
+      if (prev === 'mr') return 'hi';
+      return 'en';
+    });
   };
 
   return (
@@ -49,7 +52,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         language,
         setLanguage,
         fontSize,
-        setFontSize
         setFontSize,
         highContrast,
         setHighContrast,

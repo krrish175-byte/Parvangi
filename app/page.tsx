@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChecklistResult, UserProfileInput } from '@/lib/types';
-import { generateApprovalChecklist, ALL_APPROVALS } from '@/lib/rules-engine';
+import { generateApprovalChecklist } from '@/lib/rules-engine';
 import AccessibilityBar from '@/components/layout/AccessibilityBar';
 import GovHeader from '@/components/layout/GovHeader';
 import GovNavBar from '@/components/layout/GovNavBar';

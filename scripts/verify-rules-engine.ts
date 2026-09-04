@@ -1,4 +1,4 @@
-import { generateApprovalChecklist, ALL_CATEGORIES } from '../lib/rules-engine';
+import { generateApprovalChecklist } from '../lib/rules-engine';
 import { UserProfileInput } from '../lib/types';
 
 console.log('----------------------------------------------------');
