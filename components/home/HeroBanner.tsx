@@ -6,6 +6,7 @@ import { useApp } from '@/lib/context';
 interface HeroBannerProps {
   onStartWizard: () => void;
   onViewDirectory: () => void;
+  onViewMaitriGap?: () => void;
 }
 
 export default function HeroBanner({
@@ -21,6 +22,13 @@ export default function HeroBanner({
         { count: '३६', label: 'जिल्हे समाविष्ट', sub: 'राज्यव्यापी DIC नेटवर्क' },
         { count: '१००%', label: 'कायदेशीर अचूकता', sub: 'पूर्वतपासणी क्रम हमी' }
       ]
+    : language === 'hi'
+    ? [
+        { count: '१६', label: 'वैधानिक अनुमोदन', sub: 'MPCB, DISH, MIDC, Fire, Power' },
+        { count: '०५', label: 'नियामक निकाय', sub: 'राज्य और केंद्रीय प्राधिकरण' },
+        { count: '३६', label: 'जिले शामिल', sub: 'राज्यव्यापी DIC नेटवर्क' },
+        { count: '१००%', label: 'प्राथमिकता क्रम', sub: 'वैधानिक रूप से सत्यापित प्रवाह' }
+      ]
     : [
         { count: '16', label: 'Statutory Clearances', sub: 'MPCB, DISH, MIDC, Fire, Power' },
         { count: '05', label: 'Regulatory Bodies', sub: 'State & Central Authorities' },
@@ -35,7 +43,7 @@ export default function HeroBanner({
           {/* Subtle Institutional Kicker */}
           <div className="gov-hero-tag-wrap">
             <span className="gov-hero-kicker">
-              🏛️ {language === 'mr' ? 'महाराष्ट्र शासन · अधिकृत औद्योगिक मंजुरी पोर्टल' : 'GOVERNMENT OF MAHARASHTRA · OFFICIAL REGULATORY CLEARANCE PORTAL'}
+              🏛️ {language === 'mr' ? 'महाराष्ट्र शासन · अधिकृत औद्योगिक मंजुरी पोर्टल' : language === 'hi' ? 'महाराष्ट्र शासन · आधिकारिक औद्योगिक मंजूरी पोर्टल' : 'GOVERNMENT OF MAHARASHTRA · OFFICIAL REGULATORY CLEARANCE PORTAL'}
             </span>
           </div>
 
@@ -44,6 +52,10 @@ export default function HeroBanner({
             {language === 'mr' ? (
               <>
                 उद्योग उभारण्यापूर्वी लागणाऱ्या सर्व वैधानिक परवानग्यांची अचूक कायदेशीर सूची
+              </>
+            ) : language === 'hi' ? (
+              <>
+                उद्योग स्थापना पूर्व अनिवार्य वैधानिक अनुमतियों एवं अनापत्ति प्रमाणपत्रों की चेकलिस्ट प्रणाली
               </>
             ) : (
               <>
@@ -57,6 +69,10 @@ export default function HeroBanner({
             {language === 'mr' ? (
               <>
                 महाराष्ट्रात नवीन सूक्ष्म व लघु उद्योग सुरू करणाऱ्या उद्योजकांसाठी वैधानिक मंजुऱ्या, पर्यावरण संमती, कारखाना परवाना आणि ना-हरकत प्रमाणपत्रांची <strong>कायदेशीर अनुक्रमाने तयार केलेली अधिकृत तपासणी सूची</strong>.
+              </>
+            ) : language === 'hi' ? (
+              <>
+                महाराष्ट्र में नए सूक्ष्म व लघु उद्योग शुरू करने वाले उद्यमियों के लिए वैधानिक स्वीकृतियों, पर्यावरण सहमति, कारखाना लाइसेंस और अनापत्ति प्रमाण पत्रों की <strong>कानूनी अनुक्रम में तैयार आधिकारिक चेकलिस्ट</strong>।
               </>
             ) : (
               <>
@@ -77,6 +93,8 @@ export default function HeroBanner({
               <span>
                 {language === 'mr'
                   ? 'माझी वैयक्तिक परवानगी सूची तपासा (४ टप्पे)'
+                  : language === 'hi'
+                  ? 'मेरी वैयक्तिक अनुमोदन सूची जांचें (४ चरण)'
                   : 'Check What You Need (4-Step Engine)'}
               </span>
             </button>
@@ -91,6 +109,8 @@ export default function HeroBanner({
               <span>
                 {language === 'mr'
                   ? 'सर्व १६ परवानग्यांची माहिती (Directory)'
+                  : language === 'hi'
+                  ? 'सभी १६ अनुमोदनों की सूची (Directory)'
                   : 'Know Your Approvals (Directory)'}
               </span>
             </button>
@@ -98,11 +118,11 @@ export default function HeroBanner({
 
           {/* Trust Guarantees */}
           <div className="gov-hero-trust-bar">
-            <span>✓ {language === 'mr' ? 'कोणत्याही लॉगिनशिवाय विनामूल्य' : 'Free Public Service · No Login Required'}</span>
+            <span>✓ {language === 'mr' ? 'कोणत्याही लॉगिनशिवाय विनामूल्य' : language === 'hi' ? 'बिना लॉगिन निःशुल्क जनसेवा' : 'Free Public Service · No Login Required'}</span>
             <span className="gov-hero-trust-dot">•</span>
-            <span>✓ {language === 'mr' ? 'कायद्यानुसार प्रमाणित अनुक्रम' : 'Statutorily Verified Legal Order'}</span>
+            <span>✓ {language === 'mr' ? 'कायद्यानुसार प्रमाणित अनुक्रम' : language === 'hi' ? 'कानूनी रूप से सत्यापित अनुक्रम' : 'Statutorily Verified Legal Order'}</span>
             <span className="gov-hero-trust-dot">•</span>
-            <span>✓ {language === 'mr' ? '६० सेकंदांत वैयक्तिक वेळापत्रक' : 'Personalized Clearance Schedule in 60s'}</span>
+            <span>✓ {language === 'mr' ? '६० सेकंदांत वैयक्तिक वेळापत्रक' : language === 'hi' ? '६० सेकंड में व्यक्तिगत समय सारणी' : 'Personalized Clearance Schedule in 60s'}</span>
           </div>
 
           {/* Statistics Ribbon */}

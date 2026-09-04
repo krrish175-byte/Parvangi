@@ -11,14 +11,13 @@ const MAX_INVESTMENT_LAKHS = 1500;
 interface Step3ScaleProps {
   investmentInLakhs: number;
   onInvestmentChange: (val: number) => void;
-  scaleTier: ScaleTier;
+  scaleTier?: ScaleTier;
   onScaleTierChange: (tier: ScaleTier) => void;
 }
 
 export default function Step3Scale({
   investmentInLakhs,
   onInvestmentChange,
-  scaleTier,
   onScaleTierChange
 }: Step3ScaleProps) {
   const { language } = useApp();
@@ -31,31 +30,31 @@ export default function Step3Scale({
 
   const presets = [
     {
-      label: '₹10 Lakhs',
+      label: language === 'mr' ? '₹१० लाख' : language === 'hi' ? '₹10 लाख' : '₹10 Lakhs',
       lakhs: 10,
       tier: 'micro' as ScaleTier,
-      tag: 'Micro · First-Time Artisan / Bakery',
+      tag: language === 'mr' ? 'सूक्ष्म · नवउद्योजक / बेकरी' : language === 'hi' ? 'सूक्ष्म · पहली बार कारीगर / बेकरी' : 'Micro · First-Time Artisan / Bakery',
       description: 'Minimum capital investment'
     },
     {
-      label: '₹45 Lakhs',
+      label: language === 'mr' ? '₹४५ लाख' : language === 'hi' ? '₹45 लाख' : '₹45 Lakhs',
       lakhs: 45,
       tier: 'micro' as ScaleTier,
-      tag: 'Micro · CNC Machine Workshop',
+      tag: language === 'mr' ? 'सूक्ष्म · CNC मशीन वर्कशॉप' : language === 'hi' ? 'सूक्ष्म · सीएनसी मशीन वर्कशॉप' : 'Micro · CNC Machine Workshop',
       description: 'Standard single-shift unit'
     },
     {
-      label: '₹2.50 Crores',
+      label: language === 'mr' ? '₹२.५० कोटी' : language === 'hi' ? '₹2.50 करोड़' : '₹2.50 Crores',
       lakhs: 250,
       tier: 'small' as ScaleTier,
-      tag: 'Small · Automated Manufacturing',
+      tag: language === 'mr' ? 'लघु · स्वयंचलित उत्पादन' : language === 'hi' ? 'लघु · स्वचालित विनिर्माण' : 'Small · Automated Manufacturing',
       description: '10–25 worker factory'
     },
     {
-      label: '₹15.00 Crores',
+      label: language === 'mr' ? '₹१५.०० कोटी' : language === 'hi' ? '₹15.00 करोड़' : '₹15.00 Crores',
       lakhs: 1500,
       tier: 'medium' as ScaleTier,
-      tag: 'Medium · Processing Plant',
+      tag: language === 'mr' ? 'मध्यम · प्रोसेसिंग प्लांट' : language === 'hi' ? 'मध्यम · प्रसंस्करण संयंत्र' : 'Medium · Processing Plant',
       description: 'Industrial line & boilers'
     }
   ];
@@ -90,6 +89,8 @@ export default function Step3Scale({
         <p style={{ fontSize: '13px', color: 'var(--gov-text-secondary)', marginTop: '4px' }}>
           {language === 'mr'
             ? 'उद्यम नोंदणी, प्रदूषण नियंत्रण शुल्क (MPCB Fees) आणि फॅक्टरी लायसन्सचे निकष भांडवली गुंतवणुकीनुसार ठरतात.'
+            : language === 'hi'
+            ? 'उद्यम पंजीकरण स्तर, MPCB आवेदन शुल्क स्लैब, और फैक्ट्री अधिनियम कार्यकर्ता सीमा संयंत्र और मशीनरी में निश्चित पूंजी निवेश पर निर्भर करती है।'
             : 'Udyam registration tier, MPCB application fee slabs, and Factory Act worker thresholds depend on fixed capital investment in plant and machinery.'}
         </p>
       </div>
@@ -97,7 +98,7 @@ export default function Step3Scale({
       {/* Quick Select Presets */}
       <div style={{ marginBottom: '20px' }}>
         <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '8px' }}>
-          {language === 'mr' ? 'जलद निवड (सामान्य उदाहरणे):' : 'One-Click Investment Presets:'}
+          {language === 'mr' ? 'जलद निवड (सामान्य उदाहरणे):' : language === 'hi' ? 'एक-क्लिक निवेश प्रीसेट:' : 'One-Click Investment Presets:'}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
           {presets.map((p) => {
@@ -165,10 +166,12 @@ export default function Step3Scale({
             >
               {language === 'mr'
                 ? 'यंत्रसामग्री व उपकरणांमधील अंदाजे भांडवली गुंतवणूक (₹ लाख):'
+                : language === 'hi'
+                ? 'संयंत्र और मशीनरी में अनुमानित निवेश (₹ लाख में):'
                 : 'Estimated Investment in Plant & Machinery (in ₹ Lakhs):'}
             </label>
             <span style={{ fontSize: '11.5px', color: 'var(--gov-text-muted)' }}>
-              {language === 'mr' ? 'जमीन व इमारतीचा खर्च वगळून' : 'Excluding land & building cost'}
+              {language === 'mr' ? 'जमीन व इमारतीचा खर्च वगळून' : language === 'hi' ? 'भूमि और भवन लागत को छोड़कर' : 'Excluding land & building cost'}
             </span>
           </div>
 
@@ -187,19 +190,29 @@ export default function Step3Scale({
                   setInvestmentError(
                     language === 'mr'
                       ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम प्रविष्ट करा.`
+                      : language === 'hi'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} से ₹${MAX_INVESTMENT_LAKHS} लाख के बीच निवेश दर्ज करें।`
                       : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
                   );
                   return;
                 }
                 const num = Number(raw);
                 if (!Number.isFinite(num)) {
-                  setInvestmentError('Please enter a valid number.');
+                  setInvestmentError(
+                    language === 'mr'
+                      ? 'कृपया वैध संख्या प्रविष्ट करा.'
+                      : language === 'hi'
+                      ? 'कृपया एक वैध संख्या दर्ज करें।'
+                      : 'Please enter a valid number.'
+                  );
                   return;
                 }
                 if (num < MIN_INVESTMENT_LAKHS || num > MAX_INVESTMENT_LAKHS) {
                   setInvestmentError(
                     language === 'mr'
                       ? `कृपया ₹${MIN_INVESTMENT_LAKHS} ते ₹${MAX_INVESTMENT_LAKHS} लाखांदरम्यान रक्कम निवडा.`
+                      : language === 'hi'
+                      ? `कृपया ₹${MIN_INVESTMENT_LAKHS} से ₹${MAX_INVESTMENT_LAKHS} लाख के बीच निवेश दर्ज करें।`
                       : `Enter an investment between ₹${MIN_INVESTMENT_LAKHS} and ₹${MAX_INVESTMENT_LAKHS} lakhs.`
                   );
                   return;
@@ -211,11 +224,14 @@ export default function Step3Scale({
                 if (!inputValue.trim() || !Number.isFinite(num) || num < MIN_INVESTMENT_LAKHS) {
                   updateInvestment(MIN_INVESTMENT_LAKHS);
                   setInputValue(String(MIN_INVESTMENT_LAKHS));
+                  setInvestmentError('');
                 } else if (num > MAX_INVESTMENT_LAKHS) {
                   updateInvestment(MAX_INVESTMENT_LAKHS);
                   setInputValue(String(MAX_INVESTMENT_LAKHS));
+                  setInvestmentError('');
                 } else {
                   updateInvestment(num);
+                  setInvestmentError('');
                 }
               }}
               aria-invalid={Boolean(investmentError)}
@@ -230,7 +246,7 @@ export default function Step3Scale({
                 textAlign: 'right'
               }}
             />
-            <span style={{ fontSize: '14px', fontWeight: 600 }}>Lakhs</span>
+            <span style={{ fontSize: '14px', fontWeight: 600 }}>{language === 'mr' ? 'लाख' : language === 'hi' ? 'लाख' : 'Lakhs'}</span>
             <span
               style={{
                 backgroundColor: 'var(--gov-saffron-light)',
@@ -267,8 +283,15 @@ export default function Step3Scale({
               cursor: 'pointer'
             }}
           />
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--gov-text-muted)', marginTop: '4px' }}>
+            <span>{language === 'mr' ? '₹५ लाख (सूक्ष्म)' : language === 'hi' ? '₹5 लाख (सूक्ष्म)' : '₹5 Lakhs (Micro)'}</span>
+            <span>{language === 'mr' ? '₹१०० लाख (₹१ कोटी मर्यादा)' : language === 'hi' ? '₹100 लाख (₹1 करोड़ सीमा)' : '₹100 Lakhs (₹1 Cr Threshold)'}</span>
+            <span>{language === 'mr' ? '₹५०० लाख (₹५ कोटी)' : language === 'hi' ? '₹500 लाख (₹5 करोड़)' : '₹500 Lakhs (₹5 Cr)'}</span>
+            <span>{language === 'mr' ? '₹१००० लाख (₹१० कोटी लघु मर्यादा)' : language === 'hi' ? '₹1000 लाख (₹10 करोड़ लघु सीमा)' : '₹1000 Lakhs (₹10 Cr Small Limit)'}</span>
+            <span>{language === 'mr' ? '₹१५०० लाख+ (मध्यम)' : language === 'hi' ? '₹1500 लाख+ (मध्यम)' : '₹1500 Lakhs+ (Medium)'}</span>
+          </div>
           <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', textAlign: 'center', marginTop: '6px' }}>
-            {language === 'mr' ? 'निवडलेली गुंतवणूक:' : 'Selected investment:'} ₹{investmentInLakhs} Lakhs ({formatINR(investmentInLakhs)})
+            {language === 'mr' ? 'निवडलेली गुंतवणूक:' : language === 'hi' ? 'चयनित निवेश:' : 'Selected investment:'} ₹{investmentInLakhs} Lakhs ({formatINR(investmentInLakhs)})
           </div>
         </div>
       </div>
@@ -288,10 +311,10 @@ export default function Step3Scale({
             <span style={{ fontSize: '20px' }}>🏷️</span>
             <div>
               <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--gov-text-muted)', fontWeight: 700 }}>
-                {language === 'mr' ? 'अधिकृत एमएसएमई वर्गीकरण' : 'Official MSME Sizing Category'}
+                {language === 'mr' ? 'अधिकृत एमएसएमई वर्गीकरण' : language === 'hi' ? 'आधिकारिक एमएसएमई आकार श्रेणी' : 'Official MSME Sizing Category'}
               </div>
               <strong style={{ fontSize: '17px', color: 'var(--gov-navy-dark)' }}>
-                {currentClassification.title}
+                {language === 'mr' ? currentClassification.marathi_title : language === 'hi' ? currentClassification.hindi_title : currentClassification.title}
               </strong>
             </div>
           </div>
@@ -307,21 +330,21 @@ export default function Step3Scale({
               fontWeight: 700
             }}
           >
-            ✓ {currentClassification.investmentRange}
+            ✓ {language === 'mr' ? currentClassification.marathi_investmentRange : language === 'hi' ? currentClassification.hindi_investmentRange : currentClassification.investmentRange}
           </div>
         </div>
 
         <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', marginBottom: '10px' }}>
-          {currentClassification.description}
+          {language === 'mr' ? currentClassification.marathi_description : language === 'hi' ? currentClassification.hindi_description : currentClassification.description}
         </p>
 
         {/* Incentives Callout */}
         <div style={{ borderTop: '1px solid var(--gov-border-subtle)', paddingTop: '10px', marginTop: '10px' }}>
           <div style={{ fontSize: '11.5px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '4px' }}>
-            💰 {language === 'mr' ? 'पात्र राज्य औद्योगिक प्रोत्साहने (PSI Scheme):' : 'Key Applicable State Incentives (Maharashtra PSI):'}
+            💰 {language === 'mr' ? 'पात्र राज्य औद्योगिक प्रोत्साहने (PSI Scheme):' : language === 'hi' ? 'प्रमुख लागू राज्य प्रोत्साहन (महाराष्ट्र पीएसआई):' : 'Key Applicable State Incentives (Maharashtra PSI):'}
           </div>
           <ul style={{ listStyleType: 'square', paddingLeft: '18px', fontSize: '12px', color: 'var(--gov-text-muted)' }}>
-            {currentClassification.subsidiesEligible.map((sub, i) => (
+            {(language === 'mr' ? currentClassification.marathi_subsidiesEligible : language === 'hi' ? currentClassification.hindi_subsidiesEligible : currentClassification.subsidiesEligible).map((sub, i) => (
               <li key={i}>{sub}</li>
             ))}
           </ul>

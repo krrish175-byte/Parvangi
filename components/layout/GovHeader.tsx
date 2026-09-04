@@ -3,37 +3,33 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useApp } from '@/lib/context';
-import { ALL_APPROVALS } from '@/lib/rules-engine';
-import categories from '@/data/categories.json';
+import { getCurrentUser, isAdminLoggedIn, logout } from '@/lib/auth-store';
+import { UserAccount } from '@/lib/types';
 
 interface GovHeaderProps {
   onHomeClick?: () => void;
-  onSearchSelect?: () => void;
+  onOpenAuth?: (tab: 'citizen_login' | 'citizen_signup' | 'admin_login') => void;
+  onNavigateAdmin?: () => void;
 }
 
-export default function GovHeader({ onHomeClick, onSearchSelect }: GovHeaderProps) {
+export default function GovHeader({ onHomeClick, onOpenAuth, onNavigateAdmin }: GovHeaderProps) {
   const { language } = useApp();
-  const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [currentUser, setCurrentUser] = useState<UserAccount | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => setDebouncedQuery(query.trim()), 300);
-    return () => window.clearTimeout(timeoutId);
-  }, [query]);
+    const checkAuth = () => {
+      setCurrentUser(getCurrentUser());
+      setIsAdmin(isAdminLoggedIn());
+    };
+    checkAuth();
+    window.addEventListener('parvangi_auth_change', checkAuth);
+    return () => window.removeEventListener('parvangi_auth_change', checkAuth);
+  }, []);
 
-  const normalizedQuery = debouncedQuery.toLowerCase();
-  const approvalResults = normalizedQuery
-    ? ALL_APPROVALS.filter((approval) =>
-        [approval.name, approval.marathi_name, approval.department, approval.issuing_authority, approval.act_and_rule, approval.one_line_description]
-          .some((value) => value.toLowerCase().includes(normalizedQuery))
-      ).slice(0, 5)
-    : [];
-  const categoryResults = normalizedQuery
-    ? categories.filter((category) =>
-        [category.name, category.marathi_name, category.description, category.examples].some((value) => value.toLowerCase().includes(normalizedQuery))
-      ).slice(0, 3)
-    : [];
-  const hasSearchResults = approvalResults.length > 0 || categoryResults.length > 0;
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <header className="gov-header">
@@ -48,10 +44,10 @@ export default function GovHeader({ onHomeClick, onSearchSelect }: GovHeaderProp
             onKeyDown={(e) => e.key === 'Enter' && onHomeClick?.()}
           >
             <div className="gov-emblem-container">
-              {/* National Emblem of India */}
+              {/* National Emblem of India (Local SVG) */}
               <div className="gov-national-emblem" title="भारत सरकारचे राजचिन्ह / State Emblem of India">
                 <Image
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+                  src="/emblem-of-india.svg"
                   alt="State Emblem of India"
                   width={34}
                   height={44}
@@ -75,7 +71,11 @@ export default function GovHeader({ onHomeClick, onSearchSelect }: GovHeaderProp
 
             <div className="gov-title-block">
               <span className="gov-title-marathi">
-                महाराष्ट्र शासन · उद्योग, ऊर्जा, कामगार व कौशल्य विकास विभाग
+                {language === 'mr'
+                  ? 'महाराष्ट्र शासन · उद्योग, ऊर्जा, कामगार व कौशल्य विकास विभाग'
+                  : language === 'hi'
+                  ? 'महाराष्ट्र शासन · उद्योग, ऊर्जा, श्रम एवं कौशल विकास विभाग'
+                  : 'Government of Maharashtra · Industry, Energy, Labour & Skill Development Dept.'}
               </span>
               <div className="gov-wordmark">
                 <span>PARVANGI</span>
@@ -84,36 +84,128 @@ export default function GovHeader({ onHomeClick, onSearchSelect }: GovHeaderProp
               <span className="gov-subtitle">
                 {language === 'mr'
                   ? 'महाराष्ट्र राज्य नाविन्यता सोसायटी · सूक्ष्म व लघु उद्योगांसाठी वैधानिक परवानगी प्रणाली'
+                  : language === 'hi'
+                  ? 'महाराष्ट्र राज्य नवाचार सोसायटी · सूक्ष्म व लघु उद्योगों के लिए वैधानिक मंजूरी प्रणाली'
                   : 'Maharashtra State Innovation Society (MSIS) · Statutory Approval Checklist Engine'}
               </span>
             </div>
           </div>
 
-          <div className="gov-header-actions no-print">
-            <div className="header-search-wrap">
-              <label htmlFor="global-search" className="sr-only">{language === 'mr' ? 'संपूर्ण पोर्टल शोधा' : 'Search the portal'}</label>
-              <input
-                id="global-search"
-                className="header-search-input"
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder={language === 'mr' ? 'परवानगी, विभाग किंवा योजना शोधा...' : 'Search approvals, departments or schemes...'}
-                autoComplete="off"
-              />
-              {debouncedQuery && (
-                <div className="header-search-results" role="listbox">
-                  {approvalResults.map((approval) => (
-                    <button key={approval.id} type="button" onClick={() => { onSearchSelect?.(); setQuery(''); }}>
-                      <strong>{approval.name}</strong><span>{approval.department}</span>
-                    </button>
-                  ))}
-                  {categoryResults.map((category) => (
-                    <button key={category.id} type="button" onClick={() => { onSearchSelect?.(); setQuery(''); }}>
-                      <strong>{category.name}</strong><span>Business category</span>
-                    </button>
-                  ))}
-                  {!hasSearchResults && <div className="header-search-empty">{language === 'mr' ? 'काही निकाल सापडले नाहीत.' : 'No matching results found.'}</div>}
+          <div className="gov-header-actions no-print" style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+            {/* Authentication Buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {isAdmin ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <button
+                    type="button"
+                    onClick={onNavigateAdmin}
+                    style={{
+                      backgroundColor: '#991b1b',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '5px 12px',
+                      borderRadius: '3px',
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <span>🛡️</span>
+                    <span>{language === 'mr' ? 'अधिकारी कक्ष (DIC)' : language === 'hi' ? 'अधिकारी कक्ष' : 'Officer Console (DIC)'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    style={{
+                      backgroundColor: 'transparent',
+                      color: '#64748b',
+                      border: '1px solid #cbd5e1',
+                      padding: '4px 8px',
+                      borderRadius: '3px',
+                      fontSize: '11px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : currentUser ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span
+                    style={{
+                      backgroundColor: '#eff6ff',
+                      color: 'var(--gov-navy)',
+                      border: '1px solid #bfdbfe',
+                      padding: '4px 8px',
+                      borderRadius: '3px',
+                      fontSize: '11.5px',
+                      fontWeight: 700
+                    }}
+                  >
+                    👤 {currentUser.name}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    style={{
+                      backgroundColor: 'transparent',
+                      color: '#64748b',
+                      border: '1px solid #cbd5e1',
+                      padding: '3px 8px',
+                      borderRadius: '3px',
+                      fontSize: '11px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <button
+                    type="button"
+                    onClick={() => onOpenAuth?.('citizen_login')}
+                    style={{
+                      backgroundColor: 'var(--gov-navy)',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '5px 12px',
+                      borderRadius: '3px',
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <span>👤</span>
+                    <span>{language === 'mr' ? 'नागरिक लॉगिन' : language === 'hi' ? 'नागरिक लॉगिन' : 'Citizen Sign In'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => onOpenAuth?.('admin_login')}
+                    style={{
+                      backgroundColor: '#ffffff',
+                      color: '#991b1b',
+                      border: '1px solid #f87171',
+                      padding: '4px 10px',
+                      borderRadius: '3px',
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <span>🛡️</span>
+                    <span>{language === 'mr' ? 'अधिकारी' : language === 'hi' ? 'अधिकारी' : 'Officer'}</span>
+                  </button>
                 </div>
               )}
             </div>

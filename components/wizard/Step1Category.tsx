@@ -33,14 +33,10 @@ export default function Step1Category({ selectedCategory, onSelect }: Step1Categ
     <div>
       <div style={{ marginBottom: '20px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--gov-navy)' }}>
-          {language === 'mr'
-            ? 'टप्पा १: आपल्या प्रस्तावित उद्योगाचा प्रकार निवडा'
-            : 'Step 1: Select Your Proposed Business Category'}
+          {language === 'mr' ? 'टप्पा १: आपला प्रस्तावित उद्योग प्रकार निवडा' : language === 'hi' ? 'चरण 1: अपनी प्रस्तावित व्यवसाय श्रेणी का चयन करें' : 'Step 1: Select Your Proposed Business Category'}
         </h2>
         <p style={{ fontSize: '13px', color: 'var(--gov-text-secondary)', marginTop: '4px' }}>
-          {language === 'mr'
-            ? 'परवानग्या आणि आवश्यक पर्यावरण संमती (MPCB Orange/Green/Red) उद्योगाच्या प्रकारावर थेट अवलंबून असतात.'
-            : 'Statutory approvals, pollution classification, and factory safety applicability depend primarily on your sector of activity.'}
+          {language === 'mr' ? 'कायदेशीर परवानग्या, प्रदूषण वर्गवारी आणि फॅक्टरी सुरक्षिततेची आवश्यकता मुख्यतः आपल्या उद्योगाच्या स्वरूपावर अवलंबून असते.' : language === 'hi' ? 'वैधानिक मंजूरी, प्रदूषण वर्गीकरण और कारखाने की सुरक्षा प्रयोज्यता मुख्य रूप से आपकी गतिविधि के क्षेत्र पर निर्भर करती है।' : 'Statutory approvals, pollution classification, and factory safety applicability depend primarily on your sector of activity.'}
         </p>
       </div>
 
@@ -101,21 +97,21 @@ export default function Step1Category({ selectedCategory, onSelect }: Step1Categ
                     borderRadius: '3px'
                   }}
                 >
-                  {cat.badge}
+                  {language === 'mr' ? cat.marathi_badge || cat.badge : language === 'hi' ? cat.hindi_badge || cat.badge : cat.badge}
                 </span>
               </div>
 
               {/* Titles */}
               <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--gov-navy-dark)', marginBottom: '3px' }}>
-                {cat.name}
+                {language === 'mr' ? cat.name : language === 'hi' ? cat.name : cat.name}
               </h3>
               <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--gov-saffron)', marginBottom: '8px' }}>
-                {cat.marathi_name}
+                {language === 'hi' ? cat.hindi_name : cat.marathi_name}
               </div>
 
               {/* Description */}
               <p style={{ fontSize: '12.5px', color: 'var(--gov-text-secondary)', marginBottom: '10px', lineHeight: 1.5 }}>
-                {cat.description}
+                {language === 'mr' ? cat.marathi_description || cat.description : language === 'hi' ? cat.hindi_description || cat.description : cat.description}
               </p>
 
               {/* Typical Examples Box */}
@@ -130,9 +126,9 @@ export default function Step1Category({ selectedCategory, onSelect }: Step1Categ
                 }}
               >
                 <strong style={{ color: 'var(--gov-text-primary)' }}>
-                  {language === 'mr' ? 'उदाहरणे:' : 'Examples:'}{' '}
+                  {language === 'mr' ? 'उदाहरणे:' : language === 'hi' ? 'उदाहरण:' : 'Examples:'}{' '}
                 </strong>
-                {cat.examples}
+                {language === 'mr' ? cat.marathi_examples || cat.examples : language === 'hi' ? cat.hindi_examples || cat.examples : cat.examples}
               </div>
             </div>
           );
@@ -150,8 +146,10 @@ export default function Step1Category({ selectedCategory, onSelect }: Step1Categ
           color: 'var(--gov-text-muted)'
         }}
       >
-        💡 <strong>Extensible Architecture:</strong> Category definitions are dynamically loaded from{' '}
-        <code>data/categories.json</code>. Adding future clusters (e.g., Electronics, Pharmaceuticals, Solar) requires zero code modifications.
+        💡 <span style={{ fontWeight: 600 }}>
+          {language === 'mr' ? 'विस्तार करण्यायोग्य प्रणाली:' : language === 'hi' ? 'विस्तार योग्य वास्तुकला:' : 'Extensible Architecture:'}
+        </span>{' '}
+        {language === 'mr' ? 'श्रेणीची व्याख्या data/categories.json मधून डायनॅमिकरित्या लोड केली जाते. भविष्यात नवीन क्लस्टर्स (उदा. इलेक्ट्रॉनिक्स, औषधनिर्माण, सौर) जोडण्यासाठी कोड बदलण्याची आवश्यकता नाही.' : language === 'hi' ? 'श्रेणी परिभाषाएँ data/categories.json से गतिशील रूप से लोड की जाती हैं। भविष्य के क्लस्टर (जैसे, इलेक्ट्रॉनिक्स, फार्मास्यूटिकल्स, सोलर) को जोड़ने के लिए शून्य कोड संशोधन की आवश्यकता होती है।' : 'Category definitions are dynamically loaded from data/categories.json. Adding future clusters (e.g., Electronics, Pharmaceuticals, Solar) requires zero code modifications.'}
       </div>
     </div>
   );

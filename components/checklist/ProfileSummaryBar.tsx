@@ -18,11 +18,11 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
   const getLocationLabel = (loc: string) => {
     switch (loc) {
       case 'midc':
-        return language === 'mr' ? 'एमआयडीसी वसाहत' : 'MIDC Industrial Area';
+        return language === 'mr' ? 'एमआयडीसी वसाहत' : language === 'hi' ? 'एमआईडीसी औद्योगिक क्षेत्र' : 'MIDC Industrial Area';
       case 'municipal':
-        return language === 'mr' ? 'महानगरपालिका क्षेत्र' : 'Municipal Corporation';
+        return language === 'mr' ? 'महानगरपालिका क्षेत्र' : language === 'hi' ? 'नगर निगम' : 'Municipal Corporation';
       case 'rural':
-        return language === 'mr' ? 'ग्रामीण / ग्रामपंचायत' : 'Rural / Gram Panchayat';
+        return language === 'mr' ? 'ग्रामीण / ग्रामपंचायत' : language === 'hi' ? 'ग्रामीण / ग्राम पंचायत' : 'Rural / Gram Panchayat';
       default:
         return loc;
     }
@@ -31,11 +31,11 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
   const getStageLabel = (stg: string) => {
     switch (stg) {
       case 'new_unit':
-        return language === 'mr' ? 'नवीन उद्योग घटक' : 'New Greenfield Unit';
+        return language === 'mr' ? 'नवीन उद्योग घटक' : language === 'hi' ? 'नई ग्रीनफील्ड इकाई' : 'New Greenfield Unit';
       case 'expansion':
-        return language === 'mr' ? 'विद्यमान विस्तार' : 'Expansion / Modernization';
+        return language === 'mr' ? 'विद्यमान विस्तार' : language === 'hi' ? 'विस्तार / आधुनिकीकरण' : 'Expansion / Modernization';
       case 'formalize':
-        return language === 'mr' ? 'नियमितीकरण' : 'Formalization';
+        return language === 'mr' ? 'नियमितीकरण' : language === 'hi' ? 'औपचारिकीकरण' : 'Formalization';
       default:
         return stg;
     }
@@ -58,7 +58,7 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
     >
       <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
         <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', textTransform: 'uppercase' }}>
-          {language === 'mr' ? 'निवडलेली पार्श्वभूमी:' : 'Selected Profile:'}
+          {language === 'mr' ? 'निवडलेली पार्श्वभूमी:' : language === 'hi' ? 'चयनित प्रोफ़ाइल:' : 'Selected Profile:'}
         </span>
 
         {/* Category Pill */}
@@ -133,7 +133,7 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
               borderRadius: '3px'
             }}
           >
-            🏛️ {profile.district} District
+            🏛️ {profile.district} {language === 'mr' ? 'जिल्हा' : language === 'hi' ? 'ज़िला' : 'District'}
           </span>
         )}
       </div>
@@ -144,7 +144,7 @@ export default function ProfileSummaryBar({ profile, onEdit }: ProfileSummaryBar
         onClick={onEdit}
         style={{ padding: '6px 14px', fontSize: '12.5px' }}
       >
-        ✏️ {language === 'mr' ? 'माहिती बदला' : 'Modify Inputs'}
+        ✏️ {language === 'mr' ? 'माहिती बदला' : language === 'hi' ? 'विवरण बदलें' : 'Modify Inputs'}
       </button>
     </div>
   );
