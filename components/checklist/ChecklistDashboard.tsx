@@ -1,24 +1,29 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '@/lib/context';
-import { ApprovalStatus, ChecklistResult, PhaseGroup as PhaseGroupType } from '@/lib/types';
+import { ApprovalRecord, ApprovalStatus, ChecklistResult, PhaseGroup as PhaseGroupType, ApplicationSubmission } from '@/lib/types';
 import ProfileSummaryBar from './ProfileSummaryBar';
 import TrustBanner from './TrustBanner';
 import MetricsOverview from './MetricsOverview';
 import PhaseGroup from './PhaseGroup';
 import PrintLetterhead from './PrintLetterhead';
+import ApplyModal from './ApplyModal';
+import { getCurrentUser } from '@/lib/auth-store';
+import { getApplicationsByUser } from '@/lib/application-store';
 
 interface ChecklistDashboardProps {
   result: ChecklistResult;
   onModifyProfile: () => void;
   onRestartWizard: () => void;
+  onOpenAuthModal?: () => void;
 }
 
 export default function ChecklistDashboard({
   result,
   onModifyProfile,
-  onRestartWizard
+  onRestartWizard,
+  onOpenAuthModal
 }: ChecklistDashboardProps) {
   const { language } = useApp();
 
@@ -26,6 +31,29 @@ export default function ChecklistDashboard({
   const [filterType, setFilterType] = useState<'all' | 'mandatory' | 'conditional'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
+  const [selectedApprovalForApply, setSelectedApprovalForApply] = useState<ApprovalRecord | null>(null);
+
+  // User Applications Sync
+  const [userApps, setUserApps] = useState<ApplicationSubmission[]>([]);
+
+  useEffect(() => {
+    const sync = () => {
+      const user = getCurrentUser();
+      if (user) {
+        setUserApps(getApplicationsByUser(user.id));
+      } else {
+        setUserApps([]);
+      }
+    };
+    sync();
+    window.addEventListener('parvangi_auth_change', sync);
+    window.addEventListener('parvangi_applications_change', sync);
+    return () => {
+      window.removeEventListener('parvangi_auth_change', sync);
+      window.removeEventListener('parvangi_applications_change', sync);
+    };
+  }, []);
+
   const [statuses, setStatuses] = useState<Record<string, ApprovalStatus>>(() => {
     try {
       const saved = window.localStorage.getItem(`parvangi-status-${result.referenceId}`);
@@ -76,6 +104,13 @@ export default function ChecklistDashboard({
   const visibleCount = filteredPhaseGroups.reduce((acc, g) => acc + g.items.length, 0);
   const completedCount = Object.values(statuses).filter((status) => status === 'completed').length;
 
+  // Live Applications Counts
+  const checklistApprovalIds = new Set(result.approvals.map((a) => a.id));
+  const relevantUserApps = userApps.filter((app) => checklistApprovalIds.has(app.approvalId));
+  const approvedLiveCount = relevantUserApps.filter((a) => a.status === 'Approved').length;
+  const inProcessLiveCount = relevantUserApps.filter((a) => a.status === 'In Process').length;
+  const submittedLiveCount = relevantUserApps.filter((a) => a.status === 'Submitted').length;
+
   const handleStatusChange = (approvalId: string, status: ApprovalStatus) => {
     const nextStatuses = { ...statuses, [approvalId]: status };
     setStatuses(nextStatuses);
@@ -108,7 +143,7 @@ export default function ChecklistDashboard({
           </div>
 
           {/* Quick Action Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <button
               type="button"
               className="btn-gov-outline"
@@ -143,12 +178,83 @@ export default function ChecklistDashboard({
           </div>
         </div>
 
+        {/* Live Government Application Tracking Strip */}
+        <div
+          className="no-print"
+          style={{
+            backgroundColor: '#002244',
+            color: '#ffffff',
+            borderRadius: '4px',
+            padding: '12px 18px',
+            marginBottom: '16px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '10px',
+            borderLeft: '5px solid #e65100'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '20px' }}>🏛️</span>
+            <div>
+              <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff' }}>
+                {language === 'mr' ? 'एकल खिडकी अर्ज ट्रॅकिंग' : 'Single Window Application Sync & Tracking'}
+              </div>
+              <div style={{ fontSize: '11.5px', color: '#ffb74d' }}>
+                {relevantUserApps.length > 0 ? (
+                  <span>
+                    <strong>{relevantUserApps.length}</strong> of <strong>{result.metrics.total}</strong> clearances tracked in Government Console:
+                    <span style={{ color: '#86efac', marginLeft: '6px', fontWeight: 700 }}>
+                      {approvedLiveCount} Sanctioned
+                    </span>
+                    {inProcessLiveCount > 0 && (
+                      <span style={{ color: '#fde68a', marginLeft: '6px', fontWeight: 700 }}>
+                        • {inProcessLiveCount} In Scrutiny
+                      </span>
+                    )}
+                    {submittedLiveCount > 0 && (
+                      <span style={{ color: '#93c5fd', marginLeft: '6px', fontWeight: 700 }}>
+                        • {submittedLiveCount} Submitted
+                      </span>
+                    )}
+                  </span>
+                ) : (
+                  <span>Click &ldquo;Apply / Link Gov Ack #&rdquo; on any approval card below to sync your government application.</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              type="button"
+              onClick={() => {
+                const firstPending = result.approvals.find((a) => !userApps.some((u) => u.approvalId === a.id)) || result.approvals[0];
+                if (firstPending) setSelectedApprovalForApply(firstPending);
+              }}
+              style={{
+                backgroundColor: '#e65100',
+                color: '#ffffff',
+                border: 'none',
+                padding: '6px 14px',
+                borderRadius: '3px',
+                fontSize: '12px',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+            >
+              + Quick Sync Application
+            </button>
+          </div>
+        </div>
+
         {/* Profile Pill Bar */}
         <div className="no-print">
           <ProfileSummaryBar profile={result.profile} onEdit={onModifyProfile} />
         </div>
 
-        {/* Trust Banner (Differentiator from AI guesses) */}
+        {/* Trust Banner */}
         <div className="no-print">
           <TrustBanner referenceId={result.referenceId} generatedAt={result.generatedAt} />
         </div>
@@ -175,7 +281,7 @@ export default function ChecklistDashboard({
           }}
         >
           {/* Filter Pills */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--gov-navy)', marginRight: '6px' }}>
               {language === 'mr' ? 'फिल्टर:' : language === 'hi' ? 'फिल्टर अनुमोदन:' : 'Filter Approvals:'}
             </span>
@@ -277,7 +383,6 @@ export default function ChecklistDashboard({
         {filteredPhaseGroups.length > 0 ? (
           <div>
             {filteredPhaseGroups.map((group, groupIdx) => {
-              // Calculate global index offset for correct sequential numbering
               let offset = 0;
               for (let i = 0; i < groupIdx; i++) {
                 offset += filteredPhaseGroups[i].items.length;
@@ -290,6 +395,7 @@ export default function ChecklistDashboard({
                   globalStartIndex={offset}
                   statuses={statuses}
                   onStatusChange={handleStatusChange}
+                  onApplyClick={(approval) => setSelectedApprovalForApply(approval)}
                 />
               );
             })}
@@ -358,6 +464,18 @@ export default function ChecklistDashboard({
           </button>
         </div>
       </div>
+
+      {/* Apply / Status Sync Modal */}
+      {selectedApprovalForApply && (
+        <ApplyModal
+          approval={selectedApprovalForApply}
+          onClose={() => setSelectedApprovalForApply(null)}
+          onOpenAuthModal={() => {
+            setSelectedApprovalForApply(null);
+            onOpenAuthModal?.();
+          }}
+        />
+      )}
     </section>
   );
 }

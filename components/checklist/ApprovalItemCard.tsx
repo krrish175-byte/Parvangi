@@ -1,20 +1,48 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '@/lib/context';
-import { ApprovalRecord, ApprovalStatus } from '@/lib/types';
+import { ApprovalRecord, ApprovalStatus, ApplicationSubmission } from '@/lib/types';
 import { ALL_APPROVALS } from '@/lib/rules-engine';
+import { getCurrentUser } from '@/lib/auth-store';
+import { getApplicationByApproval } from '@/lib/application-store';
 
 interface ApprovalItemCardProps {
   approval: ApprovalRecord;
   itemIndex: number;
   status: ApprovalStatus;
   onStatusChange: (status: ApprovalStatus) => void;
+  onApplyClick?: (approval: ApprovalRecord) => void;
 }
 
-export default function ApprovalItemCard({ approval, itemIndex, status, onStatusChange }: ApprovalItemCardProps) {
+export default function ApprovalItemCard({
+  approval,
+  itemIndex,
+  status,
+  onStatusChange,
+  onApplyClick
+}: ApprovalItemCardProps) {
   const { language } = useApp();
   const [showDocs, setShowDocs] = useState<boolean>(false);
+  const [liveApp, setLiveApp] = useState<ApplicationSubmission | undefined>(undefined);
+
+  useEffect(() => {
+    const updateApp = () => {
+      const user = getCurrentUser();
+      if (user) {
+        setLiveApp(getApplicationByApproval(user.id, approval.id));
+      } else {
+        setLiveApp(undefined);
+      }
+    };
+    updateApp();
+    window.addEventListener('parvangi_auth_change', updateApp);
+    window.addEventListener('parvangi_applications_change', updateApp);
+    return () => {
+      window.removeEventListener('parvangi_auth_change', updateApp);
+      window.removeEventListener('parvangi_applications_change', updateApp);
+    };
+  }, [approval.id]);
 
   // Find parent names for prerequisite display
   const prerequisiteNames = approval.depends_on
@@ -43,7 +71,7 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
     >
       {/* Top Meta Line: Sequence # + Badges */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <span
             style={{
               backgroundColor: 'var(--gov-navy)',
@@ -76,7 +104,50 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        {/* Live Gov Application Status Pill */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+          {liveApp ? (
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 800,
+                padding: '3px 8px',
+                borderRadius: '3px',
+                color: '#ffffff',
+                backgroundColor:
+                  liveApp.status === 'Approved'
+                    ? '#15803d'
+                    : liveApp.status === 'In Process'
+                    ? '#d97706'
+                    : liveApp.status === 'Denied'
+                    ? '#dc2626'
+                    : '#0284c7'
+              }}
+            >
+              {liveApp.status === 'Approved'
+                ? '✅ SANCTIONED'
+                : liveApp.status === 'In Process'
+                ? '🔄 IN PROCESS'
+                : liveApp.status === 'Denied'
+                ? '❌ ACTION REQUIRED'
+                : '⏳ SUBMITTED'}
+            </span>
+          ) : (
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 600,
+                padding: '2px 7px',
+                borderRadius: '3px',
+                backgroundColor: '#f1f5f9',
+                color: '#64748b',
+                border: '1px solid #cbd5e1'
+              }}
+            >
+              Not Applied
+            </span>
+          )}
+
           <span className="badge-authority">
             🏛️ {approval.issuing_authority}
           </span>
@@ -107,10 +178,56 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
         {language === 'hi' || language === 'mr' ? approval.name : approval.marathi_name}
       </div>
 
-      {/* Plain Description (One-line as mandated) */}
+      {/* Plain Description */}
       <p style={{ fontSize: '13px', color: 'var(--gov-text-secondary)', lineHeight: 1.55, marginBottom: '10px' }}>
         {language === 'mr' ? approval.marathi_one_line_description || approval.one_line_description : language === 'hi' ? approval.hindi_one_line_description || approval.one_line_description : approval.one_line_description}
       </p>
+
+      {/* Live Application Details Box (if applied) */}
+      {liveApp && (
+        <div
+          style={{
+            backgroundColor:
+              liveApp.status === 'Approved'
+                ? '#f0fdf4'
+                : liveApp.status === 'In Process'
+                ? '#fffbeb'
+                : liveApp.status === 'Denied'
+                ? '#fef2f2'
+                : '#f0f9ff',
+            border: `1px solid ${
+              liveApp.status === 'Approved'
+                ? '#bbf7d0'
+                : liveApp.status === 'In Process'
+                ? '#fde68a'
+                : liveApp.status === 'Denied'
+                ? '#fecaca'
+                : '#bae6fd'
+            }`,
+            borderRadius: '3px',
+            padding: '8px 12px',
+            marginBottom: '10px',
+            fontSize: '12px'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+            <div>
+              <span style={{ color: '#64748b' }}>Gov Ack #:</span>{' '}
+              <strong style={{ fontFamily: 'monospace', color: '#002244' }}>{liveApp.acknowledgementNumber}</strong>
+            </div>
+            {liveApp.sanctionCertificateId && (
+              <div style={{ color: '#15803d', fontWeight: 700 }}>
+                Certificate: <code>{liveApp.sanctionCertificateId}</code>
+              </div>
+            )}
+          </div>
+          {liveApp.officerRemarks && (
+            <div style={{ marginTop: '4px', fontStyle: 'italic', color: '#334155' }}>
+              <strong>Officer Scrutiny Remarks:</strong> &ldquo;{liveApp.officerRemarks}&rdquo;
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Explicit Prerequisite Alert Banner */}
       {prerequisiteNames.length > 0 && (
@@ -192,66 +309,98 @@ export default function ApprovalItemCard({ approval, itemIndex, status, onStatus
         </div>
       </div>
 
-      {/* Action Footer: Documents checklist toggle + Official Portal Link */}
+      {/* Action Footer */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-        <label className="approval-status-control">
-          <span>{language === 'mr' ? 'स्थिती:' : 'Status:'}</span>
-          <select value={status} onChange={(e) => onStatusChange(e.target.value as ApprovalStatus)} aria-label={`${approval.name} status`}>
-            {(Object.keys(statusLabels) as ApprovalStatus[]).map((option) => (
-              <option key={option} value={option}>{statusLabels[option]}</option>
-            ))}
-          </select>
-        </label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          <label className="approval-status-control">
+            <span>{language === 'mr' ? 'स्थिती:' : 'Status:'}</span>
+            <select value={status} onChange={(e) => onStatusChange(e.target.value as ApprovalStatus)} aria-label={`${approval.name} status`}>
+              {(Object.keys(statusLabels) as ApprovalStatus[]).map((option) => (
+                <option key={option} value={option}>{statusLabels[option]}</option>
+              ))}
+            </select>
+          </label>
 
-        <button
-          type="button"
-          onClick={() => setShowDocs(!showDocs)}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'var(--gov-navy)',
-            fontSize: '12px',
-            fontWeight: 700,
-            cursor: 'pointer',
-            padding: '4px 0',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '4px'
-          }}
-        >
-          <span>{showDocs ? '▼' : '►'}</span>
-          <span>
-            {showDocs
-              ? language === 'mr' ? 'कागदपत्रे लपवा' : language === 'hi' ? 'दस्तावेज छुपाएं' : 'Hide Required Documents'
-              : language === 'mr' ? 'आवश्यक कागदपत्रे पहा' : language === 'hi' ? 'आवश्यक दस्तावेज देखें' : 'View Key Required Documents'}
-          </span>
-          <span style={{ color: 'var(--gov-text-muted)', fontWeight: 'normal' }}>
-            ({approval.documents_preview.length})
-          </span>
-        </button>
+          {/* Primary Action Button: Apply / Sync Status */}
+          {onApplyClick && (
+            <button
+              type="button"
+              onClick={() => onApplyClick(approval)}
+              style={{
+                backgroundColor: liveApp ? '#0284c7' : '#002244',
+                color: '#ffffff',
+                border: 'none',
+                padding: '5px 12px',
+                fontSize: '11.5px',
+                fontWeight: 700,
+                borderRadius: '3px',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
+            >
+              <span>{liveApp ? '🔄' : '📝'}</span>
+              <span>
+                {liveApp
+                  ? language === 'mr' ? 'अर्ज अद्ययावत / ट्रॅक करा' : 'Manage / Track Application'
+                  : language === 'mr' ? 'अर्ज करा / क्रमांक जोडा' : 'Apply / Link Gov Ack #'}
+              </span>
+            </button>
+          )}
+        </div>
 
-        <a
-          href={approval.portal_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            backgroundColor: 'var(--gov-navy-subtle)',
-            color: 'var(--gov-navy)',
-            border: '1px solid #bfdbfe',
-            padding: '5px 12px',
-            fontSize: '11.5px',
-            fontWeight: 700,
-            borderRadius: '3px',
-            textDecoration: 'none',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '4px'
-          }}
-        >
-          <span>🌐</span>
-          <span>{language === 'mr' ? 'शासकीय पोर्टल उघडा' : language === 'hi' ? 'सरकारी पोर्टल तक पहुंचें' : 'Access Government Portal'}</span>
-          <span>↗</span>
-        </a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <button
+            type="button"
+            onClick={() => setShowDocs(!showDocs)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--gov-navy)',
+              fontSize: '12px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              padding: '4px 0',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}
+          >
+            <span>{showDocs ? '▼' : '►'}</span>
+            <span>
+              {showDocs
+                ? language === 'mr' ? 'कागदपत्रे लपवा' : language === 'hi' ? 'दस्तावेज छुपाएं' : 'Hide Required Documents'
+                : language === 'mr' ? 'आवश्यक कागदपत्रे पहा' : language === 'hi' ? 'आवश्यक दस्तावेज देखें' : 'View Key Required Documents'}
+            </span>
+            <span style={{ color: 'var(--gov-text-muted)', fontWeight: 'normal' }}>
+              ({approval.documents_preview.length})
+            </span>
+          </button>
+
+          <a
+            href={approval.portal_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              backgroundColor: 'var(--gov-navy-subtle)',
+              color: 'var(--gov-navy)',
+              border: '1px solid #bfdbfe',
+              padding: '5px 12px',
+              fontSize: '11.5px',
+              fontWeight: 700,
+              borderRadius: '3px',
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}
+          >
+            <span>🌐</span>
+            <span>{language === 'mr' ? 'शासकीय पोर्टल उघडा' : language === 'hi' ? 'सरकारी पोर्टल तक पहुंचें' : 'Access Government Portal'}</span>
+            <span>↗</span>
+          </a>
+        </div>
       </div>
 
       {/* Collapsible Documents Preview */}
