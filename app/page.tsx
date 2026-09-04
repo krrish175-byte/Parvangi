@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChecklistResult, UserProfileInput } from '@/lib/types';
 import { generateApprovalChecklist } from '@/lib/rules-engine';
+import { getUserChecklist, saveUserChecklist } from '@/lib/checklist-store';
+import { getCurrentUser, isAdminLoggedIn } from '@/lib/auth-store';
 import AccessibilityBar from '@/components/layout/AccessibilityBar';
 import GovHeader from '@/components/layout/GovHeader';
 import GovNavBar from '@/components/layout/GovNavBar';
@@ -19,29 +21,13 @@ import HelpdeskModal from '@/components/helpdesk/HelpdeskModal';
 import AuthModal from '@/components/auth/AuthModal';
 import AdminDashboard from '@/components/admin/AdminDashboard';
 import { useApp } from '@/lib/context';
-import { getCurrentUser, isAdminLoggedIn } from '@/lib/auth-store';
-
-const SAVED_CHECKLIST_KEY = 'parvangi-saved-checklist';
-
-function getSavedChecklist(): ChecklistResult | null {
-  if (typeof window === 'undefined') return null;
-
-  try {
-    const saved = window.localStorage.getItem(SAVED_CHECKLIST_KEY);
-    return saved ? (JSON.parse(saved) as ChecklistResult) : null;
-  } catch {
-    return null;
-  }
-}
 
 export default function HomePage() {
   const { language } = useApp();
 
-  const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(() => getSavedChecklist());
-  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'admin'>(
-    savedChecklist ? 'checklist' : 'home'
-  );
-  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(savedChecklist);
+  const [savedChecklist, setSavedChecklist] = useState<ChecklistResult | null>(null);
+  const [currentView, setCurrentView] = useState<'home' | 'wizard' | 'checklist' | 'directory' | 'admin'>('home');
+  const [activeResult, setActiveResult] = useState<ChecklistResult | null>(null);
   const [profileForEdit, setProfileForEdit] = useState<UserProfileInput | undefined>(undefined);
 
   // Modals
@@ -52,6 +38,27 @@ export default function HomePage() {
   // Auth Modal - Automatically pops up on initial landing if not authenticated
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   const [authModalTab, setAuthModalTab] = useState<'citizen_login' | 'citizen_signup' | 'admin_login'>('citizen_login');
+
+  // Synchronize checklist with current user session
+  useEffect(() => {
+    const syncUserChecklist = () => {
+      const user = getCurrentUser();
+      const userList = getUserChecklist(user?.id);
+      setSavedChecklist(userList);
+      setActiveResult((prev) => {
+        if (!userList) return null;
+        return prev && prev.referenceId === userList.referenceId ? prev : userList;
+      });
+    };
+
+    syncUserChecklist();
+    window.addEventListener('parvangi_auth_change', syncUserChecklist);
+    window.addEventListener('parvangi_checklist_change', syncUserChecklist);
+    return () => {
+      window.removeEventListener('parvangi_auth_change', syncUserChecklist);
+      window.removeEventListener('parvangi_checklist_change', syncUserChecklist);
+    };
+  }, []);
 
   useEffect(() => {
     // Check if citizen or admin is already logged in; if not, pop up the login window at first
@@ -73,9 +80,10 @@ export default function HomePage() {
   };
 
   const handleChecklistGenerated = (result: ChecklistResult) => {
+    const user = getCurrentUser();
+    saveUserChecklist(result, user?.id);
     setActiveResult(result);
     setSavedChecklist(result);
-    window.localStorage.setItem(SAVED_CHECKLIST_KEY, JSON.stringify(result));
     setCurrentView('checklist');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -90,15 +98,18 @@ export default function HomePage() {
 
   const handleLoadSampleProfile = (profile: UserProfileInput) => {
     const result = generateApprovalChecklist(profile);
+    const user = getCurrentUser();
+    saveUserChecklist(result, user?.id);
     setActiveResult(result);
     setSavedChecklist(result);
-    window.localStorage.setItem(SAVED_CHECKLIST_KEY, JSON.stringify(result));
     setShowTrackModal(false);
     setCurrentView('checklist');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleLoadSavedChecklist = (result: ChecklistResult) => {
+    const user = getCurrentUser();
+    saveUserChecklist(result, user?.id);
     setActiveResult(result);
     setSavedChecklist(result);
     setShowTrackModal(false);
@@ -138,11 +149,18 @@ export default function HomePage() {
         onNavigate={(view) => {
           if (view === 'directory') {
             setShowDirectoryModal(true);
+          } else if (view === 'checklist') {
+            if (activeResult || savedChecklist) {
+              if (!activeResult && savedChecklist) {
+                setActiveResult(savedChecklist);
+              }
+              setCurrentView('checklist');
+            }
           } else {
             setCurrentView(view);
           }
         }}
-        hasExistingChecklist={Boolean(activeResult)}
+        hasExistingChecklist={Boolean(activeResult || savedChecklist)}
       />
 
       {/* Official Notice Ticker */}
@@ -160,7 +178,7 @@ export default function HomePage() {
         {/* VIEW 1: HOMEPAGE */}
         {currentView === 'home' && (
           <div>
-            {savedChecklist && activeResult && (
+            {savedChecklist && (
               <div className="saved-checklist-banner gov-container no-print">
                 <div>
                   <strong>
@@ -178,7 +196,16 @@ export default function HomePage() {
                       : 'Resume your previous approval roadmap.'}
                   </span>
                 </div>
-                <button type="button" className="btn-gov-secondary" onClick={() => setCurrentView('checklist')}>
+                <button
+                  type="button"
+                  className="btn-gov-secondary"
+                  onClick={() => {
+                    if (!activeResult && savedChecklist) {
+                      setActiveResult(savedChecklist);
+                    }
+                    setCurrentView('checklist');
+                  }}
+                >
                   {language === 'mr' ? 'पुन्हा उघडा' : language === 'hi' ? 'चेकलिस्ट फिर से शुरू करें' : 'Resume Checklist'}
                 </button>
               </div>
