@@ -27,12 +27,6 @@ export default function AccessibilityBar() {
           </div>
 
           <div className="gov-strip-right">
-            <span className="gov-strip-item">
-              <a href="#main-content" style={{ color: '#93c5fd' }}>
-                {language === 'mr' ? 'मुख्य सामग्रीकडे जा' : 'Skip to main content'}
-              </a>
-            </span>
-
             {/* Font Size Scaling Controls */}
             <div className="gov-strip-item">
               <span style={{ fontSize: '11px', marginRight: '4px' }}>
@@ -83,3 +77,4 @@ export default function AccessibilityBar() {
     </div>
   );
 }
+

@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
 import { BusinessStage, ChecklistResult, LocationType, ScaleTier, UserProfileInput } from '@/lib/types';
-import { generateApprovalChecklist } from '@/lib/rules-engine';
+import { generateApprovalChecklist, filterApprovals } from '@/lib/rules-engine';
 import WizardStepper from './WizardStepper';
 import Step1Category from './Step1Category';
 import Step2Location from './Step2Location';
 import Step3Scale from './Step3Scale';
 import Step4Stage from './Step4Stage';
+import { ArrowLeft, ArrowRight, Zap, CheckCircle2, MapPin } from 'lucide-react';
 
 interface WizardContainerProps {
   initialProfile?: UserProfileInput;
@@ -58,6 +59,18 @@ export default function WizardContainer({
   const [stage, setStage] = useState<BusinessStage>(initialProfile?.stage || 'new_unit');
   const [district, setDistrict] = useState<string>(initialProfile?.district || 'Pune');
 
+  // Live approval counter estimation based on current choices
+  const currentLiveProfile: UserProfileInput = {
+    category,
+    location,
+    scale: scaleTier,
+    investmentInLakhs,
+    stage,
+    district
+  };
+
+  const estimatedApprovals = filterApprovals(currentLiveProfile);
+
   const goToNextStep = () => {
     if (currentStep < 4) {
       const next = currentStep + 1;
@@ -77,16 +90,7 @@ export default function WizardContainer({
   };
 
   const handleComplete = () => {
-    const profile: UserProfileInput = {
-      category,
-      location,
-      scale: scaleTier,
-      investmentInLakhs,
-      stage,
-      district
-    };
-
-    const result = generateApprovalChecklist(profile);
+    const result = generateApprovalChecklist(currentLiveProfile);
     onChecklistGenerated(result);
   };
 
@@ -122,8 +126,34 @@ export default function WizardContainer({
           onStepClick={(step) => setCurrentStep(step)}
         />
 
+        {/* Live Calculation Banner Bar */}
+        <div
+          style={{
+            backgroundColor: '#002244',
+            color: '#ffffff',
+            borderRadius: 'var(--gov-radius) var(--gov-radius) 0 0',
+            padding: '10px 20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: '12.5px'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Zap size={15} color="#ff9933" />
+            <span>
+              <strong>{language === 'mr' ? 'प्रत्यक्ष नियम इंजिन अंदाज:' : 'Live Compliance Rule Calculation:'}</strong>{' '}
+              {estimatedApprovals.length} {language === 'mr' ? 'परवानग्या लागू होत आहेत' : 'statutory clearances identified'}
+            </span>
+          </div>
+
+          <span style={{ fontSize: '11px', color: '#ffb74d', fontWeight: 600 }}>
+            ● Verifiable MIDC / MPCB / DISH Rules
+          </span>
+        </div>
+
         {/* Main Wizard Form Card */}
-        <div className="gov-card" style={{ padding: '28px' }}>
+        <div className="gov-card" style={{ padding: '28px', borderRadius: '0 0 var(--gov-radius) var(--gov-radius)' }}>
           {/* Step 1: Category */}
           {currentStep === 1 && (
             <Step1Category
@@ -152,9 +182,10 @@ export default function WizardContainer({
               >
                 <label
                   htmlFor="district-select"
-                  style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 700, color: 'var(--gov-navy)', marginBottom: '6px' }}
                 >
-                  📍 {language === 'mr' ? 'महाराष्ट्रातील जिल्हा निवडा:' : 'Select District in Maharashtra:'}
+                  <MapPin size={15} color="var(--gov-saffron)" />
+                  <span>{language === 'mr' ? 'महाराष्ट्रातील जिल्हा निवडा:' : 'Select District in Maharashtra:'}</span>
                 </label>
                 <select
                   id="district-select"
@@ -221,8 +252,10 @@ export default function WizardContainer({
                   type="button"
                   className="btn-gov-outline"
                   onClick={goToPrevStep}
+                  style={{ gap: '6px' }}
                 >
-                  ← {language === 'mr' ? 'मागे' : 'Back'}
+                  <ArrowLeft size={14} />
+                  <span>{language === 'mr' ? 'मागे' : 'Back'}</span>
                 </button>
               ) : (
                 <span style={{ fontSize: '12px', color: 'var(--gov-text-muted)' }}>
@@ -241,18 +274,19 @@ export default function WizardContainer({
                   type="button"
                   className="btn-gov-secondary"
                   onClick={goToNextStep}
+                  style={{ gap: '6px' }}
                 >
                   <span>{language === 'mr' ? 'पुढील टप्पा' : 'Continue to Next Step'}</span>
-                  <span>→</span>
+                  <ArrowRight size={14} />
                 </button>
               ) : (
                 <button
                   type="button"
                   className="btn-gov-primary"
                   onClick={goToNextStep}
-                  style={{ fontSize: '15px', padding: '12px 28px' }}
+                  style={{ fontSize: '15px', padding: '12px 28px', gap: '8px' }}
                 >
-                  <span>⚡</span>
+                  <Zap size={18} />
                   <span>
                     {language === 'mr'
                       ? 'माझी वैधानिक परवानगी सूची तयार करा'
@@ -267,3 +301,4 @@ export default function WizardContainer({
     </section>
   );
 }
+

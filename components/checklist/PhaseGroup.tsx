@@ -3,14 +3,21 @@
 import React, { useState } from 'react';
 import { useApp } from '@/lib/context';
 import { PhaseGroup as PhaseGroupType } from '@/lib/types';
-import ApprovalItemCard from './ApprovalItemCard';
+import ApprovalItemCard, { ItemStatus } from './ApprovalItemCard';
 
 interface PhaseGroupProps {
   group: PhaseGroupType;
   globalStartIndex: number;
+  statusMap?: Record<string, ItemStatus>;
+  onStatusChange?: (id: string, newStatus: ItemStatus) => void;
 }
 
-export default function PhaseGroup({ group, globalStartIndex }: PhaseGroupProps) {
+export default function PhaseGroup({
+  group,
+  globalStartIndex,
+  statusMap = {},
+  onStatusChange
+}: PhaseGroupProps) {
   const { language } = useApp();
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
@@ -124,6 +131,8 @@ export default function PhaseGroup({ group, globalStartIndex }: PhaseGroupProps)
               key={app.id}
               approval={app}
               itemIndex={globalStartIndex + idx}
+              status={statusMap[app.id] || 'pending'}
+              onStatusChange={onStatusChange}
             />
           ))}
         </div>
@@ -131,3 +140,4 @@ export default function PhaseGroup({ group, globalStartIndex }: PhaseGroupProps)
     </div>
   );
 }
+
