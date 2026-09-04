@@ -4,7 +4,7 @@ import React from 'react';
 import { useApp } from '@/lib/context';
 
 export default function AccessibilityBar() {
-  const { language, setLanguage, fontSize, setFontSize } = useApp();
+  const { language, setLanguage, fontSize, setFontSize, highContrast, setHighContrast } = useApp();
 
   return (
     <div className="gov-accessibility-strip no-print">
@@ -62,6 +62,16 @@ export default function AccessibilityBar() {
                 </button>
               </div>
             </div>
+
+            <button
+              type="button"
+              className="gov-contrast-toggle"
+              onClick={() => setHighContrast(!highContrast)}
+              aria-pressed={highContrast}
+              title="Toggle high contrast"
+            >
+              {language === 'mr' ? 'उच्च कॉन्ट्रास्ट' : 'Contrast'}
+            </button>
 
             {/* Language Switcher */}
             <div className="gov-strip-item">
