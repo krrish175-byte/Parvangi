@@ -1,10 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '@/lib/context';
 
 export default function AccessibilityBar() {
   const { language, setLanguage, fontSize, setFontSize, highContrast, setHighContrast } = useApp();
+  const [currentDateTime, setCurrentDateTime] = useState<string>('');
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      setCurrentDateTime(
+        new Intl.DateTimeFormat('en-IN', {
+          dateStyle: 'medium',
+          timeStyle: 'medium',
+          timeZone: 'Asia/Kolkata'
+        }).format(new Date())
+      );
+    };
+
+    updateDateTime();
+    const intervalId = window.setInterval(updateDateTime, 1000);
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="gov-accessibility-strip no-print">
@@ -27,6 +44,10 @@ export default function AccessibilityBar() {
           </div>
 
           <div className="gov-strip-right">
+            <time className="gov-live-clock" dateTime={currentDateTime || undefined} aria-live="polite">
+              {currentDateTime || 'Loading time...'}
+            </time>
+
             {/* Font Size Scaling Controls */}
             <div className="gov-strip-item">
               <span style={{ fontSize: '11px', marginRight: '4px' }}>
